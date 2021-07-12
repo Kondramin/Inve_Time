@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.dll.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Base\" />
-  </ItemGroup>
-
 </Project>
