@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inve_Time", "Inve_Time\Inve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inve_Time.Interfaces.dll", "Inve_Time.Interfaces.dll\Inve_Time.Interfaces.dll.csproj", "{FFE1B848-27D8-4B0B-B50D-5E5EEE768215}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inve_Time.DataBase.dll", "Inve_Time.DataBase.dll\Inve_Time.DataBase.dll.csproj", "{8C8044EF-3456-47A1-9401-F66D0AC735F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FFE1B848-27D8-4B0B-B50D-5E5EEE768215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFE1B848-27D8-4B0B-B50D-5E5EEE768215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFE1B848-27D8-4B0B-B50D-5E5EEE768215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C8044EF-3456-47A1-9401-F66D0AC735F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C8044EF-3456-47A1-9401-F66D0AC735F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C8044EF-3456-47A1-9401-F66D0AC735F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C8044EF-3456-47A1-9401-F66D0AC735F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
