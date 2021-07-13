@@ -1,6 +1,8 @@
-﻿namespace Inve_Time.ViewModels
+﻿using Inve_Time.ViewModels.Base;
+
+namespace Inve_Time.ViewModels
 {
-    class MainWindowViewModel
+    class MainWindowViewModel : ViewModel
     {
     }
 }
