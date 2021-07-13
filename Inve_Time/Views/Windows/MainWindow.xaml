@@ -73,7 +73,7 @@
             <StatusBarItem 
                 MinWidth="150" MaxWidth="300">
                 <TextBlock 
-                    Text="{Binding AutorisatedUserName, NotifyOnSourceUpdated=True}">
+                    Text="test">
 
                 </TextBlock>
             </StatusBarItem>
@@ -83,7 +83,7 @@
             <StatusBarItem 
                 MinWidth="150" MaxWidth="300">
                 <TextBlock 
-                    Text="{Binding AutorisatedUserPositionName}"/>
+                    Text="test"/>
             </StatusBarItem>
             <StatusBarItem>
                 <ProgressBar 
