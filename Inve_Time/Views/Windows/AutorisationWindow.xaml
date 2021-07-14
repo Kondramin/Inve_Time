@@ -1,0 +1,65 @@
+﻿<Window x:Class="Inve_Time.Views.Windows.AutorisationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:l="clr-namespace:Inve_Time.Views.Windows"
+        xmlns:cmd="clr-namespace:Inve_Time.Commands"
+            
+        
+        Title="AutorisationWindow" 
+        Height="300" Width="400">
+    <DockPanel>
+        <Label 
+            Content="Введите ваш логин и пароль" 
+            FontSize="20" HorizontalAlignment="Center" 
+            Height="auto" Margin="5" 
+            DockPanel.Dock="Top"/>
+        <Grid
+            Height="50" 
+            Margin="10" 
+            DockPanel.Dock="Bottom">
+
+            <Button 
+                Content="Вход"
+                Command="{Binding AutorisationCommand}"
+                CommandParameter="{Binding ElementName=pwdBox}"
+                HorizontalAlignment="Left" 
+                Width="150"/>
+
+            <Button
+                Content="Выход" 
+                HorizontalAlignment="Right" 
+                Width="150">
+                <Button.Command>
+                    <cmd:CloseAppCommand/>
+                </Button.Command>
+            </Button>
+
+        </Grid>
+        <StackPanel
+            Margin="5">
+
+            <TextBox
+                
+                Margin="20"
+                materialDesign:HintAssist.Hint="Введите логин" 
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            
+            <PasswordBox                
+                x:Name="pwdBox"
+                Margin="20"
+                materialDesign:HintAssist.Hint="Введите пароль" 
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Cursor="IBeam"/>
+            
+        </StackPanel>
+    </DockPanel>
+</Window>
