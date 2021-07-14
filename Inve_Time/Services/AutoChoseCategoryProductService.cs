@@ -1,13 +1,14 @@
 ﻿using Inve_Time.DataBase.dll.Context;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Inve_Time.Services
 {
-    class AutoChoseCategoryProductService
+    internal class AutoChoseCategoryProductService : IAutoChoseCategoryProductService
     {
         private readonly IRepository<Product> _ProductRepository;
         private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;

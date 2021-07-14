@@ -2,13 +2,14 @@
 using Inve_Time.DataBase.dll.Context;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Services.ServiceInterfaces;
 using System;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace Inve_Time.Services
 {
-    class ParserService
+    internal class ParserService : IParserService
     {
         private readonly IRepository<Product> _ProductRepository;
         private readonly InveTimeDB _Db;

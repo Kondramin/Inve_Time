@@ -1,4 +1,5 @@
 ﻿using Inve_Time.Data;
+using Inve_Time.Services;
 using Inve_Time.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +22,7 @@ namespace Inve_Time
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
             .AddDatabase(host.Configuration.GetSection("Database"))
             .AddViewModels()
-            //.AddServices()
+            .AddServices()
             ;
 
 
