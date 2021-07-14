@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Inve_Time.DataBase.dll.Context;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
 using System;
@@ -9,16 +10,15 @@ namespace Inve_Time.Services
 {
     class ParserService
     {
-
         private readonly IRepository<Product> _ProductRepository;
-        
+        private readonly InveTimeDB _Db;
 
+        public ParserService(IRepository<Product> ProductRepository, InveTimeDB db)
+        {
+            _ProductRepository = ProductRepository;
+            _Db = db;
+        }
 
-
-        public ParserService(IRepository<Product> ProductRepository) => _ProductRepository = ProductRepository;
-        
-
-        
         public DataTable GetDataFromExele(string path)
         {
             var dt = new DataTable();
@@ -26,10 +26,10 @@ namespace Inve_Time.Services
 
             using (var workBook = new XLWorkbook(path))
             {
-
                 var workSheet = workBook.Worksheet(1);
 
                 bool firstRow = true;
+                
                 foreach (var row in workSheet.Rows())
                 {
                     if (firstRow)
@@ -59,7 +59,7 @@ namespace Inve_Time.Services
                             }
                             catch (Exception ex)
                             {
-
+                                Console.WriteLine(ex.Message);
                             }
                             i++;
                         }
@@ -70,23 +70,20 @@ namespace Inve_Time.Services
             }
 
         }
-
-
-
+        
         public async Task<DataTable> GetDataFromExeleAsync(string path)
         {
             var dt = await Task.Run(() => GetDataFromExele(path));
             return dt;
         }
-
-
-
+        
+        
+        
         public void SaveDataInDataBase(DataTable data)
         {
-
+            _ProductRepository.AutoSaveChanges = false;
             foreach (DataRow row in data.Rows)
             {
-
                 var cells = row.ItemArray;
                 var product = new Product()
                 {
@@ -99,11 +96,12 @@ namespace Inve_Time.Services
                 _ProductRepository.Add(product);
 
             }
-
+            _Db.SaveChanges();
         }
 
         public async Task SaveDataInDataBaseAsync(DataTable data)
         {
+            _ProductRepository.AutoSaveChanges = false;
 
             foreach (DataRow row in data.Rows)
             {
@@ -120,6 +118,7 @@ namespace Inve_Time.Services
                 await _ProductRepository.AddAsync(product);
 
             }
+            await _Db.SaveChangesAsync();
         }
 
 
