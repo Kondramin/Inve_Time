@@ -133,7 +133,7 @@
                     FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
                 <TextBox
                     Grid.Row="3"
-                    Text="{Binding Path=AutorisatedUserName,UpdateSourceTrigger=PropertyChanged}"
+                    Text="test"
                     FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center"/>
             </Grid>
 
@@ -166,7 +166,13 @@
                     FontSize="21" FontWeight="Bold"/>
                 <DataGrid
                     Margin="5"
-                    Grid.Row="2" Grid.Column="0"></DataGrid>
+                    Grid.Row="2" Grid.Column="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Артикул"/>
+                        <DataGridTextColumn Header="Товар" Width="*"/>
+                        <DataGridTextColumn Header="Количество"/>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <Label
                     Content="Излишки"
                     Grid.Row="1" Grid.Column="1"
@@ -174,7 +180,13 @@
                     FontSize="21" FontWeight="Bold"/>
                 <DataGrid
                     Margin="5"
-                    Grid.Row="2" Grid.Column="1"></DataGrid>
+                    Grid.Row="2" Grid.Column="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Артикул"/>
+                        <DataGridTextColumn Header="Товар" Width="*"/>
+                        <DataGridTextColumn Header="Количество"/>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <Label
                     Content="Пересорт"
                     Grid.Row="3" Grid.ColumnSpan="2"
@@ -182,10 +194,22 @@
                     FontSize="21" FontWeight="Bold"/>
                 <DataGrid
                     Margin="5"
-                    Grid.Row="4" Grid.Column="0"></DataGrid>
+                    Grid.Row="4" Grid.Column="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Артикул"/>
+                        <DataGridTextColumn Header="Товар" Width="*"/>
+                        <DataGridTextColumn Header="Количество"/>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <DataGrid
                     Margin="5"
-                    Grid.Row="4" Grid.Column="1"></DataGrid>
+                    Grid.Row="4" Grid.Column="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Артикул"/>
+                        <DataGridTextColumn Header="Товар" Width="*"/>
+                        <DataGridTextColumn Header="Количество"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
 
         </Grid>
