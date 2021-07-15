@@ -14,8 +14,10 @@
         xmlns:l="clr-namespace:Inve_Time.Views.Windows"
         xmlns:cmd="clr-namespace:Inve_Time.Commands"
             
+        DataContext="{Binding AutorisationWindowViewModel ,Source={StaticResource Locator}}"
         
-        Title="AutorisationWindow" 
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding Title}" 
         Height="300" Width="400">
     <DockPanel>
         <Label 
@@ -49,7 +51,7 @@
             Margin="5">
 
             <TextBox
-                
+                Text="{Binding LoginTextBox}"
                 Margin="20"
                 materialDesign:HintAssist.Hint="Введите логин" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>

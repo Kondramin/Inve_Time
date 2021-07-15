@@ -16,7 +16,8 @@
             
         
         DataContext="{Binding MainWindowViewModel ,Source={StaticResource Locator}}"
-       
+        
+        WindowStartupLocation="CenterScreen"
         Title="{Binding Title}" 
         MinHeight="700" MinWidth="1000">
     <DockPanel>
@@ -38,7 +39,7 @@
                 <Separator/>
 
                 <MenuItem 
-                    Header="Сменить пользователя" Command="{Binding ReAutorisationCommand}"/>
+                    Header="Сменить пользователя" Command="{Binding ReAutorisationInAppCommand}"/>
                 <MenuItem 
                     Header="Выход">
                     <MenuItem.Command>
@@ -82,7 +83,7 @@
             <StatusBarItem 
                 MinWidth="150" MaxWidth="300">
                 <TextBlock 
-                    Text="test">
+                    Text="{Binding StatusBarEmployeeName}">
 
                 </TextBlock>
             </StatusBarItem>
@@ -92,7 +93,7 @@
             <StatusBarItem 
                 MinWidth="150" MaxWidth="300">
                 <TextBlock 
-                    Text="test"/>
+                    Text="{Binding StatusBarEmployeePositionName}"/>
             </StatusBarItem>
             <StatusBarItem>
                 <ProgressBar 
