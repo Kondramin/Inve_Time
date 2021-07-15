@@ -17,20 +17,14 @@
 
 
             <vm:ViewModelLocator x:Key="Locator"/>
+
+
+            <!--<Style TargetType="DataGrid">
+                <Setter Property="GridLinesVisibility" Value="Vertical"/>
+                <Setter Property="VerticalGridLinesBrush" Value="DarkGray"/>
+                <Setter Property="AlternatingRowBackground" Value="LightGray"/>
+            </Style>-->
+
         </ResourceDictionary>
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
     </Application.Resources>
 </Application>

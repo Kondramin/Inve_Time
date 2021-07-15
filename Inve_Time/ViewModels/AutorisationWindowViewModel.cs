@@ -1,6 +1,7 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -54,6 +55,7 @@ namespace Inve_Time.ViewModels
                 MainWindowViewModel.MainWindowEmployee = _AutorisationService.AutorisatedUser;
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
+                Application.Current.MainWindow.Close();
             }
             else
             {
