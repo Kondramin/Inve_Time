@@ -1,6 +1,5 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using System.Diagnostics;
 using System.Windows;
@@ -66,7 +65,7 @@ namespace Inve_Time.ViewModels
         public ICommand ReAutorisationInAppCommand { get; }
 
         public void OnReAutorisationCommandExequted(object p)
-        {
+        {   
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
