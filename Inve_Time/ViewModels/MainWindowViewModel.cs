@@ -120,6 +120,29 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+        #region Command ShowInventarisationViewCommand - Show InventarisationView
+
+        /// <summary>Show InventarisationView</summary>
+        private ICommand _ShowInventarisationViewCommand;
+
+        /// <summary>Show InventarisationView</summary>
+        public ICommand ShowInventarisationViewCommand => _ShowInventarisationViewCommand
+            ??= new LambdaCommand(OnShowInventarisationViewCommandExequted, CanShowInventarisationViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show InventarisationView</summary>
+        /// <param name="p"></param>
+        public bool CanShowInventarisationViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show InventarisationView</summary>
+        /// <param name="p"></param>
+        public void OnShowInventarisationViewCommandExequted(object p)
+        {
+            CurrentModel = new InventarisationViewModel();
+        }
+
+
+        #endregion
+
         #endregion
 
 
