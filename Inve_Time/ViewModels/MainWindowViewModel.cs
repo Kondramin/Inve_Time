@@ -56,15 +56,38 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region ViewModel MainWindow CurrentModel
+
+        private ViewModel _CurrentModel;
+        /// <summary>MainWindow CurrentModel</summary>
+        public ViewModel CurrentModel
+        {
+            get => _CurrentModel;
+            set => Set(ref _CurrentModel, value);
+        }
+
+        #endregion
+
 
 
         #region Commands
 
-        #region ReAutorisationInAppCommand
+        #region Command ReAutorisationInAppCommand - ReAutisated in application
 
-        public ICommand ReAutorisationInAppCommand { get; }
+        /// <summary>ReAutisated in application</summary>
+        private ICommand _ReAutorisationInAppCommand;
 
-        public void OnReAutorisationCommandExequted(object p)
+        /// <summary>ReAutisated in application</summary>
+        public ICommand ReAutorisationInAppCommand => _ReAutorisationInAppCommand
+            ??= new LambdaCommand(OnReAutorisationInAppCommandExequted, CanReAutorisationInAppCommandExequt);
+
+        /// <summary>Checking the possibility of execution - ReAutisated in application</summary>
+        /// <param name="p"></param>
+        public bool CanReAutorisationInAppCommandExequt(object p) => true;
+
+        /// <summary>Execution logic</summary>
+        /// <param name="p"></param>
+        public void OnReAutorisationInAppCommandExequted(object p)
         {   
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
@@ -81,7 +104,7 @@ namespace Inve_Time.ViewModels
 
         public MainWindowViewModel()
         {
-            ReAutorisationInAppCommand = new LambdaCommand(OnReAutorisationCommandExequted);
+            
         }
     }
 }
