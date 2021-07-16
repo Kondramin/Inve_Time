@@ -6,8 +6,125 @@
              xmlns:local="clr-namespace:Inve_Time.Views"
              
              
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="650" d:DesignWidth="950">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition 
+                    Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions >
+            <RowDefinition 
+                    Height="350"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Calendar
+                Language="ru"
+                Grid.Row="0" Grid.Column="2"
+                Margin="7"/>
+        <Grid
+                Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition 
+                        MinHeight="60"/>
+                <RowDefinition 
+                        MinHeight="30"/>
+                <RowDefinition 
+                        MinHeight="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                    Grid.Row="0"
+                    Text="Дата ближайшей инвентаризации:"
+                    FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBlock
+                    Grid.Row="1"
+                    Text="test"
+                    FontSize="20" HorizontalAlignment="Center"/>
+            <TextBlock
+                    Grid.Row="2"
+                    Text="Ответственный:"
+                    FontSize="20" FontWeight="Bold" TextWrapping="Wrap"/>
+            <TextBox
+                    Grid.Row="3"
+                    Text="test"
+                    FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid
+                Margin="7"
+                Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition 
+                        Height="55"/>
+                <RowDefinition 
+                        Height="45"/>
+                <RowDefinition/>
+                <RowDefinition 
+                        Height="45"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label 
+                    Content="Результаты последней Инвентаризации:"
+                    FontSize="30" FontWeight="Bold" 
+                    HorizontalAlignment="Left"
+                    Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Label
+                    Content="Недостача"
+                    Grid.Row="1" Grid.Column="0"
+                    Margin="15,0,0,10"
+                    FontSize="21" FontWeight="Bold"/>
+            <DataGrid
+                    Margin="5"
+                    Grid.Row="2" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Артикул"/>
+                    <DataGridTextColumn Header="Товар" Width="*"/>
+                    <DataGridTextColumn Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label
+                    Content="Излишки"
+                    Grid.Row="1" Grid.Column="1"
+                    Margin="15,0,0,10"
+                    FontSize="21" FontWeight="Bold"/>
+            <DataGrid
+                    Margin="5"
+                    Grid.Row="2" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Артикул"/>
+                    <DataGridTextColumn Header="Товар" Width="*"/>
+                    <DataGridTextColumn Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label
+                    Content="Пересорт"
+                    Grid.Row="3" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    FontSize="21" FontWeight="Bold"/>
+            <DataGrid
+                    Margin="5"
+                    Grid.Row="4" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Артикул"/>
+                    <DataGridTextColumn Header="Товар" Width="*"/>
+                    <DataGridTextColumn Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid
+                    Margin="5"
+                    Grid.Row="4" Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Артикул"/>
+                    <DataGridTextColumn Header="Товар" Width="*"/>
+                    <DataGridTextColumn Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
     </Grid>
 </UserControl>

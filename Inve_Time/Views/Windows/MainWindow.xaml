@@ -26,6 +26,9 @@
             IsMainMenu="True">
             <MenuItem 
                 Header="Общее">
+                <MenuItem
+                    Header="Начальная страниица"
+                    Command="{Binding ShowStartViewCommand}"/>
                 <MenuItem 
                     Header="Календарь событий"/>
                 <MenuItem 

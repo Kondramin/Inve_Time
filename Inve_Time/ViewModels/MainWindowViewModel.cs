@@ -85,13 +85,36 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public bool CanReAutorisationInAppCommandExequt(object p) => true;
 
-        /// <summary>Execution logic</summary>
+        /// <summary>Execution logic - ReAutisated in application</summary>
         /// <param name="p"></param>
         public void OnReAutorisationInAppCommandExequted(object p)
         {   
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
+        }
+
+
+        #endregion
+
+        #region Command ShowStartViewCommand - Show StartView
+
+        /// <summary>Show StartView</summary>
+        private ICommand _ShowStartViewCommand;
+
+        /// <summary>Show StartView</summary>
+        public ICommand ShowStartViewCommand => _ShowStartViewCommand
+            ??= new LambdaCommand(OnShowStartViewCommandExequted, CanShowStartViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show StartView</summary>
+        /// <param name="p"></param>
+        public bool CanShowStartViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show StartView</summary>
+        /// <param name="p"></param>
+        public void OnShowStartViewCommandExequted(object p)
+        {
+            CurrentModel = new StartViewModel();
         }
 
 
