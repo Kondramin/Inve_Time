@@ -31,7 +31,7 @@ namespace Inve_Time.ViewModels
         #region string MainWindow StatusBarEmployeeName
 
         private string _StatusBarEmployeeName = MainWindowEmployee.Name;
-        
+
         /// <summary>MainWindow StatusBarEmployeeName</summary>
         public string StatusBarEmployeeName
         {
@@ -58,7 +58,7 @@ namespace Inve_Time.ViewModels
 
         #region ViewModel MainWindow CurrentModel
 
-        private ViewModel _CurrentModel;
+        private ViewModel _CurrentModel = new StartViewModel();   //--- это костыль, если не получится настроить Event trigger  
         /// <summary>MainWindow CurrentModel</summary>
         public ViewModel CurrentModel
         {

@@ -21,11 +21,7 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title}" 
         MinHeight="700" MinWidth="1000">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="loaded">
-            <i:InvokeCommandAction Command="{Binding ShowStartViewCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    
     <DockPanel>
         <Menu 
             DockPanel.Dock="Top" 
@@ -115,6 +111,7 @@
         <Grid 
             Margin="10">
             <ContentControl Content="{Binding CurrentModel}"/>
+            
         </Grid>
     </DockPanel>
 </Window>
