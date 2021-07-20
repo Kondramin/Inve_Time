@@ -1,5 +1,6 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
+using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
 using System.Diagnostics;
 using System.Windows;
@@ -11,6 +12,9 @@ namespace Inve_Time.ViewModels
     class MainWindowViewModel : ViewModel
     {
         public static Employee MainWindowEmployee;
+
+        
+        private readonly IRepository<Category> _CategoryRepository;
 
 
 
@@ -143,14 +147,40 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+        #region Command ShowSettingsAutoSearchCategoryViewCommand - Show SettingsAutoSearchCategoryView
+
+        /// <summary>Show SettingsAutoSearchCategoryView</summary>
+        private ICommand _ShowSettingsAutoSearchCategoryViewCommand;
+        
+
+        /// <summary>Show SettingsAutoSearchCategoryView</summary>
+        public ICommand ShowSettingsAutoSearchCategoryViewCommand => _ShowSettingsAutoSearchCategoryViewCommand
+            ??= new LambdaCommand(OnShowSettingsAutoSearchCategoryViewCommandExequted, CanShowSettingsAutoSearchCategoryViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show SettingsAutoSearchCategoryView</summary>
+        /// <param name="p"></param>
+        public bool CanShowSettingsAutoSearchCategoryViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show SettingsAutoSearchCategoryView</summary>
+        /// <param name="p"></param>
+        public void OnShowSettingsAutoSearchCategoryViewCommandExequted(object p)
+        {
+            CurrentModel = new SettingsAutoSearchCategoryViewModel(_CategoryRepository);
+        }
+
+
+        #endregion
+
         #endregion
 
 
 
 
-        public MainWindowViewModel()
-        {
-            
+        public MainWindowViewModel(
+            IRepository<Category> CategoryRepository
+            )
+        {   
+            _CategoryRepository = CategoryRepository;
         }
     }
 }

@@ -17,5 +17,9 @@
     <DataTemplate DataType="{x:Type vm:InventarisationViewModel}">
         <views:InventarisationView DataContext="{Binding}"/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SettingsAutoSearchCategoryViewModel}">
+        <views:SettingsAutoSearchCategoryView DataContext="{Binding}"/>
+    </DataTemplate>
     
 </ResourceDictionary>

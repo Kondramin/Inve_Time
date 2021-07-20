@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Inve_Time.Views.SettingsAutoSearchCategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                TextElement.FontWeight="Regular"
+                TextElement.FontSize="13"
+                TextOptions.TextFormattingMode="Ideal"
+                TextOptions.TextRenderingMode="Auto"
+                Background="{DynamicResource MaterialDesignPaper}"
+                FontFamily="{DynamicResource MaterialDesignFont}"
+             xmlns:l="clr-namespace:Inve_Time.Views"
+             xmlns:vm="clr-namespace:Inve_Time.ViewModels"
+             d:DataContext="{d:DesignInstance {x:Type vm:SettingsAutoSearchCategoryViewModel}}"
+             
+             d:DesignHeight="650" d:DesignWidth="950">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#"/>
+                <DataGridTextColumn Header="Товар" Width="auto"/>
+                <DataGridTextColumn Header="Горячие слова" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+            
+    </Grid>
+</UserControl>

@@ -31,37 +31,51 @@
                 <MenuItem
                     Header="Начальная страниица"
                     Command="{Binding ShowStartViewCommand}"/>
+                
+                
                 <MenuItem 
-                    Header="Календарь событий"/>
-                <MenuItem 
-                    Header="Сотрудники">
+                    Header="Отчёты">
                     <MenuItem 
-                        Header="Открыть список"/>
-                    <MenuItem 
-                        Header="Добавить сотрудника"/>
+                        Header="Сотрудники"/>
+                    <MenuItem
+                        Header="Товары"/>
+                    <MenuItem
+                        Header="Инвентаризации"/>
+
+                    
                 </MenuItem>
 
                 <Separator/>
 
                 <MenuItem 
                     Header="Сменить пользователя" Command="{Binding ReAutorisationInAppCommand}"/>
+                
+                
                 <MenuItem 
                     Header="Выход">
                     <MenuItem.Command>
                         <cmd:CloseAppCommand/>
                     </MenuItem.Command>
                 </MenuItem>
+                
+                
             </MenuItem>
+            
+            
             <MenuItem 
                 Header="Инвертаризация">
                 <MenuItem 
                     Header="Начать инвентаризацию"
                     Command="{Binding ShowInventarisationViewCommand}"/>
+                
+                
                 <MenuItem
                     Header="Запланировать инвентаризацию"/>
-                <MenuItem 
-                    Header="История"/>
+                
+                
             </MenuItem>
+            
+            
             <MenuItem 
                 Header="Настройки">
                 <MenuItem 
@@ -72,6 +86,12 @@
                         Header="Создать новую"/>
                     <MenuItem 
                         Header="Сохранённые рассылки"/>
+                </MenuItem>
+
+
+                <MenuItem
+                    Header="Настрой определителя категорий" Command="{Binding ShowSettingsAutoSearchCategoryViewCommand}">
+                    
                 </MenuItem>
                 <MenuItem 
                     Header="Время/дата"/>
