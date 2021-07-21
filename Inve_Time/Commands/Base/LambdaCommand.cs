@@ -2,19 +2,25 @@
 
 namespace Inve_Time.Commands.Base
 {
-    class LambdaCommand : Command
+    internal class LambdaCommand : Command
     {
-        private readonly Action<object> _Exequte;
-        private readonly Func<object, bool> _CanExequte;
+        private readonly Action<object> _Execute;
+        private readonly Func<object, bool> _CanExecute;
 
-        public LambdaCommand(Action<object> Exequte, Func<object, bool> CanExequte = null)
+        public LambdaCommand(Action Execute, Func<bool> CanExecute = null)
+            : this(p => Execute(), CanExecute is null ? (Func<object, bool>)null : p => CanExecute())
         {
-            _Exequte = Exequte ?? throw new ArgumentNullException(nameof(Execute));
-            _CanExequte = CanExequte;
+
         }
 
-        public override bool CanExecute(object parameter) => _CanExequte?.Invoke(parameter) ?? true;
+        public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
+        {
+            _Execute = Execute;
+            _CanExecute = CanExecute;
+        }
 
-        public override void Execute(object parameter) => _Exequte(parameter);
+        protected override bool CanExecute(object p) => _CanExecute?.Invoke(p) ?? true;
+
+        protected override void Execute(object p) => _Execute(p);
     }
 }

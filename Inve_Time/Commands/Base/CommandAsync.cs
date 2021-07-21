@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Inve_Time.Commands.Base
 {
-    internal abstract class Command : ICommand
+    internal abstract class CommandAsync : ICommand
     {
         private bool _Executable = true;
 
@@ -15,6 +16,7 @@ namespace Inve_Time.Commands.Base
                 if (_Executable == value) return;
                 _Executable = value;
                 ExecutableChanged?.Invoke(this, EventArgs.Empty);
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -28,14 +30,23 @@ namespace Inve_Time.Commands.Base
 
         bool ICommand.CanExecute(object parameter) => _Executable && CanExecute(parameter);
 
-        void ICommand.Execute(object parameter)
+        async void ICommand.Execute(object parameter)
         {
             if (!((ICommand)this).CanExecute(parameter)) return;
-            Execute(parameter);
+            try
+            {
+                Executable = false;
+                await ExecuteAsync(parameter);
+            }
+            catch
+            {
+                Executable = true;
+                throw;
+            }
         }
 
         protected virtual bool CanExecute(object p) => true;
 
-        protected abstract void Execute(object p);
+        protected abstract Task ExecuteAsync(object p);
     }
 }
