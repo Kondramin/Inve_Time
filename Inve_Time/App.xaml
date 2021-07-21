@@ -3,17 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:l="clr-namespace:Inve_Time"
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
-             StartupUri="Views/Windows/AutorisationWindow.xaml">
+             StartupUri="Views/Windows/AutorisationWindow.xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                <ResourceDictionary Source="Infrastructure/Templates/MainModelViews.xaml"/>
+
                 <ResourceDictionary Source="Infrastructure/Styles/GlobalStyles.xaml"/>
+                
+                <ResourceDictionary Source="Infrastructure/Templates/MainModelViews.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
+            
 
 
 

@@ -4,21 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-            TextElement.FontWeight="Regular"
-            TextElement.FontSize="13"
-            TextOptions.TextFormattingMode="Ideal"
-            TextOptions.TextRenderingMode="Auto"
-            Background="{DynamicResource MaterialDesignPaper}"
-            FontFamily="{DynamicResource MaterialDesignFont}"
+            
+        
         xmlns:l="clr-namespace:Inve_Time.Views.Windows"
         xmlns:cmd="clr-namespace:Inve_Time.Commands"
+        
             
         DataContext="{Binding AutorisationWindowViewModel ,Source={StaticResource Locator}}"
         
         WindowStartupLocation="CenterScreen"
         Title="{Binding Title}" 
         Height="300" Width="400">
+    
+    
     <DockPanel>
         <Label 
             Content="Введите ваш логин и пароль" 
@@ -65,3 +63,7 @@
         </StackPanel>
     </DockPanel>
 </Window>
+
+
+
+<!---->
