@@ -11,7 +11,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
-                <ResourceDictionary Source="Templates/MainModelViews.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Templates/MainModelViews.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Styles/GlobalStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -20,11 +21,7 @@
             <vm:ViewModelLocator x:Key="Locator"/>
 
 
-            <!--<Style TargetType="DataGrid">
-                <Setter Property="GridLinesVisibility" Value="Vertical"/>
-                <Setter Property="VerticalGridLinesBrush" Value="DarkGray"/>
-                <Setter Property="AlternatingRowBackground" Value="LightGray"/>
-            </Style>-->
+            
 
         </ResourceDictionary>
     </Application.Resources>
