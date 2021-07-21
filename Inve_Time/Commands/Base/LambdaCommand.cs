@@ -19,8 +19,8 @@ namespace Inve_Time.Commands.Base
             _CanExecute = CanExecute;
         }
 
-        protected override bool CanExecute(object p) => _CanExecute?.Invoke(p) ?? true;
+        public override bool CanExecute(object p) => _CanExecute?.Invoke(p) ?? true;
 
-        protected override void Execute(object p) => _Execute(p);
+        public override void Execute(object p) => _Execute(p);
     }
 }

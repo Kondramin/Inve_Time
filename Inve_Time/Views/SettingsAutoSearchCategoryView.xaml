@@ -12,23 +12,32 @@
                 Background="{DynamicResource MaterialDesignPaper}"
                 FontFamily="{DynamicResource MaterialDesignFont}"
              xmlns:l="clr-namespace:Inve_Time.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
              d:DataContext="{d:DesignInstance {x:Type vm:SettingsAutoSearchCategoryViewModel}}"
              
              d:DesignHeight="650" d:DesignWidth="950">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="loaded">
+            <i:InvokeCommandAction Command="{Binding CategoryHelpSearchesrCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid>
+        <DataGrid ItemsSource="{Binding CategoryHelpSearchesr}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#"/>
-                <DataGridTextColumn Header="Товар" Width="auto"/>
-                <DataGridTextColumn Header="Горячие слова" Width="*"/>
+                <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Товар" Width="auto" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Горячие слова" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-            
+
+        <Button Content="ggggg" Grid.Column="1" Command="{Binding CategoryHelpSearchesrCommand}"/>
+
     </Grid>
 </UserControl>

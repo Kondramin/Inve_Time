@@ -34,8 +34,8 @@ namespace Inve_Time.Commands.Base
             Execute(parameter);
         }
 
-        protected virtual bool CanExecute(object p) => true;
+        public virtual bool CanExecute(object p) => true;
 
-        protected abstract void Execute(object p);
+        public abstract void Execute(object p);
     }
 }

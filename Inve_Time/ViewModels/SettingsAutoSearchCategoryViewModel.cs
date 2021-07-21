@@ -1,10 +1,8 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
-using Inve_Time.Models;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +14,7 @@ namespace Inve_Time.ViewModels
     {
         private readonly IRepository<Category> _CategoryRepository;
 
-        public List<Category> CategoryHelpSearchesr { get; }
+        public ObservableCollection<Category> CategoryHelpSearchesr { get; } = new ObservableCollection<Category>();
         
         #region Commands
 
@@ -28,11 +26,7 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Get category with help searchers data from database</summary>
         public ICommand CategoryHelpSearchesrCommand => _CategoryHelpSearchesrCommand
-            ??= new LambdaCommand(OnCategoryHelpSearchesrCommandExequted, CanCategoryHelpSearchesrCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Get category with help searchers data from database</summary>
-        /// <param name="p"></param>
-        public bool CanCategoryHelpSearchesrCommandExequt(object p) => true;
+            ??= new LambdaCommandAsync(OnCategoryHelpSearchesrCommandExequted);
 
         /// <summary>Execution logic - Get category with help searchers data from database</summary>
         /// <param name="p"></param>
@@ -45,15 +39,15 @@ namespace Inve_Time.ViewModels
 
         private async Task DownloadHelpSearchresAsync()
         {
+
+            var categoryHelpQuery = _CategoryRepository.Items.GroupBy(c => c.Name);
+
             CategoryHelpSearchesr.Clear();
 
-            var categoryHelpQuery = _CategoryRepository.Items
-                .GroupBy(c => c.Name)
-                
-                ;
-
-
-            CategoryHelpSearchesr.AddRange(await _CategoryRepository.Items.ToListAsync());
+            foreach (Category category in await categoryHelpQuery.ToArrayAsync())
+            {
+                CategoryHelpSearchesr.Add(category);
+            }
         }
 
         
