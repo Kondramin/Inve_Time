@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
                 <ResourceDictionary Source="Infrastructure/Styles/GlobalStyles.xaml"/>
+                <ResourceDictionary Source="Infrastructure/Styles/BaseMaterialDesinStyle.xaml"/>
                 
                 <ResourceDictionary Source="Infrastructure/Templates/MainModelViews.xaml"/>
                 
