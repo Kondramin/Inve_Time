@@ -15,6 +15,12 @@
         Title="{Binding Title}" 
         MinHeight="700" MinWidth="1000">
     
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ShowStartViewCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <DockPanel>
         <Menu 
             DockPanel.Dock="Top" 

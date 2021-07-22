@@ -62,7 +62,7 @@ namespace Inve_Time.ViewModels
 
         #region ViewModel MainWindow CurrentModel
 
-        private ViewModel _CurrentModel = new StartViewModel();   //--- это костыль, если не получится настроить Event trigger  
+        private ViewModel _CurrentModel;
         /// <summary>MainWindow CurrentModel</summary>
         public ViewModel CurrentModel
         {
