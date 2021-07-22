@@ -4,15 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-            
-        
+           
         xmlns:l="clr-namespace:Inve_Time.Views.Windows"
         xmlns:cmd="clr-namespace:Inve_Time.Commands"
         
-            
         DataContext="{Binding AutorisationWindowViewModel ,Source={StaticResource Locator}}"
+        Style="{StaticResource BaseMaterWindowStyle}"
+        
         
         WindowStartupLocation="CenterScreen"
+        
         Title="{Binding Title}" 
         Height="300" Width="400">
     
@@ -53,7 +54,7 @@
                 Margin="20"
                 materialDesign:HintAssist.Hint="Введите логин" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-            
+
             <PasswordBox                
                 x:Name="pwdBox"
                 Margin="20"
@@ -63,7 +64,3 @@
         </StackPanel>
     </DockPanel>
 </Window>
-
-
-
-<!---->
