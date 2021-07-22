@@ -11,7 +11,7 @@ namespace Inve_Time.DataBase.dll.Repositories
             .AddTransient<IRepository<Position>, PositionRepository>()
             .AddTransient<IRepository<Product>, ProductRepository>()
             .AddTransient<IRepository<Category>, CategoryRepository>()
-            .AddTransient<IRepository<DateOfInventarisation>, DateOfInventarisationRepository>()
+            .AddTransient<IRepository<CurrentInventarisation>, CurrentInventarisationRepository>()
             .AddTransient<IRepository<HelpCategorySearch>, HelpCategorySearchRepository>()
             ;
     }

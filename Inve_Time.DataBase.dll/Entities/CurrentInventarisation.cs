@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Inve_Time.DataBase.dll.Entities
 {
-    public class DateOfInventarisation : Entity
+    public class CurrentInventarisation : Entity
     {
         public DateTime InventarisationDate { get; set; }
 

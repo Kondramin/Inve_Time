@@ -107,7 +107,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DateOfInventarisations",
+                name: "CurrentInventarisations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -117,9 +117,9 @@ namespace Inve_Time.DataBase.dll.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateOfInventarisations", x => x.Id);
+                    table.PrimaryKey("PK_CurrentInventarisations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DateOfInventarisations_Employees_EmployeeId",
+                        name: "FK_CurrentInventarisations_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
@@ -127,23 +127,23 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DateOfInventarisationProduct",
+                name: "CurrentInventarisationProduct",
                 columns: table => new
                 {
-                    DateOfInventarisationsId = table.Column<int>(type: "int", nullable: false),
+                    CurrentInventarisationsId = table.Column<int>(type: "int", nullable: false),
                     ProductsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DateOfInventarisationProduct", x => new { x.DateOfInventarisationsId, x.ProductsId });
+                    table.PrimaryKey("PK_CurrentInventarisationProduct", x => new { x.CurrentInventarisationsId, x.ProductsId });
                     table.ForeignKey(
-                        name: "FK_DateOfInventarisationProduct_DateOfInventarisations_DateOfInventarisationsId",
-                        column: x => x.DateOfInventarisationsId,
-                        principalTable: "DateOfInventarisations",
+                        name: "FK_CurrentInventarisationProduct_CurrentInventarisations_CurrentInventarisationsId",
+                        column: x => x.CurrentInventarisationsId,
+                        principalTable: "CurrentInventarisations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DateOfInventarisationProduct_Products_ProductsId",
+                        name: "FK_CurrentInventarisationProduct_Products_ProductsId",
                         column: x => x.ProductsId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -238,13 +238,13 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateOfInventarisationProduct_ProductsId",
-                table: "DateOfInventarisationProduct",
+                name: "IX_CurrentInventarisationProduct_ProductsId",
+                table: "CurrentInventarisationProduct",
                 column: "ProductsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DateOfInventarisations_EmployeeId",
-                table: "DateOfInventarisations",
+                name: "IX_CurrentInventarisations_EmployeeId",
+                table: "CurrentInventarisations",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
@@ -266,13 +266,13 @@ namespace Inve_Time.DataBase.dll.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DateOfInventarisationProduct");
+                name: "CurrentInventarisationProduct");
 
             migrationBuilder.DropTable(
                 name: "HelpCategorySearchers");
 
             migrationBuilder.DropTable(
-                name: "DateOfInventarisations");
+                name: "CurrentInventarisations");
 
             migrationBuilder.DropTable(
                 name: "Products");

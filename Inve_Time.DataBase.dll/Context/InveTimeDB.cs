@@ -16,7 +16,7 @@ namespace Inve_Time.DataBase.dll.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<HelpCategorySearch> HelpCategorySearchers { get; set; }
-        public DbSet<DateOfInventarisation> DateOfInventarisations { get; set; }
+        public DbSet<CurrentInventarisation> CurrentInventarisations { get; set; }
 
 
         #endregion

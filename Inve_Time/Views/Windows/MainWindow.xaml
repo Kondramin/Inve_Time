@@ -19,8 +19,8 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding ShowStartViewCommand}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>
-    
+    </i:Interaction.Triggers> <!--SourceObject="Window"-->
+
     <DockPanel>
         <Menu 
             DockPanel.Dock="Top" 

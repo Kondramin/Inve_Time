@@ -12,7 +12,7 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override IQueryable<Employee> Items => base.Items
             .Include(item => item.Position)
-            .Include(Item => Item.DateOfInventarisations)
+            .Include(Item => Item.CurrentInventarisations)
             ;
 
 

@@ -11,7 +11,7 @@ namespace Inve_Time.DataBase.dll.Entities
 
 
 
-        public List<DateOfInventarisation> DateOfInventarisations { get; set; }
+        public List<CurrentInventarisation> CurrentInventarisations { get; set; }
         public int? PositionId { get; set; }
         public Position Position { get; set; }
     }

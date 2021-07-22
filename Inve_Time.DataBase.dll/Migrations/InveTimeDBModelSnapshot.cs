@@ -16,22 +16,22 @@ namespace Inve_Time.DataBase.dll.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DateOfInventarisationProduct", b =>
+            modelBuilder.Entity("CurrentInventarisationProduct", b =>
                 {
-                    b.Property<int>("DateOfInventarisationsId")
+                    b.Property<int>("CurrentInventarisationsId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductsId")
                         .HasColumnType("int");
 
-                    b.HasKey("DateOfInventarisationsId", "ProductsId");
+                    b.HasKey("CurrentInventarisationsId", "ProductsId");
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("DateOfInventarisationProduct");
+                    b.ToTable("CurrentInventarisationProduct");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Category", b =>
@@ -171,7 +171,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.DateOfInventarisation", b =>
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.CurrentInventarisation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +188,7 @@ namespace Inve_Time.DataBase.dll.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("DateOfInventarisations");
+                    b.ToTable("CurrentInventarisations");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Employee", b =>
@@ -542,11 +542,11 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("DateOfInventarisationProduct", b =>
+            modelBuilder.Entity("CurrentInventarisationProduct", b =>
                 {
-                    b.HasOne("Inve_Time.DataBase.dll.Entities.DateOfInventarisation", null)
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.CurrentInventarisation", null)
                         .WithMany()
-                        .HasForeignKey("DateOfInventarisationsId")
+                        .HasForeignKey("CurrentInventarisationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -557,10 +557,10 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.DateOfInventarisation", b =>
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.CurrentInventarisation", b =>
                 {
                     b.HasOne("Inve_Time.DataBase.dll.Entities.Employee", "ResponsibleForEvent")
-                        .WithMany("DateOfInventarisations")
+                        .WithMany("CurrentInventarisations")
                         .HasForeignKey("EmployeeId");
 
                     b.Navigation("ResponsibleForEvent");
@@ -602,7 +602,7 @@ namespace Inve_Time.DataBase.dll.Migrations
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Employee", b =>
                 {
-                    b.Navigation("DateOfInventarisations");
+                    b.Navigation("CurrentInventarisations");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Position", b =>
