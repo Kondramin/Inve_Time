@@ -15,6 +15,7 @@ namespace Inve_Time.ViewModels
 
         
         private readonly IRepository<Category> _CategoryRepository;
+        private readonly IRepository<Employee> _EmployeeRepository;
 
 
 
@@ -171,16 +172,42 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+        #region Command ShowEmployeesViewCommand - Show EmployeesView
+
+        /// <summary>Show EmployeesView</summary>
+        private ICommand _ShowEmployeesViewCommand;
+
+
+        /// <summary>Show EmployeesView</summary>
+        public ICommand ShowEmployeesViewCommand => _ShowEmployeesViewCommand
+            ??= new LambdaCommand(OnShowEmployeesViewCommandExequted, CanShowEmployeesViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show EmployeesView</summary>
+        /// <param name="p"></param>
+        public bool CanShowEmployeesViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show EmployeesView</summary>
+        /// <param name="p"></param>
+        public void OnShowEmployeesViewCommandExequted(object p)
+        {
+            CurrentModel = new EmployeesViewModel(_EmployeeRepository);
+        }
+
+
+        #endregion
+
         #endregion
 
 
 
 
         public MainWindowViewModel(
-            IRepository<Category> CategoryRepository
+            IRepository<Category> CategoryRepository,
+            IRepository<Employee> EmployeeRepository
             )
         {   
             _CategoryRepository = CategoryRepository;
+            _EmployeeRepository = EmployeeRepository;
         }
     }
 }

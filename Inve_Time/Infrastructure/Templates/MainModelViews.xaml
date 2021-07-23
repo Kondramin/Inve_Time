@@ -21,5 +21,9 @@
     <DataTemplate DataType="{x:Type vm:SettingsAutoSearchCategoryViewModel}">
         <views:SettingsAutoSearchCategoryView DataContext="{Binding}"/>
     </DataTemplate>
-    
+
+    <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">
+        <views:EmployeesView DataContext="{Binding}"/>
+    </DataTemplate>
+
 </ResourceDictionary>

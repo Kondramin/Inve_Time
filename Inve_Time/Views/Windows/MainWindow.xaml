@@ -35,7 +35,7 @@
                 <MenuItem 
                     Header="Отчёты">
                     <MenuItem 
-                        Header="Сотрудники"/>
+                        Header="Сотрудники" Command="{Binding ShowEmployeesViewCommand}"/>
                     <MenuItem
                         Header="Товары"/>
                     <MenuItem
