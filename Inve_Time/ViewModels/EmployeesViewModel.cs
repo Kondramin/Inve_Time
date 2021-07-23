@@ -4,6 +4,7 @@ using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -47,8 +48,10 @@ namespace Inve_Time.ViewModels
 
         private async Task DownloadEpmloyeesInfoAsync()
         {
+            //TODO: реализовать сложную выборку.
 
             var employeesInfo_query = _EmployeeRepository.Items;
+                //.GroupBy(e => e.SecondName);
 
             Employees.Clear();
 
