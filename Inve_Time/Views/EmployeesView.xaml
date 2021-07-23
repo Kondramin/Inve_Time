@@ -3,14 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             
              xmlns:l="clr-namespace:Inve_Time.Views"
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              
              d:DataContext="{d:DesignInstance {x:Type vm:EmployeesViewModel}}"
              
              d:DesignHeight="650" d:DesignWidth="950">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding GetEmployeesCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">сотрудники</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <DataGrid ItemsSource="{Binding Employees}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Емейл" Binding="{Binding Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
             
     </Grid>
 </UserControl>
