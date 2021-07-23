@@ -11,7 +11,7 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override IQueryable<CurrentInventarisation> Items => base.Items
             .Include(item => item.ResponsibleForEvent)
-            .Include(item => item.Products)
+            .Include(item => item.ProductInventeds)
             ;
 
         public CurrentInventarisationRepository(InveTimeDB db) : base(db) { }

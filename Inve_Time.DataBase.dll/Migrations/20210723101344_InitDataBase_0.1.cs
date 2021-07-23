@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Inve_Time.DataBase.dll.Migrations
 {
-    public partial class init : Migration
+    public partial class InitDataBase_01 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,22 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductsInvented",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AmountFact = table.Column<int>(type: "int", nullable: false),
+                    AmountResult = table.Column<int>(type: "int", nullable: false),
+                    Peresort = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsInvented", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HelpCategorySearchers",
                 columns: table => new
                 {
@@ -55,7 +71,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "ProductsBase",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -64,17 +80,14 @@ namespace Inve_Time.DataBase.dll.Migrations
                     VendorCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     AmountData = table.Column<int>(type: "int", nullable: false),
-                    AmountFact = table.Column<int>(type: "int", nullable: false),
-                    AmountResult = table.Column<int>(type: "int", nullable: false),
-                    Peresort = table.Column<bool>(type: "bit", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_ProductsBase", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
+                        name: "FK_ProductsBase_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -127,25 +140,25 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CurrentInventarisationProduct",
+                name: "CurrentInventarisationProductInvented",
                 columns: table => new
                 {
                     CurrentInventarisationsId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    ProductInventedsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CurrentInventarisationProduct", x => new { x.CurrentInventarisationsId, x.ProductsId });
+                    table.PrimaryKey("PK_CurrentInventarisationProductInvented", x => new { x.CurrentInventarisationsId, x.ProductInventedsId });
                     table.ForeignKey(
-                        name: "FK_CurrentInventarisationProduct_CurrentInventarisations_CurrentInventarisationsId",
+                        name: "FK_CurrentInventarisationProductInvented_CurrentInventarisations_CurrentInventarisationsId",
                         column: x => x.CurrentInventarisationsId,
                         principalTable: "CurrentInventarisations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CurrentInventarisationProduct_Products_ProductsId",
-                        column: x => x.ProductsId,
-                        principalTable: "Products",
+                        name: "FK_CurrentInventarisationProductInvented_ProductsInvented_ProductInventedsId",
+                        column: x => x.ProductInventedsId,
+                        principalTable: "ProductsInvented",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -238,9 +251,9 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CurrentInventarisationProduct_ProductsId",
-                table: "CurrentInventarisationProduct",
-                column: "ProductsId");
+                name: "IX_CurrentInventarisationProductInvented_ProductInventedsId",
+                table: "CurrentInventarisationProductInvented",
+                column: "ProductInventedsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CurrentInventarisations_EmployeeId",
@@ -258,30 +271,33 @@ namespace Inve_Time.DataBase.dll.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
-                table: "Products",
+                name: "IX_ProductsBase_CategoryId",
+                table: "ProductsBase",
                 column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CurrentInventarisationProduct");
+                name: "CurrentInventarisationProductInvented");
 
             migrationBuilder.DropTable(
                 name: "HelpCategorySearchers");
 
             migrationBuilder.DropTable(
+                name: "ProductsBase");
+
+            migrationBuilder.DropTable(
                 name: "CurrentInventarisations");
 
             migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
+                name: "ProductsInvented");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Positions");

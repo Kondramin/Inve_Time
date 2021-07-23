@@ -8,6 +8,6 @@ namespace Inve_Time.DataBase.dll.Entities
         public int AccessLevel { get; set; }
 
 
-        public List<Employee> Employees { get; set; }
+        public ICollection<Employee> Employees { get; set; }
     }
 }

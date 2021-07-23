@@ -12,6 +12,6 @@ namespace Inve_Time.DataBase.dll.Entities
 
         public int? EmployeeId { get; set; }
         public Employee ResponsibleForEvent { get; set; }
-        public List<Product> Products { get; set; }
+        public ICollection<ProductInvented> ProductInventeds { get; set; }
     }
 }

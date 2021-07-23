@@ -11,10 +11,10 @@ namespace Inve_Time.Services
 {
     internal class ParserService : IParserService
     {
-        private readonly IRepository<Product> _ProductRepository;
+        private readonly IRepository<ProductBase> _ProductRepository;
         private readonly InveTimeDB _Db;
 
-        public ParserService(IRepository<Product> ProductRepository, InveTimeDB db)
+        public ParserService(IRepository<ProductBase> ProductRepository, InveTimeDB db)
         {
             _ProductRepository = ProductRepository;
             _Db = db;
@@ -86,7 +86,7 @@ namespace Inve_Time.Services
             foreach (DataRow row in data.Rows)
             {
                 var cells = row.ItemArray;
-                var product = new Product()
+                var product = new ProductBase()
                 {
                     Barcode = cells[0].ToString(),
                     VendorCode = cells[1].ToString(),
@@ -108,7 +108,7 @@ namespace Inve_Time.Services
             {
 
                 var cells = row.ItemArray;
-                var product = new Product()
+                var product = new ProductBase()
                 {
                     Barcode = cells[0].ToString(),
                     VendorCode = cells[1].ToString(),

@@ -10,11 +10,11 @@ namespace Inve_Time.Services
 {
     internal class AutoChoseCategoryProductService : IAutoChoseCategoryProductService
     {
-        private readonly IRepository<Product> _ProductRepository;
+        private readonly IRepository<ProductBase> _ProductRepository;
         private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
         private readonly InveTimeDB _Db;
 
-        public AutoChoseCategoryProductService(IRepository<Product> ProductRepository, IRepository<HelpCategorySearch> HelpCategorySearchRepository, InveTimeDB db)
+        public AutoChoseCategoryProductService(IRepository<ProductBase> ProductRepository, IRepository<HelpCategorySearch> HelpCategorySearchRepository, InveTimeDB db)
         {
             _ProductRepository = ProductRepository;
             _HelpCategorySearchRepository = HelpCategorySearchRepository;
