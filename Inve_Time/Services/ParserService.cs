@@ -11,12 +11,14 @@ namespace Inve_Time.Services
 {
     internal class ParserService : IParserService
     {
-        private readonly IRepository<ProductBase> _ProductRepository;
+        private readonly IRepository<ProductInvented> _ProductInventedRepository;
         private readonly InveTimeDB _Db;
 
-        public ParserService(IRepository<ProductBase> ProductRepository, InveTimeDB db)
+        
+
+        public ParserService(IRepository<ProductInvented> ProductInventedRepository, InveTimeDB db)
         {
-            _ProductRepository = ProductRepository;
+            _ProductInventedRepository = ProductInventedRepository;
             _Db = db;
         }
 
@@ -82,11 +84,11 @@ namespace Inve_Time.Services
         
         public void SaveDataInDataBase(DataTable data)
         {
-            _ProductRepository.AutoSaveChanges = false;
+            _ProductInventedRepository.AutoSaveChanges = false;
             foreach (DataRow row in data.Rows)
             {
                 var cells = row.ItemArray;
-                var product = new ProductBase()
+                var product = new ProductInvented()
                 {
                     Barcode = cells[0].ToString(),
                     VendorCode = cells[1].ToString(),
@@ -94,7 +96,7 @@ namespace Inve_Time.Services
                     AmountData = Convert.ToInt32(cells[3])
                 };
 
-                _ProductRepository.Add(product);
+                _ProductInventedRepository.Add(product);
 
             }
             _Db.SaveChanges();
@@ -102,13 +104,13 @@ namespace Inve_Time.Services
 
         public async Task SaveDataInDataBaseAsync(DataTable data)
         {
-            _ProductRepository.AutoSaveChanges = false;
+            _ProductInventedRepository.AutoSaveChanges = false;
 
             foreach (DataRow row in data.Rows)
             {
 
                 var cells = row.ItemArray;
-                var product = new ProductBase()
+                var product = new ProductInvented()
                 {
                     Barcode = cells[0].ToString(),
                     VendorCode = cells[1].ToString(),
@@ -116,15 +118,12 @@ namespace Inve_Time.Services
                     AmountData = Convert.ToInt32(cells[3])
                 };
 
-                await _ProductRepository.AddAsync(product);
+                await _ProductInventedRepository.AddAsync(product);
 
             }
             await _Db.SaveChangesAsync();
         }
 
-
-
-        
     }
 }
 

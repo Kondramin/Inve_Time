@@ -508,9 +508,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AmountData")
-                        .HasColumnType("int");
-
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
@@ -519,6 +516,10 @@ namespace Inve_Time.DataBase.dll.Migrations
 
                     b.Property<decimal?>("Cost")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -531,14 +532,16 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ProductsBase");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ProductBase");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasBaseType("Inve_Time.DataBase.dll.Entities.ProductBase");
+
+                    b.Property<int>("AmountData")
+                        .HasColumnType("int");
 
                     b.Property<int>("AmountFact")
                         .HasColumnType("int");
@@ -546,15 +549,15 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Property<int>("AmountResult")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("Peresort")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("ProductBaseId")
+                        .HasColumnType("int");
 
-                    b.ToTable("ProductsInvented");
+                    b.HasIndex("ProductBaseId");
+
+                    b.HasDiscriminator().HasValue("ProductInvented");
                 });
 
             modelBuilder.Entity("CurrentInventarisationProductInvented", b =>
@@ -608,6 +611,15 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
+                {
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.ProductBase", "ProductBase")
+                        .WithMany("ProductInventeds")
+                        .HasForeignKey("ProductBaseId");
+
+                    b.Navigation("ProductBase");
+                });
+
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Category", b =>
                 {
                     b.Navigation("HelpCategorySearchers");
@@ -623,6 +635,11 @@ namespace Inve_Time.DataBase.dll.Migrations
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Position", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductBase", b =>
+                {
+                    b.Navigation("ProductInventeds");
                 });
 #pragma warning restore 612, 618
         }

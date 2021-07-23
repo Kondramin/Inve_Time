@@ -35,22 +35,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductsInvented",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AmountFact = table.Column<int>(type: "int", nullable: false),
-                    AmountResult = table.Column<int>(type: "int", nullable: false),
-                    Peresort = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductsInvented", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HelpCategorySearchers",
                 columns: table => new
                 {
@@ -79,8 +63,13 @@ namespace Inve_Time.DataBase.dll.Migrations
                     Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     VendorCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    AmountData = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AmountData = table.Column<int>(type: "int", nullable: true),
+                    AmountFact = table.Column<int>(type: "int", nullable: true),
+                    AmountResult = table.Column<int>(type: "int", nullable: true),
+                    Peresort = table.Column<bool>(type: "bit", nullable: true),
+                    ProductBaseId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -90,6 +79,12 @@ namespace Inve_Time.DataBase.dll.Migrations
                         name: "FK_ProductsBase_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProductsBase_ProductsBase_ProductBaseId",
+                        column: x => x.ProductBaseId,
+                        principalTable: "ProductsBase",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -156,9 +151,9 @@ namespace Inve_Time.DataBase.dll.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CurrentInventarisationProductInvented_ProductsInvented_ProductInventedsId",
+                        name: "FK_CurrentInventarisationProductInvented_ProductsBase_ProductInventedsId",
                         column: x => x.ProductInventedsId,
-                        principalTable: "ProductsInvented",
+                        principalTable: "ProductsBase",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -274,6 +269,11 @@ namespace Inve_Time.DataBase.dll.Migrations
                 name: "IX_ProductsBase_CategoryId",
                 table: "ProductsBase",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsBase_ProductBaseId",
+                table: "ProductsBase",
+                column: "ProductBaseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -285,19 +285,16 @@ namespace Inve_Time.DataBase.dll.Migrations
                 name: "HelpCategorySearchers");
 
             migrationBuilder.DropTable(
-                name: "ProductsBase");
-
-            migrationBuilder.DropTable(
                 name: "CurrentInventarisations");
 
             migrationBuilder.DropTable(
-                name: "ProductsInvented");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ProductsBase");
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Positions");

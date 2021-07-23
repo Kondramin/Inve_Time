@@ -12,6 +12,7 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override IQueryable<ProductBase> Items => base.Items
             .Include(item => item.Category)
+            .Include(item => item.ProductInventeds)
             ;
 
 

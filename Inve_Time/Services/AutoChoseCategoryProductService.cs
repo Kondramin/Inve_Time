@@ -10,57 +10,118 @@ namespace Inve_Time.Services
 {
     internal class AutoChoseCategoryProductService : IAutoChoseCategoryProductService
     {
-        private readonly IRepository<ProductBase> _ProductRepository;
+        private readonly IRepository<ProductBase> _ProductBaseRepository;
+        private readonly IRepository<ProductInvented> _ProductInventedRepossitory;
         private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
         private readonly InveTimeDB _Db;
 
-        public AutoChoseCategoryProductService(IRepository<ProductBase> ProductRepository, IRepository<HelpCategorySearch> HelpCategorySearchRepository, InveTimeDB db)
+        public AutoChoseCategoryProductService(
+            IRepository<ProductBase> ProductRepository,
+            IRepository<ProductInvented> ProductInventedRepossitory,
+            IRepository<HelpCategorySearch> HelpCategorySearchRepository,
+            InveTimeDB db
+            )
         {
-            _ProductRepository = ProductRepository;
+            _ProductBaseRepository = ProductRepository;
+            _ProductInventedRepossitory = ProductInventedRepossitory;
             _HelpCategorySearchRepository = HelpCategorySearchRepository;
             _Db = db;
         }
-        
-        
-        
+
+
+
         public void IdentifyCategory()
         {
-            var prodNullCategory = _ProductRepository.Items.Where(p => EF.Functions.Like(p.Category.Name, null));
-            var helpCategorySearch = _HelpCategorySearchRepository.Items;
-            _ProductRepository.AutoSaveChanges = false;
-            foreach (var cat in helpCategorySearch)
+            _ProductBaseRepository.AutoSaveChanges = false;
+            _ProductInventedRepossitory.AutoSaveChanges = false;
+
+
+            foreach (var nullCategory in _ProductInventedRepossitory.Items.Where(p => EF.Functions.Like(p.Category.Name, null)))
             {
-                string SQLcat = $"%{cat.Name}%";
-                var selectedProdNullCategory = prodNullCategory.Where(p => EF.Functions.Like(p.Name, SQLcat));
-                foreach (var product in selectedProdNullCategory)
+                if (_ProductBaseRepository.Items.Select(p => p.Name).Contains(nullCategory.Name))
                 {
-                    product.Category = cat.Category;
-                    _ProductRepository.Update(product);
+                    nullCategory.Category = _ProductBaseRepository.Items.FirstOrDefault(p => p.Name == nullCategory.Name).Category;
+                    _ProductInventedRepossitory.Update(nullCategory);
                 }
             }
+
+
+            var prodStillNullCategory = _ProductInventedRepossitory.Items.Where(p => EF.Functions.Like(p.Category.Name, null));
+
+
+            if (!(prodStillNullCategory.Any())) return;
+
+
+            foreach (var search in _HelpCategorySearchRepository.Items)
+            {
+                string SQLsearch = $"%{search.Name}%";
+
+                var selectedProdStillNullCategory = prodStillNullCategory.Where(p => EF.Functions.Like(p.Name, SQLsearch));
+
+                foreach (var prod in selectedProdStillNullCategory)
+                {
+                    prod.Category = search.Category;
+                    _ProductInventedRepossitory.Update(prod);
+                    _ProductBaseRepository.Add(new ProductBase()
+                    {
+                        Name = prod.Name,
+                        Barcode = prod.Barcode,
+                        VendorCode = prod.VendorCode,
+                        Cost = prod.Cost,
+                        Category = prod.Category
+                    });
+                }
+            }
+
             _Db.SaveChanges();
         }
-        
-        
+
+
         public async Task IdentifyCategoryAsync()
         {
-            var prodNullCategory = _ProductRepository.Items.Where(p => EF.Functions.Like(p.Category.Name, null));
-            var helpCategorySearch = _HelpCategorySearchRepository.Items;
-            _ProductRepository.AutoSaveChanges = false;
-            foreach (var cat in helpCategorySearch)
+            _ProductBaseRepository.AutoSaveChanges = false;
+            _ProductInventedRepossitory.AutoSaveChanges = false;
+
+
+            foreach (var nullCategory in _ProductInventedRepossitory.Items.Where(p => EF.Functions.Like(p.Category.Name, null)))
             {
-                string SQLcat = $"%{cat.Name}%";
-                var selectedProdNullCategory = prodNullCategory.Where(p => EF.Functions.Like(p.Name, SQLcat));
-                foreach (var product in selectedProdNullCategory)
+                if (_ProductBaseRepository.Items.Select(p => p.Name).Contains(nullCategory.Name))
                 {
-                    product.Category = cat.Category;
-                    await _ProductRepository.UpdateAsync(product);
+                    nullCategory.Category = _ProductBaseRepository.Items.FirstOrDefault(p => p.Name == nullCategory.Name).Category;
+                    await _ProductInventedRepossitory.UpdateAsync(nullCategory);
                 }
             }
+
+
+            var prodStillNullCategory = _ProductInventedRepossitory.Items.Where(p => EF.Functions.Like(p.Category.Name, null));
+
+
+            if (!(prodStillNullCategory.Any())) return;
+
+
+            foreach (var search in _HelpCategorySearchRepository.Items)
+            {
+                string SQLsearch = $"%{search.Name}%";
+
+                var selectedProdStillNullCategory = prodStillNullCategory.Where(p => EF.Functions.Like(p.Name, SQLsearch));
+
+                foreach (var prod in selectedProdStillNullCategory)
+                {
+                    prod.Category = search.Category;
+                    await _ProductInventedRepossitory.UpdateAsync(prod);
+                    await _ProductBaseRepository.AddAsync(new ProductBase()
+                    {
+                        Name = prod.Name,
+                        Barcode = prod.Barcode,
+                        VendorCode = prod.VendorCode,
+                        Cost = prod.Cost,
+                        Category = prod.Category
+                    });
+                }
+            }
+
             await _Db.SaveChangesAsync();
+
         }
-
-
-
     }
 }
