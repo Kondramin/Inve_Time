@@ -1,19 +1,19 @@
 ﻿namespace Inve_Time.Models
 {
-    class EpmInfo
+    class EmpBaseInfo
     {
         public int Id { get; set; }
-        public FIO FIO { get; set; }
+        public FIO _FIO { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
 
     }
 
-    struct FIO
+    public struct FIO
     {
-        string Name { get; set; }
-        string SecName { get; set; }
-        string Part { get; set; }
+        public string Name { get; set; }
+        public string SecName { get; set; }
+        public string Part { get; set; }
 
 
         public override string ToString()

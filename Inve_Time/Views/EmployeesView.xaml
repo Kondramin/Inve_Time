@@ -27,7 +27,7 @@
         <DataGrid ItemsSource="{Binding Employees}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding _FIO}"/>
                 <DataGridTextColumn Header="Емейл" Binding="{Binding Email}"/>
             </DataGrid.Columns>
         </DataGrid>
