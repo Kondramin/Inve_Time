@@ -4,10 +4,9 @@ using Inve_Time.Interfaces.dll;
 using Inve_Time.Models;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
@@ -23,7 +22,7 @@ namespace Inve_Time.ViewModels
 
 
         public EmployeesViewModel(IRepository<Employee> employeeRepository)
-        {
+        {   
             _EmployeeRepository = employeeRepository;
         }
 
@@ -64,12 +63,35 @@ namespace Inve_Time.ViewModels
                 {
                     Id = employees.Id,
                     _FIO = new FIO() { Name = employees.Name, SecName = employees.SecondName, Part = employees.Patronymic},
-                    Email = employees.Email//, Phone = employees.Phone
+                    Email = employees.Email,
+                    Position = employees.Position.Name//, Phone = employees.Phone
 
                 };
 
                 Employees.Add(epmBaseInfo);
             }
+        }
+
+        #endregion
+
+        #region Command ShowStartViewCommand - Show StartView
+
+        /// <summary>Show StartView</summary>
+        private ICommand _ShowStartViewCommand;
+
+        /// <summary>Show StartView</summary>
+        public ICommand ShowStartViewCommand => _ShowStartViewCommand
+            ??= new LambdaCommand(OnShowStartViewCommandExequted, CanShowStartViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show StartView</summary>
+        /// <param name="p"></param>
+        public bool CanShowStartViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show StartView</summary>
+        /// <param name="p"></param>
+        public void OnShowStartViewCommandExequted(object p)
+        {
+            
         }
 
         #endregion

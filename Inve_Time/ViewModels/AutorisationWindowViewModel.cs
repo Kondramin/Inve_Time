@@ -56,6 +56,7 @@ namespace Inve_Time.ViewModels
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = mainWindow;
             }
             else
             {

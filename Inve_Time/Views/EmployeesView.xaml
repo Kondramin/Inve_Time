@@ -8,7 +8,9 @@
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              
+             
              d:DataContext="{d:DesignInstance {x:Type vm:EmployeesViewModel}}"
+             
              
              d:DesignHeight="650" d:DesignWidth="950">
     <i:Interaction.Triggers>
@@ -24,13 +26,35 @@
         </Grid.ColumnDefinitions>
 
 
-        <DataGrid ItemsSource="{Binding Employees}">
+        <DataGrid 
+            Grid.Column="0"
+            Margin="5"
+            ItemsSource="{Binding Employees}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding _FIO}"/>
+                <DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding _FIO}"/>
+                <DataGridTextColumn Header="Телефон"/>
                 <DataGridTextColumn Header="Емейл" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
             </DataGrid.Columns>
         </DataGrid>
-            
+
+        <Grid
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+
+            <Button 
+                Content="Назад"
+                Width="150"
+                Grid.Row="2"
+                Command="{}">
+                
+            </Button>
+
+        </Grid>
     </Grid>
 </UserControl>
