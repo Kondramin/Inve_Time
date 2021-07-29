@@ -19,7 +19,17 @@ namespace Inve_Time.ViewModels
 
         public ObservableCollection<EmpBaseInfo> Employees { get; } = new ObservableCollection<EmpBaseInfo>();
 
+        #region string EmployeeView Filter 
 
+        private string _FilterWord;
+        /// <summary>EmployeeView Filter</summary>
+        public string FilterWord
+        {
+            get => _FilterWord;
+            set => Set(ref _FilterWord, value);
+        }
+
+        #endregion
 
         public EmployeesViewModel(IRepository<Employee> employeeRepository)
         {   
@@ -64,8 +74,8 @@ namespace Inve_Time.ViewModels
                     Id = employees.Id,
                     _FIO = new FIO() { Name = employees.Name, SecName = employees.SecondName, Part = employees.Patronymic},
                     Email = employees.Email,
-                    Position = employees.Position.Name//, Phone = employees.Phone
-
+                    Position = employees.Position.Name, 
+                    Phone = employees.Phone
                 };
 
                 Employees.Add(epmBaseInfo);
@@ -74,27 +84,7 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-        #region Command ShowStartViewCommand - Show StartView
-
-        /// <summary>Show StartView</summary>
-        private ICommand _ShowStartViewCommand;
-
-        /// <summary>Show StartView</summary>
-        public ICommand ShowStartViewCommand => _ShowStartViewCommand
-            ??= new LambdaCommand(OnShowStartViewCommandExequted, CanShowStartViewCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Show StartView</summary>
-        /// <param name="p"></param>
-        public bool CanShowStartViewCommandExequt(object p) => true;
-
-        /// <summary>Execution logic - Show StartView</summary>
-        /// <param name="p"></param>
-        public void OnShowStartViewCommandExequted(object p)
-        {
-            
-        }
-
-        #endregion
+        
 
         #endregion
 

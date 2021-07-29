@@ -51,9 +51,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding _FIO}"/>
-                <DataGridTextColumn Header="Телефон"/>
-                <DataGridTextColumn Header="Емейл" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Должность" Binding="{Binding Position}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Емейл" Width="170" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Должность" Width="180" Binding="{Binding Position}"/>
             </DataGrid.Columns>
         </DataGrid>
 
