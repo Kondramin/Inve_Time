@@ -4,14 +4,16 @@ using Inve_Time.DataBase.dll.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Inve_Time.DataBase.dll.Migrations
 {
     [DbContext(typeof(InveTimeDB))]
-    partial class InveTimeDBModelSnapshot : ModelSnapshot
+    [Migration("20210729130311_update_database")]
+    partial class update_database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

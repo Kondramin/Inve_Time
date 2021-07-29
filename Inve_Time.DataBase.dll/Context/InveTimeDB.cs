@@ -99,7 +99,7 @@ namespace Inve_Time.DataBase.dll.Context
             modelBuilder.Entity<Position>().HasData(
                 new Position[]
                 {
-                    new Position{Id=1, Name="Administrator", AccessLevel = 5 },
+                    new Position{Id=1, Name="Администратор", AccessLevel = 5 },
                     new Position{Id=2, Name="Менеджер магазина", AccessLevel = 2 },
                     new Position{Id=3, Name="Продавец", AccessLevel = 1 }
                 });
