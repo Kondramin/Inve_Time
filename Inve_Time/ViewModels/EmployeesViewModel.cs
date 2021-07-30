@@ -23,33 +23,50 @@ namespace Inve_Time.ViewModels
         {
             _EmployeeRepository = employeeRepository;
 
-            _EmployeesViewSource = new CollectionViewSource
-            {
-                Source = Employees.ToList(),
-                SortDescriptions =
-                {
-                    new SortDescription(nameof(EmpBaseInfo._FIO), ListSortDirection.Ascending)
-                }
 
-            };
-
-            _EmployeesViewSource.Filter += _EmployeesViewSource_Filter;
         }
 
-        private void _EmployeesViewSource_Filter(object sender, FilterEventArgs e)
+        
+
+        #region ObservableCollection<Employee> EmployeesCollection - collection of employees 
+
+        private ObservableCollection<Employee> _EmployeesCollection;
+        /// <summary>EmployeesCollection - collection of employees</summary>
+        public ObservableCollection<Employee> EmployeesCollection
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
+            get => _EmployeesCollection;
+            set
+            { 
+                if(Set(ref _EmployeesCollection, value))
+                {
+                    _EmployeesViewSource = new CollectionViewSource
+                    {
+                        Source = value,
+                        SortDescriptions =
+                        {
+                            new SortDescription(nameof(Employee.SecondName), ListSortDirection.Ascending)
+                        }
+                        
+                    };
 
-            if (!(empBaseInfo.Phone.Contains(FilterFIOWord)))
-            {
-                e.Accepted = false;
+                    _EmployeesViewSource.Filter += OnSecondNameFilter;
+                    _EmployeesViewSource.View.Refresh();
+
+                    OnPropertyChanged(nameof(EmployeesView));
+
+                }
             }
-
         }
 
+        private void OnSecondNameFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Employee employee) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
+            if (!(employee.SecondName.Contains(FilterFIOWord)))
+                e.Accepted = false;
+        }
 
-        public ObservableCollection<EmpBaseInfo> Employees { get; } = new ObservableCollection<EmpBaseInfo>();
+        #endregion
 
 
 
@@ -57,83 +74,99 @@ namespace Inve_Time.ViewModels
 
 
 
-            #region Filter Fields
+        #region Filter Fields
 
-            #region string EmployeeView FilterAny 
+        #region string EmployeeView FilterAny 
 
-            private string _FilterAnyWord;
-            /// <summary>EmployeeView FilterAny - searching word</summary>
-            public string FilterAnyWord
+        private string _FilterAnyWord;
+        /// <summary>EmployeeView FilterAny - searching word</summary>
+        public string FilterAnyWord
+        {
+            get => _FilterAnyWord;
+            set
             {
-                get => _FilterAnyWord;
-                set => Set(ref _FilterAnyWord, value);
+                if (Set(ref _FilterAnyWord, value))
+                    _EmployeesViewSource.View.Refresh();
             }
+        }
 
-            #endregion
+        #endregion
 
-            #region string EmployeeView FilterFIO 
+        #region string EmployeeView FilterFIO 
 
-            private string _FilterFIOWord;
-            /// <summary>EmployeeView FilterFIO - searching word</summary>
-            public string FilterFIOWord
+        private string _FilterFIOWord;
+        /// <summary>EmployeeView FilterFIO - searching word</summary>
+        public string FilterFIOWord
+        {
+            get => _FilterFIOWord;
+            set 
+            { 
+                if(Set(ref _FilterFIOWord, value))
+                    _EmployeesViewSource.View.Refresh();
+            } 
+        }
+
+        #endregion
+
+        #region string EmployeeView FilterPhone 
+
+        private string _FilterPhoneWord;
+        /// <summary>EmployeeView FilterPhone - searching word</summary>
+        public string FilterPhoneWord
+        {
+            get => _FilterPhoneWord;
+            set 
             {
-                get => _FilterFIOWord;
-                set => Set(ref _FilterFIOWord, value);
+                if (Set(ref _FilterPhoneWord, value))
+                    _EmployeesViewSource.View.Refresh();
             }
+        }
 
-            #endregion
+        #endregion
 
-            #region string EmployeeView FilterPhone 
+        #region string EmployeeView FilterEmail 
 
-            private string _FilterPhoneWord;
-            /// <summary>EmployeeView FilterPhone - searching word</summary>
-            public string FilterPhoneWord
+        private string _FilterEmailWord;
+        /// <summary>EmployeeView FilterEmail - searching word</summary>
+        public string FilterEmailWord
+        {
+            get => _FilterEmailWord;
+            set 
             {
-                get => _FilterPhoneWord;
-                set => Set(ref _FilterPhoneWord, value);
+                if(Set(ref _FilterEmailWord, value))
+                    _EmployeesViewSource.View.Refresh();
             }
+        }
 
-            #endregion
+        #endregion
 
-            #region string EmployeeView FilterEmail 
-
-            private string _FilterEmailWord;
-            /// <summary>EmployeeView FilterEmail - searching word</summary>
-            public string FilterEmailWord
-            {
-                get => _FilterEmailWord;
-                set => Set(ref _FilterEmailWord, value);
-            }
-
-            #endregion
-
-            #region string EmployeeView FilterPosition 
+        #region string EmployeeView FilterPosition 
 
         private string _FilterPositionWord;
         /// <summary>EmployeeView FilterPosition - searching word</summary>
         public string FilterPositionWord
         {
             get => _FilterPositionWord;
-            set => Set(ref _FilterPositionWord, value);
+            set
+            {
+                if(Set(ref _FilterPositionWord, value))
+                    _EmployeesViewSource.View.Refresh();
+            }
         }
 
         #endregion
 
         #endregion
 
-
-
         private CollectionViewSource _EmployeesViewSource;
 
-        public ICollectionView EmployeesView => _EmployeesViewSource.View;
-
-        
+        public ICollectionView EmployeesView => _EmployeesViewSource?.View;
 
 
 
         #endregion
 
-        
+
 
 
 
@@ -141,53 +174,54 @@ namespace Inve_Time.ViewModels
 
 
 
-            #region Command GetEmployeesCommand - Get Employees data from database
+        #region Command LoadEmployeesCommand - Load Employees from database
 
-            /// <summary>Get Employees data from database</summary>
-            private ICommand _GetEmployeesCommand;
-
-
-            /// <summary>Get Employees data from database</summary>
-            public ICommand GetEmployeesCommand => _GetEmployeesCommand
-                ??= new LambdaCommandAsync(OnGetEmployeesCommandExequted);
-
-            /// <summary>Execution logic - Get Employees data from database</summary>
-            /// <param name="p"></param>
-            public async Task OnGetEmployeesCommandExequted(object p)
-            {
-                await DownloadEpmloyeesInfoAsync();
-            }
-
-            private async Task DownloadEpmloyeesInfoAsync()
-            {
-                //TODO: реализовать сложную выборку.
-
-                var employeesInfo_query = _EmployeeRepository.Items;//.Select(e => new { id = e.Id, fName = e.Name, sName = e.SecondName, pName = e.Patronymic, email = e.Email }).GroupBy(e => e.sName);
+        /// <summary>Load Employees from database</summary>
+        private ICommand _LoadEmployeesCommand;
 
 
+        /// <summary>Load Employees from database</summary>
+        public ICommand LoadEmployeesCommand => _LoadEmployeesCommand
+            ??= new LambdaCommandAsync(OnLoadEmployeesCommandExequted);
 
-                Employees.Clear();
+        /// <summary>Execution logic - Load Employees from database</summary>
+        /// <param name="p"></param>
+        public async Task OnLoadEmployeesCommandExequted(object p)
+        {
+            EmployeesCollection = new ObservableCollection<Employee>(await _EmployeeRepository.Items.ToArrayAsync());
+            
+        }
 
-                foreach (var employees in await employeesInfo_query.ToArrayAsync())
-                {
-                    EmpBaseInfo epmBaseInfo = new EmpBaseInfo()
-                    {
-                        Id = employees.Id,
-                        _FIO = new FIO() { Name = employees.Name, SecName = employees.SecondName, Part = employees.Patronymic},
-                        Email = employees.Email,
-                        Position = employees.Position.Name, 
-                        Phone = employees.Phone
-                    };
+       //private async Task DownloadEpmloyeesInfoAsync()
+       // {
+       //     //TODO: реализовать сложную выборку.
 
-                    Employees.Add(epmBaseInfo);
-                }
-            }
-
-            #endregion
+       //     var employeesInfo_query = _EmployeeRepository.Items;//.Select(e => new { id = e.Id, fName = e.Name, sName = e.SecondName, pName = e.Patronymic, email = e.Email }).GroupBy(e => e.sName);
 
 
 
-            #region Command CleanFilterFieldsCommand - Clean filter fields
+       //     Employees.Clear();
+
+       //     foreach (var employees in await employeesInfo_query.ToArrayAsync())
+       //     {
+       //         EmpBaseInfo epmBaseInfo = new EmpBaseInfo()
+       //         {
+       //             Id = employees.Id,
+       //             _FIO = new FIO() { Name = employees.Name, SecName = employees.SecondName, Part = employees.Patronymic },
+       //             Email = employees.Email,
+       //             Position = employees.Position.Name,
+       //             Phone = employees.Phone
+       //         };
+
+       //         Employees.Add(epmBaseInfo);
+       //     }
+       // }
+
+        #endregion
+
+
+
+        #region Command CleanFilterFieldsCommand - Clean filter fields
 
         /// <summary>Clean filter fields</summary>
         private ICommand _CleanFilterFieldsCommand;

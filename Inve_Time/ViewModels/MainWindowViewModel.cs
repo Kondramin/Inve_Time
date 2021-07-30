@@ -13,7 +13,7 @@ namespace Inve_Time.ViewModels
     {
         public static Employee MainWindowEmployee;
 
-        
+
         private readonly IRepository<Category> _CategoryRepository;
         private readonly IRepository<Employee> _EmployeeRepository;
 
@@ -93,7 +93,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - ReAutisated in application</summary>
         /// <param name="p"></param>
         public void OnReAutorisationInAppCommandExequted(object p)
-        {   
+        {
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
@@ -152,7 +152,7 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Show SettingsAutoSearchCategoryView</summary>
         private ICommand _ShowSettingsAutoSearchCategoryViewCommand;
-        
+
 
         /// <summary>Show SettingsAutoSearchCategoryView</summary>
         public ICommand ShowSettingsAutoSearchCategoryViewCommand => _ShowSettingsAutoSearchCategoryViewCommand
@@ -205,7 +205,7 @@ namespace Inve_Time.ViewModels
             IRepository<Category> CategoryRepository,
             IRepository<Employee> EmployeeRepository
             )
-        {   
+        {
             _CategoryRepository = CategoryRepository;
             _EmployeeRepository = EmployeeRepository;
         }

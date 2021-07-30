@@ -14,7 +14,7 @@ namespace Inve_Time.Services
         private readonly IRepository<ProductInvented> _ProductInventedRepository;
         private readonly InveTimeDB _Db;
 
-        
+
 
         public ParserService(IRepository<ProductInvented> ProductInventedRepository, InveTimeDB db)
         {
@@ -32,7 +32,7 @@ namespace Inve_Time.Services
                 var workSheet = workBook.Worksheet(1);
 
                 bool firstRow = true;
-                
+
                 foreach (var row in workSheet.Rows())
                 {
                     if (firstRow)
@@ -73,15 +73,15 @@ namespace Inve_Time.Services
             }
 
         }
-        
+
         public async Task<DataTable> GetDataFromExeleAsync(string path)
         {
             var dt = await Task.Run(() => GetDataFromExele(path));
             return dt;
         }
-        
-        
-        
+
+
+
         public void SaveDataInDataBase(DataTable data)
         {
             _ProductInventedRepository.AutoSaveChanges = false;

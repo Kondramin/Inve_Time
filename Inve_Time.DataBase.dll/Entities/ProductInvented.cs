@@ -1,5 +1,4 @@
-﻿using Inve_Time.DataBase.dll.Entities.Base;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Inve_Time.DataBase.dll.Entities
 {

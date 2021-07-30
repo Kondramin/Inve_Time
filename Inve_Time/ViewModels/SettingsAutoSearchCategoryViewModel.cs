@@ -15,7 +15,7 @@ namespace Inve_Time.ViewModels
         private readonly IRepository<Category> _CategoryRepository;
 
         public ObservableCollection<Category> CategoryHelpSearchesr { get; } = new ObservableCollection<Category>();
-        
+
         #region Commands
 
         #region Command CategoryHelpSearchesrCommand - Get category with help searchers data from database
@@ -50,7 +50,7 @@ namespace Inve_Time.ViewModels
             }
         }
 
-        
+
 
         #endregion
 

@@ -10,7 +10,7 @@ namespace Inve_Time.DataBase.dll.Entities
         public string VendorCode { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Cost { get; set; }
-        
+
 
 
         public ICollection<ProductInvented> ProductInventeds { get; set; }
@@ -18,6 +18,6 @@ namespace Inve_Time.DataBase.dll.Entities
 
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
-    
+
     }
 }

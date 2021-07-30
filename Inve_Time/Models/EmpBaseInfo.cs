@@ -20,8 +20,8 @@
 
         public override string ToString()
         {
-            return SecName +" "+ Name + " " + Part;
+            return SecName + " " + Name + " " + Part;
         }
     }
-        
+
 }

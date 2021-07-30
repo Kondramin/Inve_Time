@@ -29,7 +29,7 @@ namespace Inve_Time.ViewModels
         #region string AutorisationWindow LoginTextBox
 
         private string _LoginTextBox;
-        
+
         /// <summary>AutorisationWindow LoginTextBox</summary>
         public string LoginTextBox
         {
@@ -50,7 +50,7 @@ namespace Inve_Time.ViewModels
         private void OnAutorisationCommandExequted(object p)
         {
             PasswordBox pwdBox = p as PasswordBox;
-            if(_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
+            if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
             {
                 MainWindowViewModel.MainWindowEmployee = _AutorisationService.AutorisatedUser;
                 var mainWindow = new MainWindow();
@@ -70,7 +70,7 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        
+
         public AutorisationWindowViewModel(IAutorisationService autorisationService)
         {
             _AutorisationService = autorisationService;
@@ -81,8 +81,8 @@ namespace Inve_Time.ViewModels
             #region Commands
 
             AutorisationCommand = new LambdaCommand(OnAutorisationCommandExequted);
-            
-            #endregion 
+
+            #endregion
         }
     }
 }
