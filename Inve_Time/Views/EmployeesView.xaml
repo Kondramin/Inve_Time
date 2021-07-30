@@ -38,16 +38,25 @@
     </UserControl.Resources>
     
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
+        
+        <!--<Grid.Resources>
+            <CollectionViewSource x:Key="EmployeesView"
+                                  Source="{Binding Employees}">
+                
+            </CollectionViewSource>
+        </Grid.Resources>-->
 
 
         <DataGrid 
             Grid.Column="0"
             Margin="5"
-            ItemsSource="{Binding Employees}">
+            ItemsSource="{Binding EmployeesView}">
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding _FIO}"/>
@@ -76,38 +85,38 @@
 
                 <Grid>
                     <TextBlock Text="Всё"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterAnyWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>
-                <Grid>
-                    <TextBlock Text="Номер#"/>
-                    <TextBox/>
-                </Grid>
-                <Label/>
+                
                 <Grid>
                     <TextBlock Text="ФИО"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterFIOWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>
+                
                 <Grid>
                     <TextBlock Text="Телефон"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterPhoneWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>
+                
                 <Grid>
                     <TextBlock Text="Емаил"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterEmailWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>
+                
                 <Grid>
                     <TextBlock Text="Должность"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterPositionWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 
                 <Label Height="23"/>
                 
                 <Button
-                    Content="Очистить фильтры"/>
+                    Content="Очистить фильтры"
+                    Command="{Binding CleanFilterFieldsCommand}"/>
                 
             </StackPanel>
 
