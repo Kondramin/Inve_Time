@@ -43,10 +43,23 @@
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        
-        
-        
+
         <DataGrid 
+            Grid.Column="0"
+            Margin="5"
+            ItemsSource="{Binding EmployeesCollection}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding SecondName}">
+                    
+                </DataGridTextColumn>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Емейл" Width="170" Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Должность" Width="180" Binding="{Binding Position.Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <!--<DataGrid        Это основной, тестим привязки
             Grid.Column="0"
             Margin="5"
             ItemsSource="{Binding EmployeesView}">
@@ -56,7 +69,7 @@
                 <DataGridTextColumn Header="Емейл" Width="170" Binding="{Binding Email}"/>
                 <DataGridTextColumn Header="Должность" Width="180" Binding="{Binding Position.Name}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
 
         <Grid
             Grid.Column="1"

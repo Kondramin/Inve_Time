@@ -3,7 +3,7 @@
     class EmpBaseInfo
     {
         public int Id { get; set; }
-        public FIO _FIO { get; set; }
+        public FIO SecName_FirstName_Part { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
 
