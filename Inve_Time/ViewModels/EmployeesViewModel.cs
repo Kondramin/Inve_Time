@@ -47,7 +47,11 @@ namespace Inve_Time.ViewModels
                         
                     };
 
-                    _EmployeesViewSource.Filter += OnSecondNameFilter;
+                    _EmployeesViewSource.Filter += OnAnyFilter;
+                    _EmployeesViewSource.Filter += OnFIOFilter;
+                    _EmployeesViewSource.Filter += OnPhoneFilter;
+                    _EmployeesViewSource.Filter += OnEmailFilter;
+                    _EmployeesViewSource.Filter += OnPositionNameFilter;
                     _EmployeesViewSource.View.Refresh();
 
                     OnPropertyChanged(nameof(EmployeesView));
@@ -56,7 +60,29 @@ namespace Inve_Time.ViewModels
             }
         }
 
-        private void OnSecondNameFilter(object sender, FilterEventArgs e)
+
+        #endregion
+
+
+
+        private CollectionViewSource _EmployeesViewSource;
+
+        public ICollectionView EmployeesView => _EmployeesViewSource?.View;
+
+
+
+        #region About Filters
+
+
+        private void OnAnyFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
+
+            if (!(employeeBaseInfo.Any.Contains(FilterAnyWord)))
+                e.Accepted = false;
+        }
+
+        private void OnFIOFilter(object sender, FilterEventArgs e)
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
@@ -64,15 +90,34 @@ namespace Inve_Time.ViewModels
                 e.Accepted = false;
         }
 
-        #endregion
+        private void OnPhoneFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
 
+            if (!(employeeBaseInfo.Phone.Contains(FilterPhoneWord)))
+                e.Accepted = false;
+        }
 
+        private void OnEmailFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
 
-        #region About Filters
+            if (!(employeeBaseInfo.Email.Contains(FilterEmailWord)))
+                e.Accepted = false;
+        }
+
+        private void OnPositionNameFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
+
+            if (!(employeeBaseInfo.PositionName.Contains(FilterPositionWord)))
+                e.Accepted = false;
+        }
 
 
 
         #region Filter Fields
+
 
         #region string EmployeeView FilterAny 
 
@@ -154,11 +199,8 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
         #endregion
-
-        private CollectionViewSource _EmployeesViewSource;
-
-        public ICollectionView EmployeesView => _EmployeesViewSource?.View;
 
 
 

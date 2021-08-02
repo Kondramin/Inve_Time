@@ -10,9 +10,6 @@ namespace Inve_Time.Models
         public string Patronymic { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-
-
-
         public string PositionName { get; set; }
 
 
@@ -22,6 +19,14 @@ namespace Inve_Time.Models
             get
             {
                 return this.SecondName + " " + this.Name + " " + this.Patronymic;
+            }
+        }
+
+        public string Any
+        {
+            get
+            {
+                return this.SecondName + this.Name + this.Patronymic + this.Phone + this.Email + this.PositionName;
             }
         }
 
