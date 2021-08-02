@@ -22,17 +22,15 @@ namespace Inve_Time.ViewModels
         public EmployeesViewModel(IRepository<Employee> employeeRepository)
         {
             _EmployeeRepository = employeeRepository;
-
-
         }
 
-        
 
-        #region ObservableCollection<Employee> EmployeesCollection - collection of employees 
 
-        private ObservableCollection<Employee> _EmployeesCollection;
+        #region ObservableCollection<EmployeeBaseInfo> EmployeesCollection - collection of employees 
+
+        private ObservableCollection<EmployeeBaseInfo> _EmployeesCollection;
         /// <summary>EmployeesCollection - collection of employees</summary>
-        public ObservableCollection<Employee> EmployeesCollection
+        public ObservableCollection<EmployeeBaseInfo> EmployeesCollection
         {
             get => _EmployeesCollection;
             set
@@ -44,7 +42,7 @@ namespace Inve_Time.ViewModels
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(Employee.SecondName), ListSortDirection.Ascending)
+                            new SortDescription(nameof(EmployeeBaseInfo.Fio), ListSortDirection.Ascending)
                         }
                         
                     };
@@ -60,9 +58,9 @@ namespace Inve_Time.ViewModels
 
         private void OnSecondNameFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is Employee employee) || string.IsNullOrEmpty(FilterFIOWord)) return;
+            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
-            if (!(employee.SecondName.Contains(FilterFIOWord)))
+            if (!(employeeBaseInfo.Fio.Contains(FilterFIOWord)))
                 e.Accepted = false;
         }
 
@@ -188,37 +186,26 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
-            EmployeesCollection = new ObservableCollection<Employee>(await _EmployeeRepository.Items.ToArrayAsync());
+            EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>(await _EmployeeRepository.Items
+                //.OrderBy(p => p.SecondName)
+                .Select(e => new EmployeeBaseInfo
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    SecondName = e.SecondName,
+                    Patronymic = e.Patronymic,
+                    Phone = e.Phone,
+                    Email = e.Email,
+                    PositionName = e.Position.Name
+                })
+                .OrderBy(p => p.SecondName)
+                .ThenBy(p => p.Name)
+                .ThenBy(p => p.Patronymic)
+                .ToArrayAsync());
             
         }
 
-        //private async Task DownloadEpmloyeesInfoAsync()
-       // {
-       //     //TODO: реализовать сложную выборку.
-
-       //     var employeesInfo_query = _EmployeeRepository.Items;//.Select(e => new { id = e.Id, fName = e.Name, sName = e.SecondName, pName = e.Patronymic, email = e.Email }).GroupBy(e => e.sName);
-
-
-
-       //     Employees.Clear();
-
-       //     foreach (var employees in await employeesInfo_query.ToArrayAsync())
-       //     {
-       //         EmpBaseInfo epmBaseInfo = new EmpBaseInfo()
-       //         {
-       //             Id = employees.Id,
-       //             _FIO = new FIO() { Name = employees.Name, SecName = employees.SecondName, Part = employees.Patronymic },
-       //             Email = employees.Email,
-       //             Position = employees.Position.Name,
-       //             Phone = employees.Phone
-       //         };
-
-       //         Employees.Add(epmBaseInfo);
-       //     }
-       // }
-
         #endregion
-
 
 
         #region Command CleanFilterFieldsCommand - Clean filter fields
