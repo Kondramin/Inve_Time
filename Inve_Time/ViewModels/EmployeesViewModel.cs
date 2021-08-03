@@ -64,11 +64,23 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-
         private CollectionViewSource _EmployeesViewSource;
+
 
         public ICollectionView EmployeesView => _EmployeesViewSource?.View;
 
+
+        #region EmployeeBaseInfo SelectedEmployee
+
+        private EmployeeBaseInfo _SelectedEmployee;
+        /// <summary>SelectedEmployee</summary>
+        public EmployeeBaseInfo SelectedEmployee
+        {
+            get => _SelectedEmployee;
+            set => Set(ref _SelectedEmployee, value);
+        }
+
+        #endregion
 
 
         #region About Filters
@@ -274,6 +286,99 @@ namespace Inve_Time.ViewModels
             FilterPositionWord = null;
         }
 
+        #endregion
+
+
+        #region Command AddNewEmployeeCommand - Add new employee
+
+        /// <summary>Add new employee</summary>
+        private ICommand _AddNewEmployeeCommand;
+
+        /// <summary>Add new employee</summary>
+        public ICommand AddNewEmployeeCommand => _AddNewEmployeeCommand
+            ??= new LambdaCommand(OnAddNewEmployeeCommandExequted, CanAddNewEmployeeCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Add new employee</summary>
+        /// <param name="p"></param>
+        public bool CanAddNewEmployeeCommandExequt(object p)
+        {
+            int requiredAccessLevel = 2;
+
+            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+            else return true;
+        }
+
+        /// <summary>Execution logic - Add new employee</summary>
+        /// <param name="p"></param>
+        public void OnAddNewEmployeeCommandExequted(object p)
+        {
+        }
+
+        #endregion
+
+
+        #region Command ModifiEmployeeCommand - Modifi employee
+
+        /// <summary>Modifi employee</summary>
+        private ICommand _ModifiEmployeeCommand;
+
+        /// <summary>Modifi employee</summary>
+        public ICommand ModifiEmployeeCommand => _ModifiEmployeeCommand
+            ??= new LambdaCommand(OnModifiEmployeeCommandExequted, CanModifiEmployeeCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Modifi employee</summary>
+        /// <param name="p"></param>
+        public bool CanModifiEmployeeCommandExequt(object p)
+        {
+            int requiredAccessLevel = 2;
+
+
+            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+
+
+            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            else return true;
+        }
+
+        /// <summary>Execution logic - Modifi employee</summary>
+        /// <param name="p"></param>
+        public void OnModifiEmployeeCommandExequted(object p)
+        {
+
+        }
+
+        #endregion
+
+
+        #region Command RemoveEmployeeCommand - Remove employee
+
+        /// <summary>Remove employee</summary>
+        private ICommand _RemoveEmployeeCommand;
+
+        /// <summary>Remove employee</summary>
+        public ICommand RemoveEmployeeCommand => _RemoveEmployeeCommand
+            ??= new LambdaCommand(OnRemoveEmployeeCommandExequted, CanRemoveEmployeeCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Remove employee</summary>
+        /// <param name="p"></param>
+        public bool CanRemoveEmployeeCommandExequt(object p)
+        {
+            int requiredAccessLevel = 5;
+
+
+            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+
+
+            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            else return true;
+        }
+
+        /// <summary>Execution logic - Remove employee</summary>
+        /// <param name="p"></param>
+        public void OnRemoveEmployeeCommandExequted(object p)
+        {
+            
+        }
 
         #endregion
 
