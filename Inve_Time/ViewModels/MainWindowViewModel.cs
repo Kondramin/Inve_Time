@@ -1,7 +1,7 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
-using Inve_Time.Models;
+using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using System.Diagnostics;
 using System.Windows;
@@ -12,11 +12,23 @@ namespace Inve_Time.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        public static EmployeeBaseInfo AutorisatedEmployee;
+        public static Employee AutorisatedEmployee;
 
 
         private readonly IRepository<Category> _CategoryRepository;
         private readonly IRepository<Employee> _EmployeeRepository;
+        private readonly IUserDialog _UserDialog;
+
+        public MainWindowViewModel(
+            IRepository<Category> CategoryRepository,
+            IRepository<Employee> EmployeeRepository,
+            IUserDialog userDialog
+            )
+        {
+            _CategoryRepository = CategoryRepository;
+            _EmployeeRepository = EmployeeRepository;
+            _UserDialog = userDialog;
+        }
 
 
 
@@ -191,7 +203,7 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public void OnShowEmployeesViewCommandExequted(object p)
         {
-            CurrentModel = new EmployeesViewModel(_EmployeeRepository);
+            CurrentModel = new EmployeesViewModel(_EmployeeRepository, _UserDialog);
         }
 
 
@@ -199,16 +211,5 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-
-
-
-        public MainWindowViewModel(
-            IRepository<Category> CategoryRepository,
-            IRepository<Employee> EmployeeRepository
-            )
-        {
-            _CategoryRepository = CategoryRepository;
-            _EmployeeRepository = EmployeeRepository;
-        }
     }
 }
