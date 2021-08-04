@@ -31,6 +31,7 @@
 
             <Button 
                 Content="Вход"
+                IsDefault="True"
                 Command="{Binding AutorisationCommand}"
                 CommandParameter="{Binding ElementName=pwdBox}"
                 HorizontalAlignment="Left" 
@@ -39,7 +40,8 @@
             <Button
                 Content="Выход" 
                 HorizontalAlignment="Right" 
-                Width="150">
+                Width="150"
+                IsCancel="True">
                 <Button.Command>
                     <cmd:CloseAppCommand/>
                 </Button.Command>
