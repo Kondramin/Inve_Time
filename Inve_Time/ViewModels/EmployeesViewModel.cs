@@ -90,7 +90,7 @@ namespace Inve_Time.ViewModels
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
 
-            if (!(employeeBaseInfo.Any.Contains(FilterAnyWord)))
+            if (!(employeeBaseInfo.Any.ToLower().Contains(FilterAnyWord)))
                 e.Accepted = false;
         }
 
@@ -98,7 +98,7 @@ namespace Inve_Time.ViewModels
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
-            if (!(employeeBaseInfo.Fio.Contains(FilterFIOWord)))
+            if (!(employeeBaseInfo.Fio.ToLower().Contains(FilterFIOWord)))
                 e.Accepted = false;
         }
 
@@ -106,7 +106,7 @@ namespace Inve_Time.ViewModels
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
 
-            if (!(employeeBaseInfo.Phone.Contains(FilterPhoneWord)))
+            if (!(employeeBaseInfo.Phone.ToLower().Contains(FilterPhoneWord)))
                 e.Accepted = false;
         }
 
@@ -114,7 +114,7 @@ namespace Inve_Time.ViewModels
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
 
-            if (!(employeeBaseInfo.Email.Contains(FilterEmailWord)))
+            if (!(employeeBaseInfo.Email.ToLower().Contains(FilterEmailWord)))
                 e.Accepted = false;
         }
 
@@ -122,7 +122,7 @@ namespace Inve_Time.ViewModels
         {
             if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
 
-            if (!(employeeBaseInfo.PositionName.Contains(FilterPositionWord)))
+            if (!(employeeBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord)))
                 e.Accepted = false;
         }
 
@@ -250,7 +250,7 @@ namespace Inve_Time.ViewModels
                     Patronymic = e.Patronymic,
                     Phone = e.Phone,
                     Email = e.Email,
-                    PositionName = e.Position.Name
+                    Position = e.Position
                 })
                 .OrderBy(p => p.SecondName)
                 .ThenBy(p => p.Name)
@@ -304,7 +304,7 @@ namespace Inve_Time.ViewModels
         {
             int requiredAccessLevel = 2;
 
-            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
             else return true;
         }
 
@@ -333,7 +333,7 @@ namespace Inve_Time.ViewModels
             int requiredAccessLevel = 2;
 
 
-            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
 
             if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
@@ -366,7 +366,7 @@ namespace Inve_Time.ViewModels
             int requiredAccessLevel = 5;
 
 
-            if (MainWindowViewModel.MainWindowEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
 
             if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
