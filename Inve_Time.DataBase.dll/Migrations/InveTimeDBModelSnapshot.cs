@@ -207,8 +207,11 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PasswodrId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PasswordId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(max)");
@@ -224,6 +227,8 @@ namespace Inve_Time.DataBase.dll.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PasswordId");
+
                     b.HasIndex("PositionId");
 
                     b.ToTable("Employees");
@@ -234,7 +239,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                             Id = 1,
                             Login = "Admin",
                             Name = "Admin",
-                            Password = "Admin",
+                            PasswodrId = 1,
                             PositionId = 1,
                             SecondName = "Admin"
                         });
@@ -466,6 +471,28 @@ namespace Inve_Time.DataBase.dll.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Password", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Passwords");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "admin"
+                        });
+                });
+
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Position", b =>
                 {
                     b.Property<int>("Id")
@@ -589,9 +616,15 @@ namespace Inve_Time.DataBase.dll.Migrations
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Employee", b =>
                 {
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.Password", "Password")
+                        .WithMany()
+                        .HasForeignKey("PasswordId");
+
                     b.HasOne("Inve_Time.DataBase.dll.Entities.Position", "Position")
                         .WithMany("Employees")
                         .HasForeignKey("PositionId");
+
+                    b.Navigation("Password");
 
                     b.Navigation("Position");
                 });

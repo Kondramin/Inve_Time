@@ -18,6 +18,7 @@ namespace Inve_Time.DataBase.dll.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<HelpCategorySearch> HelpCategorySearchers { get; set; }
         public DbSet<CurrentInventarisation> CurrentInventarisations { get; set; }
+        public DbSet<Password> Passwords { get; set; }
 
 
         #endregion
@@ -103,10 +104,14 @@ namespace Inve_Time.DataBase.dll.Context
                     new Position{Id=2, Name="Менеджер магазина", AccessLevel = 2 },
                     new Position{Id=3, Name="Продавец", AccessLevel = 1 }
                 });
+            
             modelBuilder.Entity<Employee>().HasData(
-                new Employee { Id = 1, Name = "Admin", SecondName = "Admin", Login = "Admin", Password = "Admin", PositionId = 1 }
+                new Employee { Id = 1, Name = "Admin", SecondName = "Admin", Login = "Admin", PasswodrId =1, PositionId = 1 }
                 );
 
+            modelBuilder.Entity<Password>().HasData(
+                new Password { Id = 1, Name = "admin"}
+                );
         }
         #endregion
 
