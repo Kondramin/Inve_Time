@@ -100,17 +100,17 @@ namespace Inve_Time.DataBase.dll.Context
             modelBuilder.Entity<Position>().HasData(
                 new Position[]
                 {
-                    new Position{Id=1, Name="Администратор", AccessLevel = 5 },
-                    new Position{Id=2, Name="Менеджер магазина", AccessLevel = 2 },
+                    new Position{Id=1, Name="Администратор", AccessLevel = 10 },
+                    new Position{Id=2, Name="Менеджер магазина", AccessLevel = 5 },
                     new Position{Id=3, Name="Продавец", AccessLevel = 1 }
                 });
             
             modelBuilder.Entity<Employee>().HasData(
-                new Employee { Id = 1, Name = "Admin", SecondName = "Admin", Login = "Admin", PasswodrId =1, PositionId = 1 }
+                new Employee { Id = 1, Name = "Admin", SecondName = "Admin", Login = "Admin", PasswodrId = 1, PositionId = 1 }
                 );
 
             modelBuilder.Entity<Password>().HasData(
-                new Password { Id = 1, Name = "admin"}
+                new Password { Id = 1, Name = "admin", EmployeeId = 1}
                 );
         }
         #endregion

@@ -210,9 +210,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Property<int?>("PasswodrId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PasswordId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(max)");
 
@@ -226,8 +223,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PasswordId");
 
                     b.HasIndex("PositionId");
 
@@ -478,10 +473,17 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique()
+                        .HasFilter("[EmployeeId] IS NOT NULL");
 
                     b.ToTable("Passwords");
 
@@ -489,6 +491,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                         new
                         {
                             Id = 1,
+                            EmployeeId = 1,
                             Name = "admin"
                         });
                 });
@@ -514,13 +517,13 @@ namespace Inve_Time.DataBase.dll.Migrations
                         new
                         {
                             Id = 1,
-                            AccessLevel = 5,
+                            AccessLevel = 10,
                             Name = "Администратор"
                         },
                         new
                         {
                             Id = 2,
-                            AccessLevel = 2,
+                            AccessLevel = 5,
                             Name = "Менеджер магазина"
                         },
                         new
@@ -616,15 +619,9 @@ namespace Inve_Time.DataBase.dll.Migrations
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Employee", b =>
                 {
-                    b.HasOne("Inve_Time.DataBase.dll.Entities.Password", "Password")
-                        .WithMany()
-                        .HasForeignKey("PasswordId");
-
                     b.HasOne("Inve_Time.DataBase.dll.Entities.Position", "Position")
                         .WithMany("Employees")
                         .HasForeignKey("PositionId");
-
-                    b.Navigation("Password");
 
                     b.Navigation("Position");
                 });
@@ -636,6 +633,15 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Password", b =>
+                {
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.Employee", "Employee")
+                        .WithOne("Password")
+                        .HasForeignKey("Inve_Time.DataBase.dll.Entities.Password", "EmployeeId");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductBase", b =>
@@ -666,6 +672,8 @@ namespace Inve_Time.DataBase.dll.Migrations
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Employee", b =>
                 {
                     b.Navigation("CurrentInventarisations");
+
+                    b.Navigation("Password");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Position", b =>
