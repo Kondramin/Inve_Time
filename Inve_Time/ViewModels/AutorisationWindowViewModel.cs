@@ -43,29 +43,16 @@ namespace Inve_Time.ViewModels
 
         #region Commands
 
+        #region AutorisationCommand
 
-        #region Command AutorisationCommand - Add new employee
+        public ICommand AutorisationCommand { get; }
 
-        /// <summary>Add new employee</summary>
-        private ICommand _AutorisationCommand;
-
-        /// <summary>Add new employee</summary>
-        public ICommand AutorisationCommand => _AutorisationCommand
-            ??= new LambdaCommand(OnAutorisationCommandExequted, CanAutorisationCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Add new employee</summary>
-        /// <param name="p"></param>
-        public bool CanAutorisationCommandExequt(object p) => true;
-
-        /// <summary>Execution logic - Add new employee</summary>
-        /// <param name="p"></param>
-        public void OnAutorisationCommandExequted(object p)
+        private void OnAutorisationCommandExequted(object p)
         {
             PasswordBox pwdBox = p as PasswordBox;
-
             if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
             {
-                MainWindowViewModel.AutorisatedEmployee = _AutorisationService.AutorisatedUser;
+                MainWindowViewModel.MainWindowEmployee = _AutorisationService.AutorisatedUser;
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
@@ -80,7 +67,6 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-
         #endregion
 
 
@@ -88,6 +74,15 @@ namespace Inve_Time.ViewModels
         public AutorisationWindowViewModel(IAutorisationService autorisationService)
         {
             _AutorisationService = autorisationService;
+
+
+
+
+            #region Commands
+
+            AutorisationCommand = new LambdaCommand(OnAutorisationCommandExequted);
+
+            #endregion
         }
     }
 }

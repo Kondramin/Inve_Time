@@ -1,7 +1,6 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
-using Inve_Time.Models;
 using Inve_Time.ViewModels.Base;
 using System.Diagnostics;
 using System.Windows;
@@ -12,7 +11,7 @@ namespace Inve_Time.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        public static EmployeeBaseInfo AutorisatedEmployee;
+        public static Employee MainWindowEmployee;
 
 
         private readonly IRepository<Category> _CategoryRepository;
@@ -36,7 +35,7 @@ namespace Inve_Time.ViewModels
 
         #region string MainWindow StatusBarEmployeeName
 
-        private string _StatusBarEmployeeName = AutorisatedEmployee.Name;
+        private string _StatusBarEmployeeName = MainWindowEmployee.Name;
 
         /// <summary>MainWindow StatusBarEmployeeName</summary>
         public string StatusBarEmployeeName
@@ -50,7 +49,7 @@ namespace Inve_Time.ViewModels
 
         #region string MainWindow StatusBarEmployeePositionName
 
-        private string _StatusBarEmployeePositionName = AutorisatedEmployee.Position.Name;
+        private string _StatusBarEmployeePositionName = MainWindowEmployee.Position.Name;
 
         /// <summary>MainWindow StatusBarEmployeePositionName</summary>
         public string StatusBarEmployeePositionName

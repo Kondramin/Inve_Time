@@ -53,7 +53,7 @@
                 <DataGridTextColumn Header="ФИО" Width="*" Binding="{Binding Fio}" />
                 <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
                 <DataGridTextColumn Header="Емейл" Width="170" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Должность" Width="180" Binding="{Binding Position.Name}"/>
+                <DataGridTextColumn Header="Должность" Width="180" Binding="{Binding PositionName}"/>
             </DataGrid.Columns>
         </DataGrid>
 
