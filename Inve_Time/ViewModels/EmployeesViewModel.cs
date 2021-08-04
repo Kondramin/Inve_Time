@@ -2,6 +2,7 @@
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
 using Inve_Time.Models;
+using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
@@ -17,19 +18,21 @@ namespace Inve_Time.ViewModels
     {
 
         private IRepository<Employee> _EmployeeRepository;
+        private readonly IUserDialog _UserDialog;
 
-
-
-        public EmployeesViewModel(IRepository<Employee> employeeRepository)
+        public EmployeesViewModel(
+            IRepository<Employee> employeeRepository,
+            IUserDialog userDialog)
         {
             _EmployeeRepository = employeeRepository;
+            _UserDialog = userDialog;
         }
 
 
 
         #region ObservableCollection<EmployeeBaseInfo> EmployeesCollection - collection of employees 
 
-        private ObservableCollection<EmployeeBaseInfo> _EmployeesCollection;
+        private ObservableCollection<EmployeeBaseInfo> _EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>();
         /// <summary>EmployeesCollection - collection of employees</summary>
         public ObservableCollection<EmployeeBaseInfo> EmployeesCollection
         {
@@ -243,22 +246,21 @@ namespace Inve_Time.ViewModels
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
             EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>(await _EmployeeRepository.Items
-                //.OrderBy(p => p.SecondName)
-                .Select(e => new EmployeeBaseInfo
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    SecondName = e.SecondName,
-                    Patronymic = e.Patronymic,
-                    Phone = e.Phone,
-                    Email = e.Email,
-                    Position = e.Position
-                })
-                .OrderBy(p => p.SecondName)
-                .ThenBy(p => p.Name)
-                .ThenBy(p => p.Patronymic)
-                .ToArrayAsync());
-            
+            .Select(e => new EmployeeBaseInfo
+            {
+                Id = e.Id,
+                Name = e.Name,
+                SecondName = e.SecondName,
+                Patronymic = e.Patronymic,
+                Phone = e.Phone,
+                Email = e.Email,
+                Position = e.Position
+            })
+            .OrderBy(p => p.SecondName)
+            .ThenBy(p => p.Name)
+            .ThenBy(p => p.Patronymic)
+            .ToArrayAsync());
+
         }
 
         #endregion
@@ -316,7 +318,9 @@ namespace Inve_Time.ViewModels
         {
             var new_employee = new Employee();
 
+            if (_UserDialog.Edit(new_employee)) return;
 
+           _EmployeesCollection.Add((EmployeeBaseInfo)_EmployeeRepository.Add(new_employee));
         }
 
         #endregion
