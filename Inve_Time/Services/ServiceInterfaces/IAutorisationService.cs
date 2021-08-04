@@ -1,4 +1,4 @@
-﻿using Inve_Time.Models;
+﻿using Inve_Time.DataBase.dll.Entities;
 
 namespace Inve_Time.Services.ServiceInterfaces
 {
@@ -7,7 +7,7 @@ namespace Inve_Time.Services.ServiceInterfaces
         /// <summary>
         /// Property, contained info about autorisated user
         /// </summary>
-        EmployeeBaseInfo AutorisatedUser { get; set; }
+        Employee AutorisatedUser { get; set; }
 
         /// <summary>
         /// Save entity autorisated user
@@ -15,7 +15,7 @@ namespace Inve_Time.Services.ServiceInterfaces
         /// <param name="login">Input login</param>
         /// <param name="password">Input password</param>
         /// <returns></returns>
-        EmployeeBaseInfo SaveAutorisatedUser(string login, string password);
+        Employee SaveAutorisatedUser(string login, string password);
 
         /// <summary>
         /// Validate user in app. If return "true" - method "SaveAutorisatedUser" will be called automatically
