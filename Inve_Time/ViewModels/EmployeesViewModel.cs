@@ -314,6 +314,9 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public void OnAddNewEmployeeCommandExequted(object p)
         {
+            var new_employee = new Employee();
+
+
         }
 
         #endregion
@@ -379,7 +382,7 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public void OnRemoveEmployeeCommandExequted(object p)
         {
-            
+            var employee_to_remove = p ?? SelectedEmployee;
         }
 
         #endregion
