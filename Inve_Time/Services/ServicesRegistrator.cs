@@ -9,6 +9,7 @@ namespace Inve_Time.Services
             .AddTransient<IParserService, ParserService>()
             .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
             .AddTransient<IAutorisationService, AutorisationService>()
+            .AddTransient<IUserDialog, UserDialogService>()
             ;
     }
 }
