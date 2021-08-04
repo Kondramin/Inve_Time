@@ -9,8 +9,15 @@ namespace Inve_Time.ViewModels
 {
     class AutorisationWindowViewModel : ViewModel
     {
+
+
         private readonly IAutorisationService _AutorisationService;
 
+
+        public AutorisationWindowViewModel(IAutorisationService autorisationService)
+        {
+            _AutorisationService = autorisationService;
+        }
 
 
         #region string AutorisationWindow Title  = "Авторизуйтесь в системе"
@@ -43,16 +50,30 @@ namespace Inve_Time.ViewModels
 
         #region Commands
 
-        #region AutorisationCommand
 
-        public ICommand AutorisationCommand { get; }
+        #region Command AutorisationCommand - Autorisation in app 
 
-        private void OnAutorisationCommandExequted(object p)
+        /// <summary>Autorisation in app </summary>
+        private ICommand _AutorisationCommand;
+
+        /// <summary>Autorisation in app </summary>
+        public ICommand AutorisationCommand => _AutorisationCommand
+            ??= new LambdaCommand(OnAutorisationCommandExequted, CanAutorisationCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Autorisation in app </summary>
+        /// <param name="p"></param>
+        public bool CanAutorisationCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Autorisation in app </summary>
+        /// <param name="p">PasswordBox</param>
+        public void OnAutorisationCommandExequted(object p)
         {
+
             PasswordBox pwdBox = p as PasswordBox;
+
             if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
             {
-                MainWindowViewModel.MainWindowEmployee = _AutorisationService.AutorisatedUser;
+                MainWindowViewModel.AutorisatedEmployee = _AutorisationService.AutorisatedUser;
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
@@ -67,22 +88,9 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
         #endregion
-
-
-
-        public AutorisationWindowViewModel(IAutorisationService autorisationService)
-        {
-            _AutorisationService = autorisationService;
-
-
-
-
-            #region Commands
-
-            AutorisationCommand = new LambdaCommand(OnAutorisationCommandExequted);
-
-            #endregion
-        }
+    
+    
     }
 }
