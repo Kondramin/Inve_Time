@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Inve_Time.ViewModels.Base
 {
+    /// <summary>Abstract base class to realisation ViewModel</summary>
     internal abstract class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -13,6 +14,7 @@ namespace Inve_Time.ViewModels.Base
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
+
 
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
