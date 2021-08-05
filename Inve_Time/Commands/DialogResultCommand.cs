@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Inve_Time.Commands
 {
+    /// <summary>Command, what using to finish dialog with user</summary>
     class DialogResultCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

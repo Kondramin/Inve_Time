@@ -3,6 +3,7 @@ using System.Windows.Input;
 
 namespace Inve_Time.Commands.Base
 {
+    /// <summary>Abstract class. Realise ICommand interface logic</summary>
     internal abstract class Command : ICommand
     {
         private bool _Executable = true;

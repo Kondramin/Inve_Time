@@ -2,6 +2,7 @@
 
 namespace Inve_Time.Commands.Base
 {
+    /// <summary>Realise lambda sample to async commands</summary>
     internal class LambdaCommandAsync : Command
     {
         private readonly ActionAsync<object> _Execute;

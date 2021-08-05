@@ -2,6 +2,7 @@
 
 namespace Inve_Time.Commands.Base
 {
+    /// <summary>Realise lambda sample to commands</summary>
     internal class LambdaCommand : Command
     {
         private readonly Action<object> _Execute;

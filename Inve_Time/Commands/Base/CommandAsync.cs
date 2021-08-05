@@ -4,6 +4,7 @@ using System.Windows.Input;
 
 namespace Inve_Time.Commands.Base
 {
+    /// <summary>Abstract class. Realise ICommand interface to async commands</summary>
     internal abstract class CommandAsync : ICommand
     {
         private bool _Executable = true;
