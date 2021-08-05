@@ -1,5 +1,6 @@
 ﻿using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,14 +13,17 @@ namespace Inve_Time.Services
     {
         private readonly IRepository<Employee> _EmployeeRepository;
 
-        public Employee AutorisatedUser { get; set; } = null;
+
 
         public AutorisationService(IRepository<Employee> employeeRepository)
         {
             _EmployeeRepository = employeeRepository;
         }
 
-        
+
+
+        public EmpBaseInfo AutorisatedUser { get; set; } = null;
+
 
 
         public bool ValidateLoginAndPassword(string login, string password)
@@ -38,7 +42,7 @@ namespace Inve_Time.Services
             return true;
         }
 
-        public Employee SaveAutorisatedUser(string login, string password) => _EmployeeRepository.Items.SingleOrDefault(p => p.Login == login && p.Password.Name == password);
+        public EmpBaseInfo SaveAutorisatedUser(string login, string password) => new EmpBaseInfo(_EmployeeRepository.Items.SingleOrDefault(p => p.Login == login && p.Password.Name == password));
         
     }
 }
