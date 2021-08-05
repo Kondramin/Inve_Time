@@ -16,7 +16,9 @@
                 <ResourceDictionary Source="Infrastructure/Styles/BaseMaterialDesinStyle.xaml"/>
                 
                 <ResourceDictionary Source="Infrastructure/Templates/MainModelViews.xaml"/>
-                
+
+                <ResourceDictionary Source="Commands/AppCommands.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
             
 
