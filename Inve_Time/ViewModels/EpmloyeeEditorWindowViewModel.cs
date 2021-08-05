@@ -5,7 +5,7 @@ namespace Inve_Time.ViewModels
 {
     internal class EpmloyeeEditorWindowViewModel : ViewModel
     {
-
+        //TODO:Refactoring
 
 
 

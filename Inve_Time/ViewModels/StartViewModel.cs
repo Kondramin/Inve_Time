@@ -4,5 +4,6 @@ namespace Inve_Time.ViewModels
 {
     class StartViewModel : ViewModel
     {
+        //TODO:Realise ViewModel
     }
 }

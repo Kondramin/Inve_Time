@@ -17,6 +17,7 @@ namespace Inve_Time.ViewModels
 {
     class EmployeesViewModel : ViewModel
     {
+        //TODO:Refactoring
 
         private IRepository<Employee> _EmployeeRepository;
         private readonly IUserDialog _UserDialog;

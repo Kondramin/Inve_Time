@@ -4,5 +4,6 @@ namespace Inve_Time.ViewModels
 {
     class InventarisationViewModel : ViewModel
     {
+        //TODO:Realise ViewModel
     }
 }

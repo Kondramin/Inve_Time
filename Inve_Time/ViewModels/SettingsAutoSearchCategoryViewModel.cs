@@ -12,6 +12,7 @@ namespace Inve_Time.ViewModels
 {
     class SettingsAutoSearchCategoryViewModel : ViewModel
     {
+        //TODO:Refactoring!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private readonly IRepository<Category> _CategoryRepository;
 
         public ObservableCollection<Category> CategoryHelpSearchesr { get; } = new ObservableCollection<Category>();
