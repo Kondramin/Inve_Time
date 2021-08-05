@@ -41,11 +41,8 @@
                 Content="Выход" 
                 HorizontalAlignment="Right" 
                 Width="150"
-                IsCancel="True">
-                <Button.Command>
-                    <cmd:CloseAppCommand/>
-                </Button.Command>
-            </Button>
+                IsCancel="True"
+                Command="{StaticResource CloseAppCommand}"/>
 
         </Grid>
         <StackPanel

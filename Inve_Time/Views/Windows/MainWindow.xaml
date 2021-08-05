@@ -22,115 +22,83 @@
     </i:Interaction.Triggers> <!--SourceObject="Window"-->
 
     <DockPanel>
-        <Menu 
-            DockPanel.Dock="Top" 
-            IsMainMenu="True">
-            <MenuItem 
-                Header="Общее">
-                <MenuItem
-                    Header="Начальная страниица"
-                    Command="{Binding ShowStartViewCommand}"/>
+        
+        <Menu DockPanel.Dock="Top"
+              IsMainMenu="True">
+            <MenuItem Header="Общее">
+                <MenuItem Header="Начальная страниица"
+                          Command="{Binding ShowStartViewCommand}"/>
                 
-                
-                <MenuItem 
-                    Header="Отчёты">
-                    <MenuItem 
-                        Header="Сотрудники" Command="{Binding ShowEmployeesViewCommand}"/>
-                    <MenuItem
-                        Header="Товары"/>
-                    <MenuItem
-                        Header="Инвентаризации"/>
-
+                <MenuItem Header="Отчёты">
                     
+                    <MenuItem Header="Сотрудники" 
+                              Command="{Binding ShowEmployeesViewCommand}"/>
+                    
+                    <MenuItem Header="Товары"/>
+                    
+                    <MenuItem Header="Инвентаризации"/>
+                
                 </MenuItem>
 
                 <Separator/>
 
-                <MenuItem 
-                    Header="Сменить пользователя" Command="{Binding ReAutorisationInAppCommand}"/>
+                <MenuItem Header="Сменить пользователя" 
+                          Command="{Binding ReAutorisationInAppCommand}"/>
                 
-                
-                <MenuItem 
-                    Header="Выход">
-                    <MenuItem.Command>
-                        <cmd:CloseAppCommand/>
-                    </MenuItem.Command>
-                </MenuItem>
-                
+                <MenuItem Header="Выход"
+                          Command="{StaticResource CloseAppCommand}"/>
                 
             </MenuItem>
             
-            
-            <MenuItem 
-                Header="Инвертаризация">
-                <MenuItem 
-                    Header="Начать инвентаризацию"
-                    Command="{Binding ShowInventarisationViewCommand}"/>
+            <MenuItem Header="Инвертаризация">
+                <MenuItem Header="Начать инвентаризацию"
+                          Command="{Binding ShowInventarisationViewCommand}"/>
                 
-                
-                <MenuItem
-                    Header="Запланировать инвентаризацию"/>
-                
+                <MenuItem Header="Запланировать инвентаризацию"/>
                 
             </MenuItem>
             
-            
-            <MenuItem 
-                Header="Настройки">
-                <MenuItem 
-                    Header="Рассылка">
-                    <MenuItem 
-                        Header="Запустить рассылку"/>
-                    <MenuItem 
-                        Header="Создать новую"/>
-                    <MenuItem 
-                        Header="Сохранённые рассылки"/>
+            <MenuItem Header="Настройки">
+                <MenuItem Header="Рассылка">
+                    <MenuItem Header="Запустить рассылку"/>
+                    <MenuItem Header="Создать новую"/>
+                    <MenuItem Header="Сохранённые рассылки"/>
                 </MenuItem>
-
-
-                <MenuItem
-                    Header="Настрой определителя категорий" Command="{Binding ShowSettingsAutoSearchCategoryViewCommand}">
-                    
-                </MenuItem>
-                <MenuItem 
-                    Header="Время/дата"/>
+                
+                <MenuItem Header="Настрой определителя категорий" 
+                          Command="{Binding ShowSettingsAutoSearchCategoryViewCommand}"/>
+                
+                <MenuItem Header="Время/дата"/>
+                
             </MenuItem>
-            <MenuItem 
-                Header="О программе"/>
+            <MenuItem Header="О программе"/>
+            
         </Menu>
 
-        <StatusBar 
-            DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
-                <TextBlock 
-                    Text="В системе: "/>
+                <TextBlock Text="В системе: "/>
             </StatusBarItem>
-            <StatusBarItem 
-                MinWidth="150" MaxWidth="300">
-                <TextBlock 
-                    Text="{Binding StatusBarEmployeeName}">
-
-                </TextBlock>
+            <StatusBarItem MinWidth="150"
+                           MaxWidth="300">
+                <TextBlock Text="{Binding StatusBarEmployeeName}"/>
             </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="Должность: "/>
             </StatusBarItem>
-            <StatusBarItem 
-                MinWidth="150" MaxWidth="300">
-                <TextBlock 
-                    Text="{Binding StatusBarEmployeePositionName}"/>
+            <StatusBarItem MinWidth="150" 
+                           MaxWidth="300">
+                <TextBlock Text="{Binding StatusBarEmployeePositionName}"/>
             </StatusBarItem>
             <StatusBarItem>
-                <ProgressBar 
-                    Width="150" Height="12" 
-                    Value="{Binding Progress}"/>
+                <ProgressBar Width="150" Height="12"/>
             </StatusBarItem>
         </StatusBar>
 
-        <Grid 
-            Margin="10">
+        <Grid Margin="10">
             <ContentControl Content="{Binding CurrentModel}"/>
             
         </Grid>
+        
     </DockPanel>
 </Window>
