@@ -246,6 +246,7 @@ namespace Inve_Time.ViewModels
         /// <param name="p"></param>
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
+            
             EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>(await _EmployeeRepository.Items
             .Select(e => new EmployeeBaseInfo
             {
@@ -323,7 +324,7 @@ namespace Inve_Time.ViewModels
 
             _EmployeeRepository.Add(new_employee);
 
-            //var empBaseInfo = new EmployeeBaseInfo => new_employee as EmployeeBaseInfo;
+            
 
         }
 

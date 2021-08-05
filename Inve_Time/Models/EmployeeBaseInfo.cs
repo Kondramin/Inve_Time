@@ -4,6 +4,11 @@ namespace Inve_Time.Models
 {
     class EmployeeBaseInfo : Employee
     {
+        public EmployeeBaseInfo() : base() 
+        {
+
+        }
+
         public string Fio
         {
             get
