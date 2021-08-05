@@ -5,6 +5,7 @@ using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -320,7 +321,10 @@ namespace Inve_Time.ViewModels
 
             if (_UserDialog.Edit(new_employee)) return;
 
-           _EmployeesCollection.Add((EmployeeBaseInfo)_EmployeeRepository.Add(new_employee));
+            _EmployeeRepository.Add(new_employee);
+
+            //var empBaseInfo = new EmployeeBaseInfo => new_employee as EmployeeBaseInfo;
+
         }
 
         #endregion

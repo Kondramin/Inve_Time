@@ -3,7 +3,7 @@ using Inve_Time.ViewModels.Base;
 
 namespace Inve_Time.ViewModels
 {
-    class EpmloyeeEditorWindowViewModel : ViewModel
+    internal class EpmloyeeEditorWindowViewModel : ViewModel
     {
 
 
@@ -18,8 +18,7 @@ namespace Inve_Time.ViewModels
             EmployeePhone = employee.Phone;
             EmployeeEmail = employee.Email;
             EmployeeLogin = employee.Login;
-            EmployeePassword = employee.Password.Name;
-            EmployeePositionName = employee.Position.Name;
+            
         }
 
 

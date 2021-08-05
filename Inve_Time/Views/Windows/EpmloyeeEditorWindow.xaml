@@ -10,9 +10,8 @@
         Style="{StaticResource BaseMaterWindowStyle}"
         
         Title="EpmloyeeDialogWindow" 
-        Height="420" Width="450"
-        d:DataContext="{d:DesignInstance {x:Type vm:EpmloyeeEditorWindowViewModel}}">
-    
+        Height="420" Width="450">
+
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
             <Setter Property="Margin" Value="15"/>
