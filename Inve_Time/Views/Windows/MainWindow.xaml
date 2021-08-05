@@ -6,7 +6,6 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         
         xmlns:l="clr-namespace:Inve_Time"
-        xmlns:cmd="clr-namespace:Inve_Time.Commands"
       
         DataContext="{Binding MainWindowViewModel ,Source={StaticResource Locator}}"
         Style="{StaticResource BaseMaterWindowStyle}"
@@ -22,9 +21,9 @@
     </i:Interaction.Triggers> <!--SourceObject="Window"-->
 
     <DockPanel>
-        
-        <Menu DockPanel.Dock="Top"
-              IsMainMenu="True">
+
+        <Menu IsMainMenu="True" 
+              DockPanel.Dock="Top">
             <MenuItem Header="Общее">
                 <MenuItem Header="Начальная страниица"
                           Command="{Binding ShowStartViewCommand}"/>

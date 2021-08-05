@@ -33,9 +33,9 @@ namespace Inve_Time.ViewModels
 
         #region ObservableCollection<EmployeeBaseInfo> EmployeesCollection - collection of employees 
 
-        private ObservableCollection<EmployeeBaseInfo> _EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>();
+        private ObservableCollection<EmpBaseInfo> _EmployeesCollection = new ObservableCollection<EmpBaseInfo>();
         /// <summary>EmployeesCollection - collection of employees</summary>
-        public ObservableCollection<EmployeeBaseInfo> EmployeesCollection
+        public ObservableCollection<EmpBaseInfo> EmployeesCollection
         {
             get => _EmployeesCollection;
             set
@@ -47,7 +47,7 @@ namespace Inve_Time.ViewModels
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(EmployeeBaseInfo.Fio), ListSortDirection.Ascending)
+                            new SortDescription(nameof(EmpBaseInfo.Fio), ListSortDirection.Ascending)
                         }
                         
                     };
@@ -77,9 +77,9 @@ namespace Inve_Time.ViewModels
 
         #region EmployeeBaseInfo SelectedEmployee
 
-        private EmployeeBaseInfo _SelectedEmployee;
+        private EmpBaseInfo _SelectedEmployee;
         /// <summary>SelectedEmployee</summary>
-        public EmployeeBaseInfo SelectedEmployee
+        public EmpBaseInfo SelectedEmployee
         {
             get => _SelectedEmployee;
             set => Set(ref _SelectedEmployee, value);
@@ -94,7 +94,7 @@ namespace Inve_Time.ViewModels
 
         private void OnAnyFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
+            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
 
             if (employeeBaseInfo.Any == null || !employeeBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
                 e.Accepted = false;
@@ -102,7 +102,7 @@ namespace Inve_Time.ViewModels
 
         private void OnFIOFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
+            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
             if (employeeBaseInfo.Fio == null || !employeeBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
                 e.Accepted = false;
@@ -110,7 +110,7 @@ namespace Inve_Time.ViewModels
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
+            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
 
             if (employeeBaseInfo.Phone == null || !employeeBaseInfo.Phone.ToLower().Contains(FilterPhoneWord.ToLower()))
                 e.Accepted = false;
@@ -118,7 +118,7 @@ namespace Inve_Time.ViewModels
 
         private void OnEmailFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
+            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
 
             if (employeeBaseInfo.Email == null || !employeeBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
             {
@@ -128,7 +128,7 @@ namespace Inve_Time.ViewModels
 
         private void OnPositionNameFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmployeeBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
+            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
 
             if (employeeBaseInfo.Position.Name == null || !employeeBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower()))
                 e.Accepted = false;
@@ -247,8 +247,8 @@ namespace Inve_Time.ViewModels
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
             
-            EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>(await _EmployeeRepository.Items
-            .Select(e => new EmployeeBaseInfo
+            EmployeesCollection = new ObservableCollection<EmpBaseInfo>(await _EmployeeRepository.Items
+            .Select(e => new EmpBaseInfo
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -350,7 +350,7 @@ namespace Inve_Time.ViewModels
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
 
-            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
             else return true;
         }
 
@@ -383,7 +383,7 @@ namespace Inve_Time.ViewModels
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
 
-            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
             else return true;
         }
 

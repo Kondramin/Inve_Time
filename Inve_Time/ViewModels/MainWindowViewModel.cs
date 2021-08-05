@@ -1,6 +1,7 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using System.Diagnostics;
@@ -10,14 +11,13 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of MainWindow</summary>
     class MainWindowViewModel : ViewModel
     {
-        public static Employee AutorisatedEmployee;
-
-
         private readonly IRepository<Category> _CategoryRepository;
         private readonly IRepository<Employee> _EmployeeRepository;
         private readonly IUserDialog _UserDialog;
+
 
         public MainWindowViewModel(
             IRepository<Category> CategoryRepository,
@@ -31,6 +31,9 @@ namespace Inve_Time.ViewModels
         }
 
 
+
+        /// <summary>Info about autorisated user</summary>
+        public static EmpBaseInfo AutorisatedEmployee;
 
 
         #region string MainWindow Title  = "Inve_Time"
@@ -46,32 +49,21 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region string MainWindow StatusBarEmployeeName
-
-        private string _StatusBarEmployeeName = AutorisatedEmployee.Name;
-
-        /// <summary>MainWindow StatusBarEmployeeName</summary>
-        public string StatusBarEmployeeName
+        /// <summary>StatusBar - Name of Employee</summary>
+        public string StatusBarEmployeeName 
         {
-            get => _StatusBarEmployeeName;
-            set => Set(ref _StatusBarEmployeeName, value);
+            get
+            {
+                return AutorisatedEmployee.SecondName + " " + AutorisatedEmployee.Name;
+            }
         }
 
-        #endregion
 
-
-        #region string MainWindow StatusBarEmployeePositionName
-
-        private string _StatusBarEmployeePositionName = AutorisatedEmployee.Position.Name;
-
-        /// <summary>MainWindow StatusBarEmployeePositionName</summary>
-        public string StatusBarEmployeePositionName
+        /// <summary>StatusBar - Position of Employee</summary>
+        public string StatusBarEmployeePositionName 
         {
-            get => _StatusBarEmployeePositionName;
-            set => Set(ref _StatusBarEmployeePositionName, value);
+            get => AutorisatedEmployee.Position.Name; 
         }
-
-        #endregion
 
 
         #region ViewModel MainWindow CurrentModel
@@ -90,21 +82,20 @@ namespace Inve_Time.ViewModels
 
         #region Commands
 
-        #region Command ReAutorisationInAppCommand - ReAutisated in application
 
-        /// <summary>ReAutisated in application</summary>
+        #region Command ReAutorisationInAppCommand - ReAutisated in App
+
+        /// <summary>ReAutisated in App</summary>
         private ICommand _ReAutorisationInAppCommand;
 
-        /// <summary>ReAutisated in application</summary>
+        /// <summary>ReAutisated in App</summary>
         public ICommand ReAutorisationInAppCommand => _ReAutorisationInAppCommand
             ??= new LambdaCommand(OnReAutorisationInAppCommandExequted, CanReAutorisationInAppCommandExequt);
 
-        /// <summary>Checking the possibility of execution - ReAutisated in application</summary>
-        /// <param name="p"></param>
+        /// <summary>Checking the possibility of execution - ReAutisated in App</summary>
         public bool CanReAutorisationInAppCommandExequt(object p) => true;
 
-        /// <summary>Execution logic - ReAutisated in application</summary>
-        /// <param name="p"></param>
+        /// <summary>Execution logic - ReAutisated in App</summary>
         public void OnReAutorisationInAppCommandExequted(object p)
         {
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
@@ -112,8 +103,8 @@ namespace Inve_Time.ViewModels
             Application.Current.Shutdown();
         }
 
-
         #endregion
+
 
         #region Command ShowStartViewCommand - Show StartView
 
@@ -125,18 +116,16 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnShowStartViewCommandExequted, CanShowStartViewCommandExequt);
 
         /// <summary>Checking the possibility of execution - Show StartView</summary>
-        /// <param name="p"></param>
         public bool CanShowStartViewCommandExequt(object p) => true;
 
         /// <summary>Execution logic - Show StartView</summary>
-        /// <param name="p"></param>
         public void OnShowStartViewCommandExequted(object p)
         {
             CurrentModel = new StartViewModel();
         }
 
-
         #endregion
+
 
         #region Command ShowInventarisationViewCommand - Show InventarisationView
 
@@ -148,66 +137,58 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnShowInventarisationViewCommandExequted, CanShowInventarisationViewCommandExequt);
 
         /// <summary>Checking the possibility of execution - Show InventarisationView</summary>
-        /// <param name="p"></param>
         public bool CanShowInventarisationViewCommandExequt(object p) => true;
 
         /// <summary>Execution logic - Show InventarisationView</summary>
-        /// <param name="p"></param>
         public void OnShowInventarisationViewCommandExequted(object p)
         {
             CurrentModel = new InventarisationViewModel();
         }
 
-
         #endregion
+
 
         #region Command ShowSettingsAutoSearchCategoryViewCommand - Show SettingsAutoSearchCategoryView
 
         /// <summary>Show SettingsAutoSearchCategoryView</summary>
         private ICommand _ShowSettingsAutoSearchCategoryViewCommand;
 
-
         /// <summary>Show SettingsAutoSearchCategoryView</summary>
         public ICommand ShowSettingsAutoSearchCategoryViewCommand => _ShowSettingsAutoSearchCategoryViewCommand
             ??= new LambdaCommand(OnShowSettingsAutoSearchCategoryViewCommandExequted, CanShowSettingsAutoSearchCategoryViewCommandExequt);
 
         /// <summary>Checking the possibility of execution - Show SettingsAutoSearchCategoryView</summary>
-        /// <param name="p"></param>
         public bool CanShowSettingsAutoSearchCategoryViewCommandExequt(object p) => true;
 
         /// <summary>Execution logic - Show SettingsAutoSearchCategoryView</summary>
-        /// <param name="p"></param>
         public void OnShowSettingsAutoSearchCategoryViewCommandExequted(object p)
         {
             CurrentModel = new SettingsAutoSearchCategoryViewModel(_CategoryRepository);
         }
 
-
         #endregion
+
 
         #region Command ShowEmployeesViewCommand - Show EmployeesView
 
         /// <summary>Show EmployeesView</summary>
         private ICommand _ShowEmployeesViewCommand;
 
-
         /// <summary>Show EmployeesView</summary>
         public ICommand ShowEmployeesViewCommand => _ShowEmployeesViewCommand
             ??= new LambdaCommand(OnShowEmployeesViewCommandExequted, CanShowEmployeesViewCommandExequt);
 
         /// <summary>Checking the possibility of execution - Show EmployeesView</summary>
-        /// <param name="p"></param>
         public bool CanShowEmployeesViewCommandExequt(object p) => true;
 
         /// <summary>Execution logic - Show EmployeesView</summary>
-        /// <param name="p"></param>
         public void OnShowEmployeesViewCommandExequted(object p)
         {
             CurrentModel = new EmployeesViewModel(_EmployeeRepository, _UserDialog);
         }
 
-
         #endregion
+
 
         #endregion
 

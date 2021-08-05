@@ -7,10 +7,9 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of AutorisationWindow</summary>
     class AutorisationWindowViewModel : ViewModel
-    {
-
-
+    {   
         private readonly IAutorisationService _AutorisationService;
 
 
@@ -18,6 +17,7 @@ namespace Inve_Time.ViewModels
         {
             _AutorisationService = autorisationService;
         }
+
 
 
         #region string AutorisationWindow Title  = "Авторизуйтесь в системе"
@@ -61,14 +61,12 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnAutorisationCommandExequted, CanAutorisationCommandExequt);
 
         /// <summary>Checking the possibility of execution - Autorisation in app </summary>
-        /// <param name="p"></param>
         public bool CanAutorisationCommandExequt(object p) => true;
 
         /// <summary>Execution logic - Autorisation in app </summary>
         /// <param name="p">PasswordBox</param>
         public void OnAutorisationCommandExequted(object p)
         {
-
             PasswordBox pwdBox = p as PasswordBox;
 
             if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
