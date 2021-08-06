@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Inve_Time.Views.Windows"
+        xmlns:l="clr-namespace:Inve_Time.Views.Windows"
+        
+        Style="{DynamicResource BaseMaterWindowStyle}"
         
         Title="EmpEditorWindow" 
         Height="420" Width="450"
@@ -36,32 +38,32 @@
 
             <Grid>
                 <TextBlock Text="Фамилия"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpSecondName}"/>
             </Grid>
 
             <Grid>
                 <TextBlock Text="Имя"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpName}"/>
             </Grid>
 
             <Grid>
                 <TextBlock Text="Отчество"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpPatronymic}"/>
             </Grid>
 
             <Grid>
                 <TextBlock Text="Телефон"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpPhone}"/>
             </Grid>
 
             <Grid>
                 <TextBlock Text="Email"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpEmail}"/>
             </Grid>
 
             <Grid>
                 <TextBlock Text="Логин"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpLogin}"/>
             </Grid>
 
             <Grid>
@@ -71,7 +73,7 @@
 
             <Grid>
                 <TextBlock Text="Должность"/>
-                <TextBox Text=""/>
+                <TextBox Text="{Binding EmpPositionName}"/>
             </Grid>
 
 

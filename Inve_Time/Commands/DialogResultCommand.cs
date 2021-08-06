@@ -25,7 +25,7 @@ namespace Inve_Time.Commands
 
             var window = App.CurrentWindow;
 
-            window.DialogResult = DialogResult;
+            window.DialogResult = dialog_result;
             window.Close();
         }
     }

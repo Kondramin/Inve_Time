@@ -313,7 +313,11 @@ namespace Inve_Time.ViewModels
 
             if(!_UserDialog.Edit(new_employee)) return;
 
-            _EmployeesCollection.Add(new EmpBaseInfo(_EmployeeRepository.Add(new_employee)));
+            var empBase = new EmpBaseInfo(_EmployeeRepository.Add(new_employee));
+
+            _EmployeesCollection.Add(empBase);
+
+            SelectedEmployee = empBase;
         }
 
         #endregion
