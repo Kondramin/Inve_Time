@@ -8,7 +8,7 @@
         Style="{DynamicResource BaseMaterWindowStyle}"
         
         Title="EmpEditorWindow" 
-        Height="420" Width="450"
+        MinHeight="450" MinWidth="430"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">

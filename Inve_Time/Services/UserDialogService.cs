@@ -19,7 +19,7 @@ namespace Inve_Time.Services
             };
 
 
-            if (emp_editor_window.DialogResult != true) return false;
+            if (emp_editor_window.ShowDialog() != true) return false;
 
 
             emp.Id = emp_editor_viewModel.EmpId;
