@@ -3,6 +3,7 @@ using Inve_Time.ViewModels.Base;
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of EmployeeEditorViewWindow</summary>
     internal class EpmloyeeEditorWindowViewModel : ViewModel
     {
         //TODO:Refactoring

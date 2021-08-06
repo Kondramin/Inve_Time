@@ -5,7 +5,6 @@ using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -15,12 +14,12 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of EmployeeView</summary>
     class EmployeesViewModel : ViewModel
     {
-        //TODO:Refactoring
-
         private IRepository<Employee> _EmployeeRepository;
         private readonly IUserDialog _UserDialog;
+
 
         public EmployeesViewModel(
             IRepository<Employee> employeeRepository,
@@ -34,7 +33,7 @@ namespace Inve_Time.ViewModels
 
         #region ObservableCollection<EmployeeBaseInfo> EmployeesCollection - collection of employees 
 
-        private ObservableCollection<EmpBaseInfo> _EmployeesCollection = new ObservableCollection<EmpBaseInfo>();
+        private ObservableCollection<EmpBaseInfo> _EmployeesCollection;
         /// <summary>EmployeesCollection - collection of employees</summary>
         public ObservableCollection<EmpBaseInfo> EmployeesCollection
         {
@@ -66,20 +65,21 @@ namespace Inve_Time.ViewModels
             }
         }
 
-
         #endregion
 
 
+        /// <summary>CollectoinViewSource of EmpBaseInfo</summary>
         private CollectionViewSource _EmployeesViewSource;
 
 
+        /// <summary>ICollection of EmpBaseInfo. Using to show in DataGrid</summary>
         public ICollectionView EmployeesView => _EmployeesViewSource?.View;
 
 
         #region EmployeeBaseInfo SelectedEmployee
 
         private EmpBaseInfo _SelectedEmployee;
-        /// <summary>SelectedEmployee</summary>
+        /// <summary>SelectedEmployee in DataGrid</summary>
         public EmpBaseInfo SelectedEmployee
         {
             get => _SelectedEmployee;
@@ -238,16 +238,13 @@ namespace Inve_Time.ViewModels
         /// <summary>Load Employees from database</summary>
         private ICommand _LoadEmployeesCommand;
 
-
         /// <summary>Load Employees from database</summary>
         public ICommand LoadEmployeesCommand => _LoadEmployeesCommand
             ??= new LambdaCommandAsync(OnLoadEmployeesCommandExequted);
 
         /// <summary>Execution logic - Load Employees from database</summary>
-        /// <param name="p"></param>
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
-            
             EmployeesCollection = new ObservableCollection<EmpBaseInfo>(await _EmployeeRepository.Items
             .Select(e => new EmpBaseInfo
             {
@@ -263,7 +260,6 @@ namespace Inve_Time.ViewModels
             .ThenBy(p => p.Name)
             .ThenBy(p => p.Patronymic)
             .ToArrayAsync());
-
         }
 
         #endregion
@@ -276,14 +272,9 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Clean filter fields</summary>
         public ICommand CleanFilterFieldsCommand => _CleanFilterFieldsCommand
-            ??= new LambdaCommand(OnCleanFilterFieldsCommandExequted, CanCleanFilterFieldsCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Clean filter fields</summary>
-        /// <param name="p"></param>
-        public bool CanCleanFilterFieldsCommandExequt(object p) => true;
+            ??= new LambdaCommand(OnCleanFilterFieldsCommandExequted);
 
         /// <summary>Execution logic - Clean filter fields</summary>
-        /// <param name="p"></param>
         public void OnCleanFilterFieldsCommandExequted(object p)
         {
             FilterAnyWord = null;
@@ -306,27 +297,24 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnAddNewEmployeeCommandExequted, CanAddNewEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Add new employee</summary>
-        /// <param name="p"></param>
         public bool CanAddNewEmployeeCommandExequt(object p)
         {
             int requiredAccessLevel = 2;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
+
             else return true;
         }
 
         /// <summary>Execution logic - Add new employee</summary>
-        /// <param name="p"></param>
         public void OnAddNewEmployeeCommandExequted(object p)
         {
-            var new_employee = new Employee();
+            //TODO: Realise command
+            //var new_employee = new Employee();
 
-            if (_UserDialog.Edit(new_employee)) return;
+            //if (_UserDialog.Edit(new_employee)) return;
 
-            _EmployeeRepository.Add(new_employee);
-
-            
-
+            //_EmployeeRepository.Add(new_employee);
         }
 
         #endregion
@@ -342,24 +330,21 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnModifiEmployeeCommandExequted, CanModifiEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Modifi employee</summary>
-        /// <param name="p"></param>
         public bool CanModifiEmployeeCommandExequt(object p)
         {
             int requiredAccessLevel = 2;
 
-
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
-
             if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+
             else return true;
         }
 
         /// <summary>Execution logic - Modifi employee</summary>
-        /// <param name="p"></param>
         public void OnModifiEmployeeCommandExequted(object p)
         {
-
+            //TODO: Realise command
         }
 
         #endregion
@@ -375,24 +360,22 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnRemoveEmployeeCommandExequted, CanRemoveEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Remove employee</summary>
-        /// <param name="p"></param>
         public bool CanRemoveEmployeeCommandExequt(object p)
         {
             int requiredAccessLevel = 5;
 
-
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
-
             if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+
             else return true;
         }
 
         /// <summary>Execution logic - Remove employee</summary>
-        /// <param name="p"></param>
         public void OnRemoveEmployeeCommandExequted(object p)
         {
-            var employee_to_remove = p ?? SelectedEmployee;
+            //TODO:Realise command
+            //var employee_to_remove = p ?? SelectedEmployee;
         }
 
         #endregion

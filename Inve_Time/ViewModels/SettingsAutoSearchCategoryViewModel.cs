@@ -15,6 +15,12 @@ namespace Inve_Time.ViewModels
         //TODO:Refactoring!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private readonly IRepository<Category> _CategoryRepository;
 
+
+        public SettingsAutoSearchCategoryViewModel(IRepository<Category> CategoryRepository)
+        {
+            _CategoryRepository = CategoryRepository;
+        }
+
         public ObservableCollection<Category> CategoryHelpSearchesr { get; } = new ObservableCollection<Category>();
 
         #region Commands
@@ -30,13 +36,13 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommandAsync(OnCategoryHelpSearchesrCommandExequted);
 
         /// <summary>Execution logic - Get category with help searchers data from database</summary>
-        /// <param name="p"></param>
         public async Task OnCategoryHelpSearchesrCommandExequted(object p)
         {
             await DownloadHelpSearchresAsync();
         }
 
         #endregion
+
 
         private async Task DownloadHelpSearchresAsync()
         {
@@ -55,10 +61,7 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-        public SettingsAutoSearchCategoryViewModel(IRepository<Category> CategoryRepository)
-        {
-            _CategoryRepository = CategoryRepository;
-        }
+        
 
 
     }

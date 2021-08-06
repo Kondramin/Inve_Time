@@ -2,6 +2,7 @@
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of InventarisationView</summary>
     class InventarisationViewModel : ViewModel
     {
         //TODO:Realise ViewModel
