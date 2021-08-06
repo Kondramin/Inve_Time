@@ -9,8 +9,11 @@
        
         Style="{StaticResource BaseMaterWindowStyle}"
         
+        
         Title="EpmloyeeDialogWindow" 
-        Height="420" Width="450">
+        Height="420" Width="450"
+        WindowStartupLocation="CenterScreen">
+        
 
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">

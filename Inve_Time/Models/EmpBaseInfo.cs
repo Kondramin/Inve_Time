@@ -11,9 +11,7 @@ namespace Inve_Time.Models
         /// <summary>Simple ctor</summary>
         public EmpBaseInfo() { }
 
-        /// <summary>
-        /// Ctor to convert Employee to EmpBaseInfo
-        /// </summary>
+        /// <summary>Ctor to convert Employee to EmpBaseInfo</summary>
         /// <param name="emp">Employee entity</param>
         public EmpBaseInfo(Employee emp)
         {
@@ -38,7 +36,7 @@ namespace Inve_Time.Models
 
 
 
-        /// <summary>Helpful property. Show SecondName, Name, Patronymic in one field</summary>
+        /// <summary>Helpful property. Return SecondName, Name, Patronymic in one field as FIO</summary>
         public string Fio
         {
             get
@@ -58,6 +56,23 @@ namespace Inve_Time.Models
             }
         }
 
+
+        /// <summary>Helpful method. Convert EmpBaseInfo to Employee</summary>
+        /// <returns>Employee entity</returns>
+        public Employee ConvertToEmployee()
+        {
+            return new Employee
+            {
+                Id = Id,
+                SecondName = SecondName,
+                Name = Name,
+                Patronymic = Patronymic,
+                Phone = Phone,
+                Email = Email,
+                Login = Login,
+                Position = Position
+            };
+        }
 
     }
 }

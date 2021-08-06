@@ -31,7 +31,7 @@ namespace Inve_Time.ViewModels
 
 
 
-        #region ObservableCollection<EmployeeBaseInfo> EmployeesCollection - collection of employees 
+        #region ObservableCollection<EmpBaseInfo> EmployeesCollection - collection of employees 
 
         private ObservableCollection<EmpBaseInfo> _EmployeesCollection;
         /// <summary>EmployeesCollection - collection of employees</summary>
@@ -95,33 +95,33 @@ namespace Inve_Time.ViewModels
 
         private void OnAnyFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
 
-            if (employeeBaseInfo.Any == null || !employeeBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
+            if (empBaseInfo.Any == null || !empBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
                 e.Accepted = false;
         }
 
         private void OnFIOFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
 
-            if (employeeBaseInfo.Fio == null || !employeeBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
+            if (empBaseInfo.Fio == null || !empBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
                 e.Accepted = false;
         }
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
 
-            if (employeeBaseInfo.Phone == null || !employeeBaseInfo.Phone.ToLower().Contains(FilterPhoneWord.ToLower()))
+            if (empBaseInfo.Phone == null || !empBaseInfo.Phone.ToLower().Contains(FilterPhoneWord.ToLower()))
                 e.Accepted = false;
         }
 
         private void OnEmailFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
 
-            if (employeeBaseInfo.Email == null || !employeeBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
+            if (empBaseInfo.Email == null || !empBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
             {
                 e.Accepted = false;
             }
@@ -129,9 +129,9 @@ namespace Inve_Time.ViewModels
 
         private void OnPositionNameFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo employeeBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
 
-            if (employeeBaseInfo.Position.Name == null || !employeeBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower()))
+            if (empBaseInfo.Position.Name == null || !empBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower()))
                 e.Accepted = false;
         }
 
@@ -299,7 +299,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Checking the possibility of execution - Add new employee</summary>
         public bool CanAddNewEmployeeCommandExequt(object p)
         {
-            int requiredAccessLevel = 2;
+            int requiredAccessLevel = 3;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
@@ -309,12 +309,11 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Add new employee</summary>
         public void OnAddNewEmployeeCommandExequted(object p)
         {
-            //TODO: Realise command
-            //var new_employee = new Employee();
+            var new_employee = new Employee();
 
-            //if (_UserDialog.Edit(new_employee)) return;
+            if(!_UserDialog.Edit(new_employee)) return;
 
-            //_EmployeeRepository.Add(new_employee);
+            _EmployeesCollection.Add(new EmpBaseInfo(_EmployeeRepository.Add(new_employee)));
         }
 
         #endregion
@@ -332,7 +331,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Checking the possibility of execution - Modifi employee</summary>
         public bool CanModifiEmployeeCommandExequt(object p)
         {
-            int requiredAccessLevel = 2;
+            int requiredAccessLevel = 5;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
@@ -344,6 +343,12 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Modifi employee</summary>
         public void OnModifiEmployeeCommandExequted(object p)
         {
+            var emp_to_modifi = p ?? SelectedEmployee;
+
+            if (!(emp_to_modifi is EmpBaseInfo emp)) return;
+
+            if (!_UserDialog.Edit(emp.ConvertToEmployee())) return;
+        
             //TODO: Realise command
         }
 
@@ -362,7 +367,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Checking the possibility of execution - Remove employee</summary>
         public bool CanRemoveEmployeeCommandExequt(object p)
         {
-            int requiredAccessLevel = 5;
+            int requiredAccessLevel = 7;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
@@ -374,8 +379,13 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Remove employee</summary>
         public void OnRemoveEmployeeCommandExequted(object p)
         {
+            var emp_to_remove = p ?? SelectedEmployee;
+
+            if(emp_to_remove is EmpBaseInfo emp)
+            {
+
+            }
             //TODO:Realise command
-            //var employee_to_remove = p ?? SelectedEmployee;
         }
 
         #endregion
