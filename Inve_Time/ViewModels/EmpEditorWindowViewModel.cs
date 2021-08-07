@@ -8,7 +8,13 @@ namespace Inve_Time.ViewModels
     {
         public EmpEditorWindowViewModel(Employee emp)
         {
-
+            EmpId = emp.Id;
+            EmpSecondName = emp.SecondName;
+            EmpName = emp.Name;
+            EmpPatronymic = emp.Patronymic;
+            EmpPhone = emp.Phone;
+            EmpEmail = emp.Email;
+            EmpLogin = emp.Login;
         }
 
 

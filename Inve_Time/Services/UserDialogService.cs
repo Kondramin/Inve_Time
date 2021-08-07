@@ -15,7 +15,10 @@ namespace Inve_Time.Services
 
             var emp_editor_window = new EmpEditorWindow
             {
-                DataContext = emp_editor_viewModel
+                DataContext = emp_editor_viewModel,
+                Height = 450,
+                Width = 430,
+                
             };
 
 
