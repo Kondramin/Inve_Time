@@ -15,18 +15,33 @@ namespace Inve_Time.ViewModels
     class MainWindowViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
+        private readonly IRepository<CurrentInventarisation> _CurrentInventarisationRepository;
         private readonly IRepository<Employee> _EmployeeRepository;
+        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
+        private readonly IRepository<Position> _PositionRepository;
+        private readonly IRepository<ProductBase> _ProductBaseRepository;
+        private readonly IRepository<ProductInvented> _ProductInventedRepository;
         private readonly IUserDialog _UserDialog;
 
 
         public MainWindowViewModel(
             IRepository<Category> CategoryRepository,
+            IRepository<CurrentInventarisation> CurrentInventarisationRepository,
             IRepository<Employee> EmployeeRepository,
+            IRepository<HelpCategorySearch> HelpCategorySearchRepository,
+            IRepository<Position> PositionRepository,
+            IRepository<ProductBase> ProductBaseRepository,
+            IRepository<ProductInvented> ProductInventedRepository,
             IUserDialog userDialog
             )
         {
             _CategoryRepository = CategoryRepository;
+            _CurrentInventarisationRepository = CurrentInventarisationRepository;
             _EmployeeRepository = EmployeeRepository;
+            _HelpCategorySearchRepository = HelpCategorySearchRepository;
+            _PositionRepository = PositionRepository;
+            _ProductBaseRepository = ProductBaseRepository;
+            _ProductInventedRepository = ProductInventedRepository;
             _UserDialog = userDialog;
         }
 
@@ -184,7 +199,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Show EmployeesView</summary>
         public void OnShowEmployeesViewCommandExequted(object p)
         {
-            CurrentModel = new EmployeesViewModel(_EmployeeRepository, _UserDialog);
+            CurrentModel = new EmployeesViewModel(_EmployeeRepository, _PositionRepository, _UserDialog);
         }
 
         #endregion
