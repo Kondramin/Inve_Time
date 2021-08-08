@@ -1,4 +1,5 @@
 ﻿using Inve_Time.DataBase.dll.Entities;
+using Inve_Time.DataBase.dll.Repositories.Base;
 using Inve_Time.Interfaces.dll;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ namespace Inve_Time.DataBase.dll.Repositories
             .AddTransient<IRepository<Category>, CategoryRepository>()
             .AddTransient<IRepository<CurrentInventarisation>, CurrentInventarisationRepository>()
             .AddTransient<IRepository<HelpCategorySearch>, HelpCategorySearchRepository>()
+            .AddTransient<IRepository<Password>, DbRepository<Password>>()
             ;
     }
 }

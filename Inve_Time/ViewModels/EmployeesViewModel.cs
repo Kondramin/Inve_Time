@@ -17,17 +17,21 @@ namespace Inve_Time.ViewModels
     /// <summary>ViewModel of EmployeeView</summary>
     class EmployeesViewModel : ViewModel
     {
-        private IRepository<Employee> _EmployeeRepository;
+        private readonly IRepository<Employee> _EmployeeRepository;
+        private readonly IRepository<Position> _PositionRepository;
         private readonly IUserDialog _UserDialog;
 
 
         public EmployeesViewModel(
             IRepository<Employee> employeeRepository,
+            IRepository<Position> positionRepository,
             IUserDialog userDialog)
         {
             _EmployeeRepository = employeeRepository;
+            _PositionRepository = positionRepository;
             _UserDialog = userDialog;
         }
+
 
 
 

@@ -1,12 +1,27 @@
-﻿using Inve_Time.DataBase.dll.Entities;
+﻿using Inve_Time.Commands.Base;
+using Inve_Time.DataBase.dll.Entities;
+using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
     /// <summary>ViewModel of EmpEditorWindow</summary>
     class EmpEditorWindowViewModel : ViewModel
     {
-        public EmpEditorWindowViewModel(Employee emp)
+        private readonly IRepository<Position> _PositionRepository;
+        private readonly IRepository<Password> _PasswodrRepository;
+
+        public EmpEditorWindowViewModel(
+            Employee emp, 
+            IRepository<Position> PositionRepository,
+            IRepository<Password> PasswodrRepository
+            )
         {
             EmpId = emp.Id;
             EmpSecondName = emp.SecondName;
@@ -15,6 +30,16 @@ namespace Inve_Time.ViewModels
             EmpPhone = emp.Phone;
             EmpEmail = emp.Email;
             EmpLogin = emp.Login;
+            SelectedPosition = emp.Position;
+            _PositionRepository = PositionRepository;
+            _PasswodrRepository = PasswodrRepository;
+            PositionsCollection = new ObservableCollection<Position>(_PositionRepository.Items.ToArray());
+        }
+
+        public EmpEditorWindowViewModel()
+        {
+            if (!App.IsDesignTime)
+                throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
 
@@ -101,16 +126,50 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region string EmpPositionName
+        #region ObservableCollection<Position> PositionsCollection
 
-        private string _EmpPositionName;
-        /// <summary>Employee - PositionName</summary>
-        public string EmpPositionName
+        private ObservableCollection<Position> _PositionsCollection;
+        /// <summary>Employee - Position</summary>
+        public ObservableCollection<Position> PositionsCollection
         {
-            get => _EmpPositionName;
-            set => Set(ref _EmpPositionName, value);
+            get => _PositionsCollection;
+            set => Set(ref _PositionsCollection, value);
+        }
+        public bool IsDesingTime { get; }
+
+        #endregion
+
+
+        #region Position SelectedPosition
+
+        private Position _SelectedPosition;
+        /// <summary>Selected Position in ComboBox</summary>
+        public Position SelectedPosition
+        {
+            get => _SelectedPosition;
+            set => Set(ref _SelectedPosition, value);
         }
 
         #endregion
+
+
+
+        //#region Command LoadPositionsCommand - Load Positions from database
+
+        ///// <summary>Load Positions from database</summary>
+        //private ICommand _LoadPositionsCommand;
+
+        ///// <summary>Load Positions from database</summary>
+        //public ICommand LoadPositionsCommand => _LoadPositionsCommand
+        //    ??= new LambdaCommandAsync(OnLoadPositionsCommandExequted);
+
+        ///// <summary>Execution logic - Load Positions from database</summary>
+        //public async Task OnLoadPositionsCommandExequted(object p)
+        //{
+        //    PositionsCollection = new ObservableCollection<Position>(await _PositionRepository.Items.ToArrayAsync());
+        //}
+
+        //#endregion
+
     }
 }

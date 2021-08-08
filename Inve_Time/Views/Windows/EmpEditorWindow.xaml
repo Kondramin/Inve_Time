@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:Inve_Time.Views.Windows"
+        xmlns:vm="clr-namespace:Inve_Time.ViewModels"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        
         
         Style="{DynamicResource BaseMaterWindowStyle}"
+        d:DataContext="{d:DesignInstance {x:Type vm:EmpEditorWindowViewModel}}"
         
         Title="EmpEditorWindow"
         
@@ -25,7 +29,17 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Width" Value="250"/>
         </Style>
-
+        <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="250"/>
+        </Style>
+        <Style TargetType="xctk:MaskedTextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="250"/>
+        </Style>
+        
+        
+        
     </Window.Resources>
 
     <DockPanel>
@@ -55,11 +69,23 @@
             <Grid>
                 <TextBlock Text="Телефон"/>
                 <TextBox Text="{Binding EmpPhone}"/>
+                <xctk:MaskedTextBox Mask="+375(00) 000 00 00"
+                                    /> <!--https://github.com/xceedsoftware/wpftoolkit/wiki/MaskedTextBox-->
+
+
+
             </Grid>
 
             <Grid>
                 <TextBlock Text="Email"/>
                 <TextBox Text="{Binding EmpEmail}"/>
+            </Grid>
+
+            <Grid>
+                <TextBlock Text="Должность"/>
+                <ComboBox ItemsSource="{Binding PositionsCollection}"
+                          SelectedItem="{Binding SelectedPosition}"
+                          DisplayMemberPath="Name"/>
             </Grid>
 
             <Grid>
@@ -72,11 +98,7 @@
                 <TextBox Text=""/>
             </Grid>
 
-            <Grid>
-                <TextBlock Text="Должность"/>
-                <TextBox Text="{Binding EmpPositionName}"/>
-            </Grid>
-
+            
 
         </StackPanel>
 
