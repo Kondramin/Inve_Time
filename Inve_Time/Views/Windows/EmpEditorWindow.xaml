@@ -13,7 +13,7 @@
         
         Title="EmpEditorWindow"
         
-        MinHeight="450" MinWidth="430"
+        MinHeight="450" MinWidth="380"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
@@ -27,15 +27,15 @@
         </Style>
         <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Width" Value="250"/>
+            <Setter Property="Width" Value="200"/>
         </Style>
         <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Width" Value="250"/>
+            <Setter Property="Width" Value="200"/>
         </Style>
         <Style TargetType="xctk:MaskedTextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Width" Value="250"/>
+            <Setter Property="Width" Value="200"/>
         </Style>
         
         

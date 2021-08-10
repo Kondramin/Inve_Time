@@ -9,7 +9,9 @@ namespace Inve_Time.DataBase.dll.Repositories
     internal class HelpCategorySearchRepository : DbRepository<HelpCategorySearch>
     {
 
-        public override IQueryable<HelpCategorySearch> Items => base.Items.Include(item => item.Category);
+        public override IQueryable<HelpCategorySearch> Items => base.Items
+            .Include(item => item.Category)
+            ;
 
         public HelpCategorySearchRepository(InveTimeDB db) : base(db) { }
     }

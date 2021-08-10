@@ -163,27 +163,6 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region Command ShowSettingsAutoSearchCategoryViewCommand - Show SettingsAutoSearchCategoryView
-
-        /// <summary>Show SettingsAutoSearchCategoryView</summary>
-        private ICommand _ShowSettingsAutoSearchCategoryViewCommand;
-
-        /// <summary>Show SettingsAutoSearchCategoryView</summary>
-        public ICommand ShowSettingsAutoSearchCategoryViewCommand => _ShowSettingsAutoSearchCategoryViewCommand
-            ??= new LambdaCommand(OnShowSettingsAutoSearchCategoryViewCommandExequted, CanShowSettingsAutoSearchCategoryViewCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Show SettingsAutoSearchCategoryView</summary>
-        public bool CanShowSettingsAutoSearchCategoryViewCommandExequt(object p) => true;
-
-        /// <summary>Execution logic - Show SettingsAutoSearchCategoryView</summary>
-        public void OnShowSettingsAutoSearchCategoryViewCommandExequted(object p)
-        {
-            CurrentModel = new SettingsAutoSearchCategoryViewModel(_CategoryRepository);
-        }
-
-        #endregion
-
-
         #region Command ShowEmployeesViewCommand - Show EmployeesView
 
         /// <summary>Show EmployeesView</summary>

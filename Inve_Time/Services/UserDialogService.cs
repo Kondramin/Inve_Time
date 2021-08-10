@@ -30,7 +30,7 @@ namespace Inve_Time.Services
             {
                 DataContext = emp_editor_viewModel,
                 Height = 450,
-                Width = 430,
+                Width = 380,
                 
             };
 
