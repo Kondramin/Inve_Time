@@ -68,9 +68,8 @@
 
             <Grid>
                 <TextBlock Text="Телефон"/>
-                <TextBox Text="{Binding EmpPhone}"/>
                 <xctk:MaskedTextBox Mask="+375(00) 000 00 00"
-                                    /> <!--https://github.com/xceedsoftware/wpftoolkit/wiki/MaskedTextBox-->
+                                    Text="{Binding EmpPhone}"/> <!--https://github.com/xceedsoftware/wpftoolkit/wiki/MaskedTextBox-->
 
 
 

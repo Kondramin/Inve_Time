@@ -7,6 +7,7 @@
              xmlns:l="clr-namespace:Inve_Time.Views"
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              
              
              d:DataContext="{d:DesignInstance {x:Type vm:EmployeesViewModel}}"
@@ -34,7 +35,12 @@
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
             <Setter Property="Width" Value="190"/>
         </Style>
-        
+
+        <Style TargetType="xctk:MaskedTextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="180"/>
+        </Style>
+
     </UserControl.Resources>
     
     <Grid>
@@ -89,6 +95,8 @@
                 <Grid>
                     <TextBlock Text="Телефон"/>
                     <TextBox Text="{Binding FilterPhoneWord, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!--<xctk:MaskedTextBox Mask="+375(00) 000 00 00"
+                                        Text="{Binding FilterPhoneWord, UpdateSourceTrigger=PropertyChanged}"/>-->
                 </Grid>
                 <Label/>
                 
