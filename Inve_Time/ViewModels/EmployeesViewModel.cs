@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -286,6 +287,25 @@ namespace Inve_Time.ViewModels
             FilterPhoneWord = null;
             FilterEmailWord = null;
             FilterPositionWord = null;
+        }
+
+        #endregion
+
+
+        //TODO: Realise command
+        #region Command StartFilterCommand - Start filter
+
+        /// <summary>Start filter</summary>
+        private ICommand _StartFilterCommand;
+
+        /// <summary>Start filter</summary>
+        public ICommand StartFilterCommand => _StartFilterCommand
+            ??= new LambdaCommand(OnStartFilterCommandExequted);
+
+        /// <summary>Execution logic - Start filter</summary>
+        public void OnStartFilterCommandExequted(object p)
+        {
+            
         }
 
         #endregion

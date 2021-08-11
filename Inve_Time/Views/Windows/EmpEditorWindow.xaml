@@ -14,6 +14,7 @@
         Title="EmpEditorWindow"
         
         MinHeight="450" MinWidth="380"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
@@ -68,11 +69,8 @@
 
             <Grid>
                 <TextBlock Text="Телефон"/>
-                <xctk:MaskedTextBox Mask="+375(00) 000 00 00"
-                                    Text="{Binding EmpPhone}"/> <!--https://github.com/xceedsoftware/wpftoolkit/wiki/MaskedTextBox-->
-
-
-
+                <xctk:MaskedTextBox Mask="+375(00)000-00-00"
+                                    Text="{Binding EmpPhone}"/>
             </Grid>
 
             <Grid>
