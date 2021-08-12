@@ -401,6 +401,8 @@ namespace Inve_Time.ViewModels
             if (!(emp_to_modifi is EmpBaseInfo emp)) return;
 
             if (!_UserDialog.Edit(emp.ConvertToEmployee())) return;
+
+
         
             //TODO: Realise command
         }
