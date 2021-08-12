@@ -96,7 +96,7 @@
                     <TextBlock Text="Телефон"/>
                     <!--<TextBox Text="{Binding FilterPhoneWord, UpdateSourceTrigger=PropertyChanged}"/>-->
                     <xctk:MaskedTextBox Mask="+375(00)000-00-00"
-                                        Text="{Binding FilterPhoneWord, UpdateSourceTrigger=Default}"/>
+                                        Text="{Binding FilterPhoneWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>
                 
@@ -112,16 +112,11 @@
                 </Grid>
                 
                 <Label Height="23"/>
-                <Grid>
-                    <Button Content="Поиск"
-                            HorizontalAlignment="Left"
-                            IsDefault="True"
-                            Width="100"/>
-                    <Button Content="Очистить фильтры"
-                            HorizontalAlignment="Right"
-                            Width="170"
-                            Command="{Binding CleanFilterFieldsCommand}"/>
-                </Grid>
+                
+                    
+                 <Button Content="Очистить фильтры"
+                         Command="{Binding CleanFilterFieldsCommand}"/>
+                
                 
             </StackPanel>
 

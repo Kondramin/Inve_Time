@@ -5,6 +5,7 @@ using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -116,9 +117,9 @@ namespace Inve_Time.ViewModels
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterPhoneWord)) return;
+            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(ConvertedFilterPhonrField())) return;
 
-            if (empBaseInfo.Phone == null || !empBaseInfo.Phone.ToLower().Contains(FilterPhoneWord.ToLower()))
+            if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhonrField()))
                 e.Accepted = false;
         }
 
@@ -230,6 +231,49 @@ namespace Inve_Time.ViewModels
 
 
 
+        private string ConvertedFilterPhonrField()
+        {
+            if (FilterPhoneWord is null) return null; 
+
+            var phone = FilterPhoneWord.Remove(0, 5);
+
+            int fRemStart = 0;
+            int fRemTrim = 0;
+
+
+            for (int i = 0; i < phone.Length; i++)
+            {
+                if (!(phone[i] >= '0' && phone[i] <= '9'))
+                {
+                    fRemTrim++;
+                }
+                else break;
+            }
+
+            if (fRemTrim == phone.Length) return null;
+
+
+            phone = phone.Remove(fRemStart, fRemTrim);
+
+            int sRemStart = phone.Length;
+            int sRemTrim = 0;
+
+            for(int j = phone.Length; j > 0; j--)
+            {
+                if (!(phone[j-1] >= '0' && phone[j-1] <= '9'))
+                {
+                    sRemStart--;
+                    sRemTrim++;
+                }
+            }
+
+            phone = phone.Remove(sRemStart, sRemTrim);
+
+            return phone;
+        }
+
+
+
         #endregion
 
 
@@ -287,25 +331,6 @@ namespace Inve_Time.ViewModels
             FilterPhoneWord = null;
             FilterEmailWord = null;
             FilterPositionWord = null;
-        }
-
-        #endregion
-
-
-        //TODO: Realise command
-        #region Command StartFilterCommand - Start filter
-
-        /// <summary>Start filter</summary>
-        private ICommand _StartFilterCommand;
-
-        /// <summary>Start filter</summary>
-        public ICommand StartFilterCommand => _StartFilterCommand
-            ??= new LambdaCommand(OnStartFilterCommandExequted);
-
-        /// <summary>Execution logic - Start filter</summary>
-        public void OnStartFilterCommandExequted(object p)
-        {
-            
         }
 
         #endregion
