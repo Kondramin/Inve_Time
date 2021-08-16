@@ -53,14 +53,18 @@ namespace Inve_Time.DataBase.dll.Repositories.Base
 
         public void Remove(int id)
         {
-            _db.Remove(new T { Id = id });
+            var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
+
+            _db.Remove(item);
 
             if (AutoSaveChanges) _db.SaveChanges();
         }
 
         public async Task RemoveAsync(int id, CancellationToken Cancel = default)
         {
-            _db.Remove(new T { Id = id });
+            var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
+
+            _db.Remove(item);
 
             if (AutoSaveChanges) await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
@@ -68,7 +72,13 @@ namespace Inve_Time.DataBase.dll.Repositories.Base
         public void Update(T item)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
+
+            //var it = _Set.Local.FirstOrDefault(i => i.Id == item.Id) ?? item;
+            //TODO: The instance of entity type 'Employee' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
+
             _db.Entry(item).State = EntityState.Modified;
+            
+
             if (AutoSaveChanges) _db.SaveChanges();
         }
 

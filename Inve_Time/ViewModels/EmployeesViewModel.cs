@@ -360,7 +360,7 @@ namespace Inve_Time.ViewModels
         {
             var new_employee = new Employee();
 
-            if(!_UserDialog.Edit(new_employee)) return;
+            if(!_UserDialog.EditEpmloyee(new_employee)) return;
 
             var empBase = new EmpBaseInfo(_EmployeeRepository.Add(new_employee));
 
@@ -398,13 +398,21 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_modifi = p ?? SelectedEmployee;
 
-            if (!(emp_to_modifi is EmpBaseInfo emp)) return;
+            if (!(emp_to_modifi is EmpBaseInfo empBase)) return;
 
-            if (!_UserDialog.Edit(emp.ConvertToEmployee())) return;
+            var emp = empBase.ConvertToEmployee();
 
+            if (!_UserDialog.EditEpmloyee(emp)) return;
 
-        
             //TODO: Realise command
+
+            _EmployeeRepository.Update(emp);
+
+            var item = _EmployeesCollection.FirstOrDefault(i => i.Id == emp.Id);
+            if (item != null)
+            {
+                item = new EmpBaseInfo(emp);
+            }
         }
 
         #endregion
@@ -436,11 +444,16 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_remove = p ?? SelectedEmployee;
 
-            if(emp_to_remove is EmpBaseInfo emp)
-            {
+            if (!(emp_to_remove is EmpBaseInfo emp)) return;
 
-            }
-            //TODO:Realise command
+
+            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {emp.Fio}?", "Удаление сотрудника")) return;
+            
+
+            _EmployeeRepository.Remove(emp.Id);
+            
+            _EmployeesCollection.Remove(emp);
+            if (ReferenceEquals(SelectedEmployee, emp)) SelectedEmployee = null;
         }
 
         #endregion
