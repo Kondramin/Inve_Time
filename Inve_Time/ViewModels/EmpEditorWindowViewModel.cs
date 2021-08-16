@@ -1,13 +1,9 @@
-﻿using Inve_Time.Commands.Base;
-using Inve_Time.DataBase.dll.Entities;
+﻿using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
@@ -152,24 +148,6 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-
-
-        //#region Command LoadPositionsCommand - Load Positions from database
-
-        ///// <summary>Load Positions from database</summary>
-        //private ICommand _LoadPositionsCommand;
-
-        ///// <summary>Load Positions from database</summary>
-        //public ICommand LoadPositionsCommand => _LoadPositionsCommand
-        //    ??= new LambdaCommandAsync(OnLoadPositionsCommandExequted);
-
-        ///// <summary>Execution logic - Load Positions from database</summary>
-        //public async Task OnLoadPositionsCommandExequted(object p)
-        //{
-        //    PositionsCollection = new ObservableCollection<Position>(await _PositionRepository.Items.ToArrayAsync());
-        //}
-
-        //#endregion
-
+    
     }
 }
