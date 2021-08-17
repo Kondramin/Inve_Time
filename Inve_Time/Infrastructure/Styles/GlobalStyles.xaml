@@ -6,6 +6,7 @@
         <Setter Property="CanUserDeleteRows" Value="False"/>
         <Setter Property="AutoGenerateColumns" Value="False"/>
         <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="EnableRowVirtualization" Value="True"/>
     </Style>
     
 </ResourceDictionary>
