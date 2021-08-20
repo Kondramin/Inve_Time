@@ -22,7 +22,8 @@
 
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
@@ -37,9 +38,7 @@
             <GroupBox Header="Горячие слова"
                       Grid.Column="1">
 
-                <ItemsControl ItemsSource="{Binding CategoryObservalCollection}" DisplayMemberPath="HelpCategorySearchers.Name">
-
-                </ItemsControl>
+                <ListBox ItemsSource="{Binding SelectedCategory.HelpCategorySearchers}" DisplayMemberPath="Name" />
 
             </GroupBox>
 
