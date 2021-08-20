@@ -65,7 +65,7 @@
                 </MenuItem>
                 
                 <MenuItem Header="Настрой определителя категорий" 
-                          Command="{Binding ShowSettingsAutoSearchCategoryViewCommand}"/>
+                          Command="{Binding ShowAutoSearchHelpersViewCommand}"/>
                 
                 <MenuItem Header="Время/дата"/>
                 

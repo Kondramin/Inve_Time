@@ -184,6 +184,27 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region Command ShowAutoSearchHelpersViewCommand - Show AutoSearchHelpersView
+
+        /// <summary>Show AutoSearchHelpersView</summary>
+        private ICommand _ShowAutoSearchHelpersViewCommand;
+
+        /// <summary>Show AutoSearchHelpersView</summary>
+        public ICommand ShowAutoSearchHelpersViewCommand => _ShowAutoSearchHelpersViewCommand
+            ??= new LambdaCommand(OnShowAutoSearchHelpersViewCommandExequted, CanShowAutoSearchHelpersViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show AutoSearchHelpersView</summary>
+        public bool CanShowAutoSearchHelpersViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show AutoSearchHelpersView</summary>
+        public void OnShowAutoSearchHelpersViewCommandExequted(object p)
+        {
+            CurrentModel = new AutoSearchHelpersViewModel(_HelpCategorySearchRepository, _CategoryRepository);
+        }
+
+        #endregion
+
+
         #endregion
 
     }
