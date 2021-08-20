@@ -10,6 +10,7 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
+    /// <summary>ViewModel of AutoSearchHelpersView</summary>
     class AutoSearchHelpersViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
@@ -70,7 +71,17 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region SelectedCategory SelectedCategory
 
+        private Category _SelectedCategory;
+        /// <summary>SelectedCategory in ListBox</summary>
+        public Category SelectedCategory
+        {
+            get => _SelectedCategory;
+            set => Set(ref _SelectedCategory, value);
+        }
+
+        #endregion
 
 
 

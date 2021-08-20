@@ -11,12 +11,12 @@
              d:DesignHeight="650" d:DesignWidth="950">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadHelpCategorySearchCommand}"/>
+            <i:InvokeCommandAction Command="{Binding LoadCategoryCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.4*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -29,9 +29,21 @@
             <GroupBox Header="Категория товара"
                       Grid.Column="0">
                 
-                <ListBox/>
+                <ListBox ItemsSource="{Binding Path=CategoryObservalCollection}" DisplayMemberPath="Name"
+                         SelectedItem="{Binding SelectedCategory}"/>
+                
+            </GroupBox>
+
+            <GroupBox Header="Горячие слова"
+                      Grid.Column="1">
+
+                <ItemsControl ItemsSource="{Binding CategoryObservalCollection}" DisplayMemberPath="HelpCategorySearchers.Name">
+
+                </ItemsControl>
 
             </GroupBox>
+
+            
         </Grid>
 
         

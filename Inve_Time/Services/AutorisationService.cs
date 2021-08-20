@@ -28,12 +28,12 @@ namespace Inve_Time.Services
 
         public bool ValidateLoginAndPassword(string login, string password)
         {   
-            if (!(_EmployeeRepository.Items.Select(p => p.Login).Contains(login)))
+            if (!_EmployeeRepository.Items.Select(p => p.Login).Contains(login))
             {
                 MessageBox.Show("Не верный логин");
                 return false;
             }
-            else if (!(_EmployeeRepository.Items.Where(p => p.Login == login).Select(p => p.Password.Name).Contains(password)))
+            else if (!_EmployeeRepository.Items.Where(p => p.Login == login).Select(p => p.Password.Name).Contains(password))
             {
                 MessageBox.Show("Не верный пароль");
                 return false;
@@ -42,7 +42,7 @@ namespace Inve_Time.Services
             return true;
         }
 
-        public EmpBaseInfo SaveAutorisatedUser(string login, string password) => new EmpBaseInfo(_EmployeeRepository.Items.SingleOrDefault(p => p.Login == login && p.Password.Name == password));
+        public EmpBaseInfo SaveAutorisatedUser(string login, string password) => new(_EmployeeRepository.Items.SingleOrDefault(p => p.Login == login && p.Password.Name == password));
         
     }
 }
