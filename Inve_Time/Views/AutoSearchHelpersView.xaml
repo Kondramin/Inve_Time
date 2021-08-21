@@ -14,37 +14,87 @@
             <i:InvokeCommandAction Command="{Binding LoadCategoryCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="9"/>
+        </Style>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="180"/>
+        </Style>
+
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0"
+                   Margin="9">
+            <StackPanel DockPanel.Dock="Top">
+                <Label Content="Категории товаров"
+                       FontSize="20"/>
+                <Label Content="Поиск категории"
+                       FontSize="16"/>
+                <Grid Margin="10">
+                    <TextBlock Text="Название"/>
+                    <TextBox/>
+                </Grid>
+                <Button Content="Добавить"/>
+                <Button Content="Изменить"/>
+                <Button Content="Удалить"/>
+            </StackPanel>
             
-            <GroupBox Header="Категория товара"
-                      Grid.Column="0">
-                
-                <ListBox ItemsSource="{Binding Path=CategoryObservalCollection}" DisplayMemberPath="Name"
+
+
+            <StackPanel DockPanel.Dock="Bottom">
+                <Label Content="Горячие слова"
+                   FontSize="20"/>
+                <Button Content="Добавить"/>
+                <Button Content="Изменить"/>
+                <Button Content="Удалить"/>
+            </StackPanel>
+
+            <Label/>
+
+        </DockPanel>
+
+
+
+       
+
+      
+
+
+
+
+        <GridSplitter Grid.Column="1" 
+                      Width="3"/>
+
+        <GroupBox Header="Категория товара"
+                  Grid.Column="1">
+            <ListBox ItemsSource="{Binding Path=CategoryObservalCollection}" DisplayMemberPath="Name"
                          SelectedItem="{Binding SelectedCategory}"/>
-                
-            </GroupBox>
+        </GroupBox>
 
-            <GroupBox Header="Горячие слова"
-                      Grid.Column="1">
-
-                <ListBox ItemsSource="{Binding SelectedCategory.HelpCategorySearchers}" DisplayMemberPath="Name" />
-
-            </GroupBox>
-
-            
-        </Grid>
-
+        <GroupBox Header="Горячие слова"
+                  Grid.Column="2">
+            <ListBox ItemsSource="{Binding SelectedCategory.HelpCategorySearchers}" DisplayMemberPath="Name"/>
+        </GroupBox>
         
     </Grid>
 </UserControl>

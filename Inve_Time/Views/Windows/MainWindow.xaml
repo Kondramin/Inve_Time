@@ -64,7 +64,7 @@
                     <MenuItem Header="Сохранённые рассылки"/>
                 </MenuItem>
                 
-                <MenuItem Header="Настрой определителя категорий" 
+                <MenuItem Header="Категории/Настройка автоопределителя" 
                           Command="{Binding ShowAutoSearchHelpersViewCommand}"/>
                 
                 <MenuItem Header="Время/дата"/>
