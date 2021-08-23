@@ -9,7 +9,7 @@
         <Setter Property="EnableRowVirtualization" Value="True"/>
     </Style>
 
-    <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+    <Style TargetType="Button" x:Key="BaseButton"  BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
         <Style.Triggers>
             <Trigger Property="IsDefault" Value="True">
                 <Setter Property="Background" Value="AliceBlue"/>
