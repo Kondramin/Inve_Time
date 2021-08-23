@@ -13,16 +13,11 @@
         
         Title="EmpEditorWindow"
         
-        MinHeight="450" MinWidth="380"
+        Height="455" Width="380"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
-            <Setter Property="Margin" Value="15"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-        </Style>
-
+        
         <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignBody1TextBlock}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
@@ -38,8 +33,6 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Width" Value="200"/>
         </Style>
-        
-        
         
     </Window.Resources>
 
@@ -91,8 +84,9 @@
             </Grid>
 
             <Grid>
-                <TextBlock Text="Пароль"/>
-                <TextBox Text=""/>
+                <Button Content="Задать/Сменить пароль" 
+                        Width="250"
+                        Margin="0,20,0,0"/>
             </Grid>
 
             
@@ -100,6 +94,15 @@
         </StackPanel>
 
         <Grid DockPanel.Dock="Bottom">
+            <Grid.Resources>
+
+                <Style TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                    <Setter Property="Margin" Value="15"/>
+                    <Setter Property="Width" Value="120"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                </Style>
+
+            </Grid.Resources>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
