@@ -5,7 +5,9 @@ using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
@@ -14,7 +16,7 @@ namespace Inve_Time.ViewModels
     class AutoSearchHelpersViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
-        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
+        
 
 
         public AutoSearchHelpersViewModel()
@@ -23,14 +25,7 @@ namespace Inve_Time.ViewModels
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
-        public AutoSearchHelpersViewModel(
-            IRepository<Category> CategoryRepository,
-            IRepository<HelpCategorySearch> HelpCategorySearchRepository
-            )
-        {
-            _CategoryRepository = CategoryRepository;
-            _HelpCategorySearchRepository = HelpCategorySearchRepository;
-        }
+        public AutoSearchHelpersViewModel(IRepository<Category> CategoryRepository) => _CategoryRepository = CategoryRepository;
 
 
 
@@ -41,34 +36,43 @@ namespace Inve_Time.ViewModels
         public ObservableCollection<Category> CategoryObservalCollection
         {
             get => _CategoryObservalCollection;
-            set => Set(ref _CategoryObservalCollection, value);
-            //{
-            //    if (Set(ref _HelpCategorySearchCollection, value))
-            //    {
-            //        _EmployeesViewSource = new CollectionViewSource
-            //        {
-            //            Source = value,
-            //            SortDescriptions =
-            //            {
-            //                new SortDescription(nameof(EmpBaseInfo.Fio), ListSortDirection.Ascending)
-            //            }
+            set
+            {
+                if (Set(ref _CategoryObservalCollection, value))
+                {
+                    _CategoryViewSource = new CollectionViewSource
+                    {
+                        Source = value,
+                        SortDescriptions =
+                        {
+                            new SortDescription(nameof(Category.Name), ListSortDirection.Ascending)
+                        }
+                    };
+                    
+                    _CategoryViewSource.Filter += NameFilter;
+                    
+                    OnPropertyChanged(nameof(CategoryView));
 
-            //        };
-
-            //        _EmployeesViewSource.Filter += OnAnyFilter;
-            //        _EmployeesViewSource.Filter += OnFIOFilter;
-            //        _EmployeesViewSource.Filter += OnPhoneFilter;
-            //        _EmployeesViewSource.Filter += OnEmailFilter;
-            //        _EmployeesViewSource.Filter += OnPositionNameFilter;
-            //        _EmployeesViewSource.View.Refresh();
-
-            //        OnPropertyChanged(nameof(EmployeesView));
-
-            //    }
-            //}
+                }
+            }
         }
 
+        private void NameFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Category category) || string.IsNullOrEmpty(FilterField)) return;
+
+            if (category.Name == null || !category.Name.ToLower().Contains(FilterField.ToLower()))
+                e.Accepted = false;
+        }
+
+
         #endregion
+
+
+        private CollectionViewSource _CategoryViewSource;
+
+
+        public ICollectionView CategoryView => _CategoryViewSource?.View;
 
 
         #region SelectedCategory SelectedCategory
@@ -83,6 +87,23 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
+        #region string FilterField
+
+        private string _FilterField;
+        /// <summary>FilterField in AutoSearchHelpersView</summary>
+        public string FilterField
+        {
+            get => _FilterField;
+            set
+            {
+                if (Set(ref _FilterField, value))
+                    _CategoryViewSource.View.Refresh();
+            }
+                
+        }
+
+        #endregion
 
 
 

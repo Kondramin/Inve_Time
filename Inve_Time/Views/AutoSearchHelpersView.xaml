@@ -52,15 +52,13 @@
                        FontSize="16"/>
                 <Grid Margin="10">
                     <TextBlock Text="Название"/>
-                    <TextBox/>
+                    <TextBox Text="{Binding FilterField, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Button Content="Добавить"/>
                 <Button Content="Изменить"/>
                 <Button Content="Удалить"/>
             </StackPanel>
             
-
-
             <StackPanel DockPanel.Dock="Bottom">
                 <Label Content="Горячие слова"
                    FontSize="20"/>
@@ -73,22 +71,10 @@
 
         </DockPanel>
 
-
-
-       
-
-      
-
-
-
-
-        <GridSplitter Grid.Column="1" 
-                      Width="3"/>
-
         <GroupBox Header="Категория товара"
                   Grid.Column="1">
-            <ListBox ItemsSource="{Binding Path=CategoryObservalCollection}" DisplayMemberPath="Name"
-                         SelectedItem="{Binding SelectedCategory}"/>
+            <ListBox ItemsSource="{Binding CategoryView}" DisplayMemberPath="Name"
+                     SelectedItem="{Binding SelectedCategory}"/>
         </GroupBox>
 
         <GroupBox Header="Горячие слова"
