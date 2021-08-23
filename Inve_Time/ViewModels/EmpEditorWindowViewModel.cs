@@ -1,9 +1,11 @@
-﻿using Inve_Time.DataBase.dll.Entities;
+﻿using Inve_Time.Commands.Base;
+using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
@@ -11,12 +13,10 @@ namespace Inve_Time.ViewModels
     class EmpEditorWindowViewModel : ViewModel
     {
         private readonly IRepository<Position> _PositionRepository;
-        private readonly IRepository<Password> _PasswodrRepository;
 
         public EmpEditorWindowViewModel(
             Employee emp, 
-            IRepository<Position> PositionRepository,
-            IRepository<Password> PasswodrRepository
+            IRepository<Position> PositionRepository
             )
         {
             EmpId = emp.Id;
@@ -28,7 +28,6 @@ namespace Inve_Time.ViewModels
             EmpLogin = emp.Login;
             SelectedPosition = emp.Position;
             _PositionRepository = PositionRepository;
-            _PasswodrRepository = PasswodrRepository;
             PositionsCollection = new ObservableCollection<Position>(_PositionRepository.Items.ToArray());
         }
 
@@ -148,7 +147,41 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region Command CreateOrModifiPasswordCommand - Add new employee
 
-    
+        /// <summary>Add new employee</summary>
+        private ICommand _CreateOrModifiPasswordCommand;
+
+        /// <summary>Add new employee</summary>
+        public ICommand CreateOrModifiPasswordCommand => _CreateOrModifiPasswordCommand
+            ??= new LambdaCommand(OnCreateOrModifiPasswordCommandExequted, CanCreateOrModifiPasswordCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Add new employee</summary>
+        public bool CanCreateOrModifiPasswordCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Add new employee</summary>
+        public void OnCreateOrModifiPasswordCommandExequted(object p)
+        {   
+            //var emp_to_modifi = p ?? SelectedEmployee;
+
+            //if (emp_to_modifi is not EmpBaseInfo empBase) return;
+
+            //var emp = empBase.ConvertToEmployee();
+
+            //if (!_UserDialog.EditEpmloyee(emp)) return;
+
+            ////TODO: Realise command
+
+            //_EmployeeRepository.Update(emp);
+
+            //var item = _EmployeesCollection.FirstOrDefault(i => i.Id == emp.Id);
+            //if (item != null)
+            //{
+            //    item = new EmpBaseInfo(emp);
+            //}
+        }
+
+        #endregion
+
     }
 }

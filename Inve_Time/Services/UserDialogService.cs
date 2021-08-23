@@ -25,8 +25,7 @@ namespace Inve_Time.Services
 
         public bool EditEpmloyee(Employee employee)
         {
-            //TODO:Refactoring
-            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _PasswodRepository);
+            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository);
 
 
             EmpEditorWindow employee_editor_window = new()
@@ -52,6 +51,22 @@ namespace Inve_Time.Services
             return true;
         }
 
+        public bool EditPassword(int employeeId)
+        {
+            ChangePasswordWindowViewModel changePasswordWindowViewModel = new(employeeId);
+
+            ChangePasswordWindow changePasswordWindow = new()
+            {
+                DataContext = changePasswordWindowViewModel
+            };
+
+            if(changePasswordWindow.ShowDialog() != true)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         public bool ConfirmInformation(string Information, string Caption) => MessageBox.Show(
             Information, Caption,

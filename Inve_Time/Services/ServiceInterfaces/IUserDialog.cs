@@ -27,5 +27,6 @@ namespace Inve_Time.Services.ServiceInterfaces
         /// <param name="Caption">Caption of MessageBox</param>
         /// <returns>true/false</returns>
         bool ConfirmError(string Error, string Caption);
+        bool EditPassword(int employeeId);
     }
 }
