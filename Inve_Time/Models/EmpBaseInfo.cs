@@ -41,7 +41,7 @@ namespace Inve_Time.Models
         {
             get
             {
-                return this.SecondName + " " + this.Name + " " + this.Patronymic;
+                return SecondName + " " + Name + " " + Patronymic;
             }
         }
 
@@ -52,7 +52,7 @@ namespace Inve_Time.Models
         {
             get
             {
-                return this.SecondName + this.Name + this.Patronymic + this.Phone + this.Email + this.Position.Name;
+                return SecondName ?? "" + Name ?? "" + Patronymic ?? "" + Phone ?? "" + Email ?? "" + Position.Name ?? "";
             }
         }
 

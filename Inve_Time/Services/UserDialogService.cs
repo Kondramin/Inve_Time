@@ -26,20 +26,19 @@ namespace Inve_Time.Services
         public bool EditEpmloyee(Employee employee)
         {
             //TODO:Refactoring
-            var employee_editor_viewModel = new EmpEditorWindowViewModel(employee, _PositionRepository, _PasswodRepository);
+            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _PasswodRepository);
 
 
-            var employee_editor_window = new EmpEditorWindow
+            EmpEditorWindow employee_editor_window = new()
             {
-                DataContext = employee_editor_viewModel,
-                Height = 450,
-                Width = 380,
-                
+                DataContext = employee_editor_viewModel
             };
 
 
-            if (employee_editor_window.ShowDialog() != true) return false;
-
+            if (employee_editor_window.ShowDialog() != true)
+            {
+                return false;
+            }
 
             employee.Id = employee_editor_viewModel.EmpId;
             employee.SecondName = employee_editor_viewModel.EmpSecondName;
@@ -49,8 +48,6 @@ namespace Inve_Time.Services
             employee.Email = employee_editor_viewModel.EmpEmail;
             employee.Login = employee_editor_viewModel.EmpLogin;
             employee.Position = employee_editor_viewModel.SelectedPosition;
-            //employee.Password.Name = employee_editor_viewModel
-            
 
             return true;
         }

@@ -178,7 +178,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Show EmployeesView</summary>
         public void OnShowEmployeesViewCommandExequted(object p)
         {
-            CurrentModel = new EmployeesViewModel(_EmployeeRepository, _PositionRepository, _UserDialog);
+            CurrentModel = new EmployeesViewModel(_EmployeeRepository, _UserDialog);
         }
 
         #endregion

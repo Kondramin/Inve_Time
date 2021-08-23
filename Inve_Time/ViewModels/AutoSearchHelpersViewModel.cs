@@ -59,7 +59,7 @@ namespace Inve_Time.ViewModels
 
         private void NameFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is Category category) || string.IsNullOrEmpty(FilterField)) return;
+            if (e.Item is not Category category || string.IsNullOrEmpty(FilterField)) return;
 
             if (category.Name == null || !category.Name.ToLower().Contains(FilterField.ToLower()))
                 e.Accepted = false;

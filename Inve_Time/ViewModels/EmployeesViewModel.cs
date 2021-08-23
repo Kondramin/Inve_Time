@@ -5,12 +5,10 @@ using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -20,17 +18,14 @@ namespace Inve_Time.ViewModels
     class EmployeesViewModel : ViewModel
     {
         private readonly IRepository<Employee> _EmployeeRepository;
-        private readonly IRepository<Position> _PositionRepository;
         private readonly IUserDialog _UserDialog;
 
 
         public EmployeesViewModel(
             IRepository<Employee> employeeRepository,
-            IRepository<Position> positionRepository,
             IUserDialog userDialog)
         {
             _EmployeeRepository = employeeRepository;
-            _PositionRepository = positionRepository;
             _UserDialog = userDialog;
         }
 
@@ -101,7 +96,7 @@ namespace Inve_Time.ViewModels
 
         private void OnAnyFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterAnyWord)) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
 
             if (empBaseInfo.Any == null || !empBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
                 e.Accepted = false;
@@ -109,7 +104,7 @@ namespace Inve_Time.ViewModels
 
         private void OnFIOFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterFIOWord)) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterFIOWord)) return;
 
             if (empBaseInfo.Fio == null || !empBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
                 e.Accepted = false;
@@ -117,7 +112,7 @@ namespace Inve_Time.ViewModels
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(ConvertedFilterPhonrField())) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhonrField())) return;
 
             if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhonrField()))
                 e.Accepted = false;
@@ -125,7 +120,7 @@ namespace Inve_Time.ViewModels
 
         private void OnEmailFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterEmailWord)) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterEmailWord)) return;
 
             if (empBaseInfo.Email == null || !empBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
             {
@@ -135,9 +130,9 @@ namespace Inve_Time.ViewModels
 
         private void OnPositionNameFilter(object sender, FilterEventArgs e)
         {
-            if (!(e.Item is EmpBaseInfo empBaseInfo) || string.IsNullOrEmpty(FilterPositionWord)) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterPositionWord)) return;
 
-            if (empBaseInfo.Position.Name == null || !empBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower()))
+            if ((empBaseInfo.Position == null) || (!empBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower())))
                 e.Accepted = false;
         }
 
@@ -398,7 +393,7 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_modifi = p ?? SelectedEmployee;
 
-            if (!(emp_to_modifi is EmpBaseInfo empBase)) return;
+            if (emp_to_modifi is not EmpBaseInfo empBase) return;
 
             var emp = empBase.ConvertToEmployee();
 
@@ -444,7 +439,7 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_remove = p ?? SelectedEmployee;
 
-            if (!(emp_to_remove is EmpBaseInfo emp)) return;
+            if (emp_to_remove is not EmpBaseInfo emp) return;
 
 
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {emp.Fio}?", "Удаление сотрудника")) return;

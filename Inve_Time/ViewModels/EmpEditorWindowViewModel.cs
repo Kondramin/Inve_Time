@@ -131,8 +131,7 @@ namespace Inve_Time.ViewModels
             get => _PositionsCollection;
             set => Set(ref _PositionsCollection, value);
         }
-        public bool IsDesingTime { get; }
-
+        
         #endregion
 
 
@@ -147,6 +146,8 @@ namespace Inve_Time.ViewModels
         }
 
         #endregion
+
+
 
     
     }
