@@ -8,11 +8,12 @@ namespace Inve_Time.ViewModels
     /// <summary>ViewModel of ChangePasswordWindow</summary>
     class ChangePasswordWindowViewModel : ViewModel
     {
-        private readonly IRepository<Password> _PasswordReposity;
+        private readonly IRepository<Employee> _EmployeeRepository;
 
-        public ChangePasswordWindowViewModel(int employeeId)
+        public ChangePasswordWindowViewModel(int employeeId, IRepository<Employee> EmployeeRepository)
         {
             EmpId = employeeId;
+            _EmployeeRepository = EmployeeRepository;
         }
         
         public ChangePasswordWindowViewModel()
@@ -20,9 +21,6 @@ namespace Inve_Time.ViewModels
             if (!App.IsDesignTime)
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
-
-
-
 
         public int EmpId { get; }
 

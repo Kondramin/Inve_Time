@@ -10,22 +10,22 @@ namespace Inve_Time.Services
     class UserDialogService : IUserDialog
     {
         private readonly IRepository<Position> _PositionRepository;
-        private readonly IRepository<Password> _PasswodRepository;
+        private readonly IChangePasswordService _ChangePasswordService;
 
         public UserDialogService(
             IRepository<Position> PositionRepository,
-            IRepository<Password> PasswodRepository
+            IChangePasswordService ChangePasswordService
             )
         {
             _PositionRepository = PositionRepository;
-            _PasswodRepository = PasswodRepository;
+            _ChangePasswordService = ChangePasswordService;
         }
 
         
 
         public bool EditEpmloyee(Employee employee)
         {
-            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository);
+            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ChangePasswordService);
 
 
             EmpEditorWindow employee_editor_window = new()
@@ -51,22 +51,7 @@ namespace Inve_Time.Services
             return true;
         }
 
-        public bool EditPassword(int employeeId)
-        {
-            ChangePasswordWindowViewModel changePasswordWindowViewModel = new(employeeId);
-
-            ChangePasswordWindow changePasswordWindow = new()
-            {
-                DataContext = changePasswordWindowViewModel
-            };
-
-            if(changePasswordWindow.ShowDialog() != true)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         public bool ConfirmInformation(string Information, string Caption) => MessageBox.Show(
             Information, Caption,

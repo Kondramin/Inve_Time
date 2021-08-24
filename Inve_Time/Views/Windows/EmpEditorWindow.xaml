@@ -84,7 +84,8 @@
             </Grid>
 
             <Grid>
-                <Button Content="Задать/Сменить пароль" 
+                <Button Content="Задать/Сменить пароль"
+                        Command="{Binding CreateOrModifiPasswordCommand}"
                         Width="250"
                         Margin="0,20,0,0"/>
             </Grid>

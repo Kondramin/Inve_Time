@@ -10,6 +10,7 @@ namespace Inve_Time.Services
             .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
             .AddTransient<IAutorisationService, AutorisationService>()
             .AddTransient<IUserDialog, UserDialogService>()
+            .AddTransient<IChangePasswordService, ChangePasswordService>()
             ;
     }
 }
