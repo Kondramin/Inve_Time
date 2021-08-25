@@ -24,25 +24,39 @@ namespace Inve_Time.Services
 
         public EmpBaseInfo AutorisatedUser { get; set; } = null;
 
+        public Employee PossibleEmployee { get; set; }
 
 
         public bool ValidateLoginAndPassword(string login, string password)
-        {   
-            if (!_EmployeeRepository.Items.Select(p => p.Login).Contains(login))
+        {  
+            if (!VaidateLogin(login)) 
             {
                 MessageBox.Show("Не верный логин");
                 return false;
             }
-            else if (!_EmployeeRepository.Items.Where(p => p.Login == login).Select(p => p.Password.Name).Contains(password))
+            else if (!ValidatePassword(PossibleEmployee.Id, password))
             {
                 MessageBox.Show("Не верный пароль");
                 return false;
             }
-            AutorisatedUser = SaveAutorisatedUser(login, password);
+            AutorisatedUser = new(PossibleEmployee);
             return true;
         }
 
-        public EmpBaseInfo SaveAutorisatedUser(string login, string password) => new(_EmployeeRepository.Items.SingleOrDefault(p => p.Login == login && p.Password.Name == password));
-        
+        public bool VaidateLogin(string login)
+        {
+            if (login is null) return false;
+            if (!_EmployeeRepository.Items.Select(e => e.Login).Contains(login)) return false;
+            PossibleEmployee = _EmployeeRepository.Items.FirstOrDefault(e => e.Login == login);
+            return true;
+        }
+
+        public bool ValidatePassword(int employeeId, string password)
+        {
+            if (password is null) return false;
+            var employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == employeeId);
+            if (!(employee.Password.Name == password)) return false;
+            return true;
+        }
     }
 }

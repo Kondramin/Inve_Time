@@ -49,7 +49,7 @@
             Margin="5">
 
             <TextBox
-                Text="{Binding LoginTextBox}"
+                Text="{Binding LoginTextBox, UpdateSourceTrigger=PropertyChanged}"
                 Margin="20"
                 materialDesign:HintAssist.Hint="Введите логин" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
