@@ -6,6 +6,7 @@ using Inve_Time.ViewModels.Base;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
@@ -166,7 +167,8 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Add new employee</summary>
         public void OnCreateOrModifiPasswordCommandExequted(object p)
         {
-            _ChangePasswordService.ChangePassword(EmpId);
+            if (_ChangePasswordService.ChangePassword(EmpId)) MessageBox.Show("Пароль успешно");
+            MessageBox.Show("Пароль не изменен");
         }
 
         #endregion
