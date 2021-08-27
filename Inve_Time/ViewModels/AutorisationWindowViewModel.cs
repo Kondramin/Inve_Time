@@ -10,10 +10,10 @@ namespace Inve_Time.ViewModels
     /// <summary>ViewModel of AutorisationWindow</summary>
     class AutorisationWindowViewModel : ViewModel
     {   
-        private readonly IAutorisationService _AutorisationService;
+        private readonly IAutorisationUserService _AutorisationService;
 
 
-        public AutorisationWindowViewModel(IAutorisationService autorisationService)
+        public AutorisationWindowViewModel(IAutorisationUserService autorisationService)
         {
             _AutorisationService = autorisationService;
         }

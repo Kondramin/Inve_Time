@@ -3,7 +3,7 @@
 namespace Inve_Time.Services.ServiceInterfaces
 {
     /// <summary>Service to autorisation user in application</summary>
-    interface IAutorisationService
+    interface IAutorisationUserService
     {
         /// <summary>Property, contained info about autorisated user</summary>
         EmpBaseInfo AutorisatedUser { get; set; }

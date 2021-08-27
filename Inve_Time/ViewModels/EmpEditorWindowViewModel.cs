@@ -15,12 +15,12 @@ namespace Inve_Time.ViewModels
     class EmpEditorWindowViewModel : ViewModel
     {
         private readonly IRepository<Position> _PositionRepository;
-        private readonly IChangePasswordService _ChangePasswordService;
+        private readonly IShowPasswordWindowsService _ShowPasswordWindowsService;
 
         public EmpEditorWindowViewModel(
             Employee emp,
             IRepository<Position> PositionRepository,
-            IChangePasswordService ChangePasswordService
+            IShowPasswordWindowsService ShowPasswordWindowsService
             )
         {
             EmpId = emp.Id;
@@ -32,7 +32,7 @@ namespace Inve_Time.ViewModels
             EmpLogin = emp.Login;
             SelectedPosition = emp.Position;
             _PositionRepository = PositionRepository;
-            _ChangePasswordService = ChangePasswordService;
+            _ShowPasswordWindowsService = ShowPasswordWindowsService;
             PositionsCollection = new ObservableCollection<Position>(_PositionRepository.Items.ToArray());
         }
 
@@ -152,22 +152,22 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region Command CreateOrModifiPasswordCommand - Add new employee
+        #region Command CreateOrModifiPasswordCommand - Show change password window
 
-        /// <summary>Add new employee</summary>
+        /// <summary>Show change password window</summary>
         private ICommand _CreateOrModifiPasswordCommand;
 
-        /// <summary>Add new employee</summary>
+        /// <summary>Show change password window</summary>
         public ICommand CreateOrModifiPasswordCommand => _CreateOrModifiPasswordCommand
             ??= new LambdaCommand(OnCreateOrModifiPasswordCommandExequted, CanCreateOrModifiPasswordCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Add new employee</summary>
+        /// <summary>Checking the possibility of execution - Show change password window</summary>
         public bool CanCreateOrModifiPasswordCommandExequt(object p) => true;
 
-        /// <summary>Execution logic - Add new employee</summary>
+        /// <summary>Execution logic - Show change password window</summary>
         public void OnCreateOrModifiPasswordCommandExequted(object p)
         {
-            if (_ChangePasswordService.ChangePassword(EmpId)) MessageBox.Show("Пароль успешно");
+            if (_ShowPasswordWindowsService.ShowChangePasswordWondow(EmpId)) MessageBox.Show("Пароль успешно");
             MessageBox.Show("Пароль не изменен");
         }
 

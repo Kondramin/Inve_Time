@@ -7,25 +7,25 @@ using System.Windows;
 
 namespace Inve_Time.Services
 {
-    class UserDialogService : IUserDialog
+    internal class UserDialogService : IUserDialog
     {
         private readonly IRepository<Position> _PositionRepository;
-        private readonly IChangePasswordService _ChangePasswordService;
+        private readonly IShowPasswordWindowsService _ShowPasswordWindowService;
 
         public UserDialogService(
             IRepository<Position> PositionRepository,
-            IChangePasswordService ChangePasswordService
+            IShowPasswordWindowsService ShowPasswordWindowService
             )
         {
             _PositionRepository = PositionRepository;
-            _ChangePasswordService = ChangePasswordService;
+            _ShowPasswordWindowService = ShowPasswordWindowService;
         }
 
-        
+
 
         public bool EditEpmloyee(Employee employee)
         {
-            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ChangePasswordService);
+            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ShowPasswordWindowService);
 
 
             EmpEditorWindow employee_editor_window = new()
@@ -51,7 +51,7 @@ namespace Inve_Time.Services
             return true;
         }
 
-        
+
 
         public bool ConfirmInformation(string Information, string Caption) => MessageBox.Show(
             Information, Caption,
@@ -75,4 +75,4 @@ namespace Inve_Time.Services
             == MessageBoxResult.Yes;
     }
 }
-    
+

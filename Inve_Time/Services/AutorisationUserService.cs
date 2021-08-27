@@ -9,27 +9,27 @@ using System.Windows;
 
 namespace Inve_Time.Services
 {
-    internal class AutorisationService : IAutorisationService
+    internal class AutorisationUserService : IAutorisationUserService
     {
         private readonly IRepository<Employee> _EmployeeRepository;
 
 
 
-        public AutorisationService(IRepository<Employee> employeeRepository)
+        public AutorisationUserService(IRepository<Employee> employeeRepository)
         {
             _EmployeeRepository = employeeRepository;
         }
 
 
 
-        public EmpBaseInfo AutorisatedUser { get; set; } = null;
+        public EmpBaseInfo AutorisatedUser { get; set; }
 
         public Employee PossibleEmployee { get; set; }
 
 
         public bool ValidateLoginAndPassword(string login, string password)
-        {  
-            if (!VaidateLogin(login)) 
+        {
+            if (!VaidateLogin(login))
             {
                 MessageBox.Show("Не верный логин");
                 return false;
