@@ -52,7 +52,10 @@ namespace Inve_Time.ViewModels
         {
             if (p is not PasswordBox[] paswordBoxes) return;
 
-
+            if (!paswordBoxes[0].IsEnabled)
+            {
+                paswordBoxes[0].IsEnabled = true;
+            }
             
 
         }
