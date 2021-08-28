@@ -12,13 +12,17 @@ namespace Inve_Time.Services
     internal class ShowPasswordWindowsService : IShowPasswordWindowsService
     {
         private readonly IRepository<Employee> _EmployeeRepository;
+        private readonly IEditPasswordService _EditPasswordService;
 
         public ShowPasswordWindowsService(
-            IRepository<Employee> EmployeeRepository
+            IRepository<Employee> EmployeeRepository,
+            IEditPasswordService EditPasswordService
             )
         {
             _EmployeeRepository = EmployeeRepository;
+            _EditPasswordService = EditPasswordService;
         }
+
 
 
         private Employee Employee { get; set; }
@@ -37,7 +41,7 @@ namespace Inve_Time.Services
             Employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == EmpId);
 
 
-            ChangePasswordWindowViewModel changePasswordWindowViewModel = new();
+            ChangePasswordWindowViewModel changePasswordWindowViewModel = new(EmpId, _EditPasswordService);
 
             
             ChangePasswordWindow changePasswordWindow = new()
@@ -69,44 +73,5 @@ namespace Inve_Time.Services
 
             return true;
         }
-
-
-
-        //public bool SetPassword(string oldPassword , string newPassword, string confirmNewPassword)
-        //{
-        //    if (Employee.Password is null)
-        //    {
-        //        if (newPassword == confirmNewPassword)
-        //        {
-        //            Password password = new()
-        //            {
-        //                Name = newPassword,
-        //                EmployeeId = Employee.Id
-        //            };
-        //            Employee.Password = _PasswodrRepository.Add(password);
-        //            _EmployeeRepository.Update(Employee);
-        //            return true;
-        //        }
-        //    }
-
-        //    if (Employee.Password.Name == oldPassword)
-        //    {
-        //        if (newPassword == confirmNewPassword)
-        //        {
-        //            Password password = new()
-        //            {
-        //                Name = newPassword,
-        //                EmployeeId = Employee.Id
-        //            };
-
-        //            _PasswodrRepository.Update(password);
-
-        //            return true;
-        //        }
-        //    }
-
-        //    return false;
-        //}
-       
     }
 }

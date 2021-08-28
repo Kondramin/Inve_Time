@@ -19,6 +19,8 @@
 
                 <ResourceDictionary Source="Commands/AppCommands.xaml"/>
 
+                <ResourceDictionary Source="Infrastructure/Converters/AppConverters.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
             
 

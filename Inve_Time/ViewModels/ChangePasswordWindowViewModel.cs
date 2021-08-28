@@ -1,9 +1,8 @@
 ﻿using Inve_Time.Commands.Base;
-using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.Interfaces.dll;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using System;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
@@ -11,13 +10,17 @@ namespace Inve_Time.ViewModels
     /// <summary>ViewModel of ChangePasswordWindow</summary>
     class ChangePasswordWindowViewModel : ViewModel
     {
+        private readonly IEditPasswordService _EditPasswordService;
 
-        //public ChangePasswordWindowViewModel(
-            
-        //    )
-        //{
-        //}
-        
+        public ChangePasswordWindowViewModel(
+            int employeeId,
+            IEditPasswordService EditPasswordService
+            )
+        {
+            EmpId = employeeId;
+            _EditPasswordService = EditPasswordService;
+        }
+
         public ChangePasswordWindowViewModel()
         {
             if (!App.IsDesignTime)
@@ -26,9 +29,9 @@ namespace Inve_Time.ViewModels
 
 
 
-        
-        
-        
+        private int EmpId { get; set; }
+
+
         #region Commands
 
 
@@ -47,7 +50,11 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Add new employee</summary>
         public void OnConfirmChangePasswordCommandExequted(object p)
         {
+            if (p is not PasswordBox[] paswordBoxes) return;
+
+
             
+
         }
 
         #endregion
