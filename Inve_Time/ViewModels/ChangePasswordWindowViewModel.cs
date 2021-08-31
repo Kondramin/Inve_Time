@@ -71,6 +71,7 @@ namespace Inve_Time.ViewModels
 
                 window.DialogResult = true;
                 window.Close();
+                return;
             }
 
             if (!_AutorisationUserService.ValidatePassword(EmpId, paswordBoxes[0].Password))
@@ -93,7 +94,7 @@ namespace Inve_Time.ViewModels
 
             window.DialogResult = true;
             window.Close();
-
+            return;
         }
         
         
