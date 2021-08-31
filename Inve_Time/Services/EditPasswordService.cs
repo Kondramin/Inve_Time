@@ -19,6 +19,10 @@ namespace Inve_Time.Services
 
         public bool EditPassword(int employeeId, string oldPassword, string newPassword, string confirmNewPassword)
         {
+            if (string.IsNullOrEmpty(oldPassword)) return false;
+            if (string.IsNullOrEmpty(newPassword)) return false;
+            if (string.IsNullOrEmpty(confirmNewPassword)) return false;
+
             var employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == employeeId);
 
             if(employee.Password is null)

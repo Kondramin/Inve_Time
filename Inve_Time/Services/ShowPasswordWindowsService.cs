@@ -13,14 +13,17 @@ namespace Inve_Time.Services
     {
         private readonly IRepository<Employee> _EmployeeRepository;
         private readonly IEditPasswordService _EditPasswordService;
+        private readonly IAutorisationUserService _AutorisationUserService;
 
         public ShowPasswordWindowsService(
             IRepository<Employee> EmployeeRepository,
-            IEditPasswordService EditPasswordService
+            IEditPasswordService EditPasswordService, 
+            IAutorisationUserService AutorisationUserService
             )
         {
             _EmployeeRepository = EmployeeRepository;
             _EditPasswordService = EditPasswordService;
+            _AutorisationUserService = AutorisationUserService;
         }
 
 
@@ -41,7 +44,7 @@ namespace Inve_Time.Services
             Employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == EmpId);
 
 
-            ChangePasswordWindowViewModel changePasswordWindowViewModel = new(EmpId, _EditPasswordService);
+            ChangePasswordWindowViewModel changePasswordWindowViewModel = new(EmpId, _EditPasswordService, _AutorisationUserService);
 
             
             ChangePasswordWindow changePasswordWindow = new()
