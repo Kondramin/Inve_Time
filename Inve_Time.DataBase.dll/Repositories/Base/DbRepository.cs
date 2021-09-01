@@ -77,7 +77,7 @@ namespace Inve_Time.DataBase.dll.Repositories.Base
             //TODO: The instance of entity type 'Employee' cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached. Consider using 'DbContextOptionsBuilder.EnableSensitiveDataLogging' to see the conflicting key values.
 
             _db.Entry(item).State = EntityState.Modified;
-            
+
 
             if (AutoSaveChanges) _db.SaveChanges();
         }

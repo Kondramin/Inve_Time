@@ -9,7 +9,7 @@ namespace Inve_Time.ViewModels
 {
     /// <summary>ViewModel of AutorisationWindow</summary>
     class AutorisationWindowViewModel : ViewModel
-    {   
+    {
         private readonly IAutorisationUserService _AutorisationService;
 
 
@@ -88,7 +88,7 @@ namespace Inve_Time.ViewModels
 
 
         #endregion
-    
-    
+
+
     }
 }

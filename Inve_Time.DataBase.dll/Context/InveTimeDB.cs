@@ -104,13 +104,13 @@ namespace Inve_Time.DataBase.dll.Context
                     new Position{Id=2, Name="Менеджер магазина", AccessLevel = 5 },
                     new Position{Id=3, Name="Продавец", AccessLevel = 1 }
                 });
-            
+
             modelBuilder.Entity<Employee>().HasData(
                 new Employee { Id = 1, Name = "Admin", SecondName = "Admin", Login = "Admin", PasswodrId = 1, PositionId = 1 }
                 );
 
             modelBuilder.Entity<Password>().HasData(
-                new Password { Id = 1, Name = "admin", EmployeeId = 1}
+                new Password { Id = 1, Name = "admin", EmployeeId = 1 }
                 );
         }
         #endregion

@@ -16,7 +16,7 @@ namespace Inve_Time.ViewModels
     class AutoSearchHelpersViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
-        
+
 
 
         public AutoSearchHelpersViewModel()
@@ -48,9 +48,9 @@ namespace Inve_Time.ViewModels
                             new SortDescription(nameof(Category.Name), ListSortDirection.Ascending)
                         }
                     };
-                    
+
                     _CategoryViewSource.Filter += NameFilter;
-                    
+
                     OnPropertyChanged(nameof(CategoryView));
 
                 }
@@ -100,7 +100,7 @@ namespace Inve_Time.ViewModels
                 if (Set(ref _FilterField, value))
                     _CategoryViewSource.View.Refresh();
             }
-                
+
         }
 
         #endregion

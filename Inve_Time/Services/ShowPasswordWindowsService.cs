@@ -17,7 +17,7 @@ namespace Inve_Time.Services
 
         public ShowPasswordWindowsService(
             IRepository<Employee> EmployeeRepository,
-            IEditPasswordService EditPasswordService, 
+            IEditPasswordService EditPasswordService,
             IAutorisationUserService AutorisationUserService
             )
         {
@@ -36,7 +36,7 @@ namespace Inve_Time.Services
         {
             if (!_EmployeeRepository.Items.Select(e => e.Id).Contains(EmpId))
             {
-                MessageBox.Show("Сотрудник отсутствует/не найден");
+                MessageBox.Show("Сотрудник отсутствует/не найден.");
                 return false;
             }
 
@@ -46,22 +46,22 @@ namespace Inve_Time.Services
 
             ChangePasswordWindowViewModel changePasswordWindowViewModel = new(EmpId, _EditPasswordService, _AutorisationUserService);
 
-            
+
             ChangePasswordWindow changePasswordWindow = new()
             {
-                
+
                 DataContext = changePasswordWindowViewModel,
-                
-                
+
+
                 Title = (Employee.Password is null) ? "Создать пароль" : "Изменить пароль",
-                
-                
+
+
                 OldPwdTextBlock =
                 {
                     IsEnabled = Employee.Password is not null
                 },
-                
-                
+
+
                 OldPwdBox =
                 {
                     IsEnabled = Employee.Password is not null

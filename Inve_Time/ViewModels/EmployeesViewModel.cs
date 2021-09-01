@@ -40,8 +40,8 @@ namespace Inve_Time.ViewModels
         {
             get => _EmployeesCollection;
             set
-            { 
-                if(Set(ref _EmployeesCollection, value))
+            {
+                if (Set(ref _EmployeesCollection, value))
                 {
                     _EmployeesViewSource = new CollectionViewSource
                     {
@@ -50,7 +50,7 @@ namespace Inve_Time.ViewModels
                         {
                             new SortDescription(nameof(EmpBaseInfo.Fio), ListSortDirection.Ascending)
                         }
-                        
+
                     };
 
                     _EmployeesViewSource.Filter += OnAnyFilter;
@@ -164,11 +164,11 @@ namespace Inve_Time.ViewModels
         public string FilterFIOWord
         {
             get => _FilterFIOWord;
-            set 
-            { 
-                if(Set(ref _FilterFIOWord, value))
+            set
+            {
+                if (Set(ref _FilterFIOWord, value))
                     _EmployeesViewSource.View.Refresh();
-            } 
+            }
         }
 
         #endregion
@@ -180,7 +180,7 @@ namespace Inve_Time.ViewModels
         public string FilterPhoneWord
         {
             get => _FilterPhoneWord;
-            set 
+            set
             {
                 if (Set(ref _FilterPhoneWord, value))
                     _EmployeesViewSource.View.Refresh();
@@ -196,9 +196,9 @@ namespace Inve_Time.ViewModels
         public string FilterEmailWord
         {
             get => _FilterEmailWord;
-            set 
+            set
             {
-                if(Set(ref _FilterEmailWord, value))
+                if (Set(ref _FilterEmailWord, value))
                     _EmployeesViewSource.View.Refresh();
             }
         }
@@ -214,7 +214,7 @@ namespace Inve_Time.ViewModels
             get => _FilterPositionWord;
             set
             {
-                if(Set(ref _FilterPositionWord, value))
+                if (Set(ref _FilterPositionWord, value))
                     _EmployeesViewSource.View.Refresh();
             }
         }
@@ -228,7 +228,7 @@ namespace Inve_Time.ViewModels
 
         private string ConvertedFilterPhonrField()
         {
-            if (FilterPhoneWord is null) return null; 
+            if (FilterPhoneWord is null) return null;
 
             var phone = FilterPhoneWord.Remove(0, 5);
 
@@ -253,9 +253,9 @@ namespace Inve_Time.ViewModels
             int sRemStart = phone.Length;
             int sRemTrim = 0;
 
-            for(int j = phone.Length; j > 0; j--)
+            for (int j = phone.Length; j > 0; j--)
             {
-                if (!(phone[j-1] >= '0' && phone[j-1] <= '9'))
+                if (!(phone[j - 1] >= '0' && phone[j - 1] <= '9'))
                 {
                     sRemStart--;
                     sRemTrim++;
@@ -355,7 +355,7 @@ namespace Inve_Time.ViewModels
         {
             var new_employee = new Employee();
 
-            if(!_UserDialog.EditEpmloyee(new_employee)) return;
+            if (!_UserDialog.EditEpmloyee(new_employee)) return;
 
             var empBase = new EmpBaseInfo(_EmployeeRepository.Add(new_employee));
 
@@ -443,10 +443,10 @@ namespace Inve_Time.ViewModels
 
 
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {emp.Fio}?", "Удаление сотрудника")) return;
-            
+
 
             _EmployeeRepository.Remove(emp.Id);
-            
+
             _EmployeesCollection.Remove(emp);
             if (ReferenceEquals(SelectedEmployee, emp)) SelectedEmployee = null;
         }

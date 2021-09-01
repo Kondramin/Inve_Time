@@ -58,7 +58,7 @@ namespace Inve_Time.Services
             MessageBoxButton.YesNo,
             MessageBoxImage.Information)
             == MessageBoxResult.Yes;
-        
+
 
 
         public bool ConfirmWarning(string Warning, string Caption) => MessageBox.Show(

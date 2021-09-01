@@ -18,6 +18,6 @@ namespace Inve_Time.DataBase.dll.Entities
 
 
         public ICollection<CurrentInventarisation> CurrentInventarisations { get; set; }
-        
+
     }
 }

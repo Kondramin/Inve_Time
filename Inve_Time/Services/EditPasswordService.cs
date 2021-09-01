@@ -25,7 +25,7 @@ namespace Inve_Time.Services
 
             var employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == employeeId);
 
-            if(employee.Password is null)
+            if (employee.Password is null)
             {
                 if (newPassword == confirmNewPassword)
                 {

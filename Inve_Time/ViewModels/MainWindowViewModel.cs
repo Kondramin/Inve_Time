@@ -65,7 +65,7 @@ namespace Inve_Time.ViewModels
 
 
         /// <summary>StatusBar - Name of Employee</summary>
-        public string StatusBarEmployeeName 
+        public string StatusBarEmployeeName
         {
             get
             {
@@ -75,9 +75,9 @@ namespace Inve_Time.ViewModels
 
 
         /// <summary>StatusBar - Position of Employee</summary>
-        public string StatusBarEmployeePositionName 
+        public string StatusBarEmployeePositionName
         {
-            get => AutorisatedEmployee.Position.Name; 
+            get => AutorisatedEmployee.Position.Name;
         }
 
 
