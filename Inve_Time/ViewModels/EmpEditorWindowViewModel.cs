@@ -135,7 +135,7 @@ namespace Inve_Time.ViewModels
             get => _PositionsCollection;
             set => Set(ref _PositionsCollection, value);
         }
-        
+
         #endregion
 
 
@@ -167,8 +167,13 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Show change password window</summary>
         public void OnCreateOrModifiPasswordCommandExequted(object p)
         {
-            if (_ShowPasswordWindowsService.ShowChangePasswordWondow(EmpId)) MessageBox.Show("Пароль успешно");
-            MessageBox.Show("Пароль не изменен");
+            if (_ShowPasswordWindowsService.ShowChangePasswordWondow(EmpId))
+            {
+                MessageBox.Show("Пароль успешно изменён.");
+                return;
+            }
+
+            MessageBox.Show("Пароль не изменен.");
         }
 
         #endregion

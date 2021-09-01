@@ -2,7 +2,6 @@
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using System;
-using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,14 +56,22 @@ namespace Inve_Time.ViewModels
         {
             if (p is not PasswordBox[] paswordBoxes) return;
 
+
+            PasswordBox oldPasswordBox = paswordBoxes[0];
+            PasswordBox newPasswordBox = paswordBoxes[1];
+            PasswordBox confirmNewPasswordBox = paswordBoxes[2];
+
+
             var window = App.CurrentWindow;
 
-            if (!paswordBoxes[0].IsEnabled)
+
+            if (!oldPasswordBox.IsEnabled)
             {
-                if (!_EditPasswordService.EditPassword(EmpId, " ", paswordBoxes[1].Password, paswordBoxes[2].Password))
+
+                if (!_EditPasswordService.EditPassword(EmpId, " ", newPasswordBox.Password, confirmNewPasswordBox.Password))
                 {
-                    paswordBoxes[1].Password = "";
-                    paswordBoxes[2].Password = "";
+                    newPasswordBox.Password = "";
+                    confirmNewPasswordBox.Password = "";
                     MessageBox.Show("Не совпадают пароли! Попробуйте снова.");
                     return;
                 }
@@ -74,31 +81,30 @@ namespace Inve_Time.ViewModels
                 return;
             }
 
-            if (!_AutorisationUserService.ValidatePassword(EmpId, paswordBoxes[0].Password))
+            if (!_AutorisationUserService.ValidatePassword(EmpId, oldPasswordBox.Password))
             {
-                paswordBoxes[0].Password = "";
-                paswordBoxes[1].Password = "";
-                paswordBoxes[2].Password = "";
+                oldPasswordBox.Password = "";
+                newPasswordBox.Password = "";
+                confirmNewPasswordBox.Password = "";
                 MessageBox.Show("Старый пароль не совпадает! Попробуйте снова.");
                 return;
             }
 
-            if (!_EditPasswordService.EditPassword(EmpId, paswordBoxes[0].Password, paswordBoxes[1].Password, paswordBoxes[2].Password))
+            if (!_EditPasswordService.EditPassword(EmpId, oldPasswordBox.Password, newPasswordBox.Password, confirmNewPasswordBox.Password))
             {
-                paswordBoxes[0].Password = "";
-                paswordBoxes[1].Password = "";
-                paswordBoxes[2].Password = "";
+                oldPasswordBox.Password = "";
+                newPasswordBox.Password = "";
+                confirmNewPasswordBox.Password = "";
                 MessageBox.Show("Не совпадают пароли! Попробуйте снова.");
                 return;
             }
 
             window.DialogResult = true;
             window.Close();
-            return;
         }
-        
-        
-        
+
+
+
         #endregion
 
 
