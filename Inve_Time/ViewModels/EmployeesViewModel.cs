@@ -395,7 +395,7 @@ namespace Inve_Time.ViewModels
 
             if (emp_to_modifi is not EmpBaseInfo empBase) return;
 
-            var emp = empBase.ConvertToEmployee();
+            var emp = _EmployeeRepository.Get(empBase.Id);
 
             if (!_UserDialog.EditEpmloyee(emp)) return;
 
