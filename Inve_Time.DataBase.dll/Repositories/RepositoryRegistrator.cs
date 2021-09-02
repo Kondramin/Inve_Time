@@ -8,14 +8,14 @@ namespace Inve_Time.DataBase.dll.Repositories
     public static class RepositoryRegistrator
     {
         public static IServiceCollection AddRepositoriesInDb(this IServiceCollection services) => services
-            .AddTransient<IRepository<Employee>, EmployeeRepository>()
-            .AddTransient<IRepository<Position>, PositionRepository>()
-            .AddTransient<IRepository<ProductBase>, ProductBaseRepository>()
-            .AddTransient<IRepository<ProductInvented>, ProductInventedRepository>()
-            .AddTransient<IRepository<Category>, CategoryRepository>()
-            .AddTransient<IRepository<CurrentInventarisation>, CurrentInventarisationRepository>()
-            .AddTransient<IRepository<HelpCategorySearch>, HelpCategorySearchRepository>()
-            .AddTransient<IRepository<Password>, DbRepository<Password>>()
+            .AddScoped<IRepository<Employee>, EmployeeRepository>()
+            .AddScoped<IRepository<Position>, PositionRepository>()
+            .AddScoped<IRepository<ProductBase>, ProductBaseRepository>()
+            .AddScoped<IRepository<ProductInvented>, ProductInventedRepository>()
+            .AddScoped<IRepository<Category>, CategoryRepository>()
+            .AddScoped<IRepository<CurrentInventarisation>, CurrentInventarisationRepository>()
+            .AddScoped<IRepository<HelpCategorySearch>, HelpCategorySearchRepository>()
+            .AddScoped<IRepository<Password>, DbRepository<Password>>()
             ;
     }
 }
