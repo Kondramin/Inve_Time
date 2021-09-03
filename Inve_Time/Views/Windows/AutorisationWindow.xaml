@@ -16,49 +16,46 @@
         
         Title="{Binding Title}" 
         Height="300" Width="400">
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Width" Value="160"/>
+        </Style>
+    </Window.Resources>
     
     
     <DockPanel>
-        <Label 
-            Content="Введите ваш логин и пароль" 
-            FontSize="20" HorizontalAlignment="Center" 
-            Height="auto" Margin="5" 
-            DockPanel.Dock="Top"/>
-        <Grid
-            Height="50" 
-            Margin="10" 
-            DockPanel.Dock="Bottom">
+        <Label Content="Введите ваш логин и пароль"
+               DockPanel.Dock="Top"
+               FontSize="20" HorizontalAlignment="Center" 
+               Height="auto" Margin="5"/>
+        
+        <Grid Height="50" Margin="10" 
+              DockPanel.Dock="Bottom">
 
-            <Button 
-                Content="Вход"
-                IsDefault="True"
-                Command="{Binding AutorisationCommand}"
-                CommandParameter="{Binding ElementName=pwdBox}"
-                HorizontalAlignment="Left" 
-                Width="150"/>
+            <Button Content="Вход"
+                    IsDefault="True"
+                    Command="{Binding AutorisationCommand}"
+                    CommandParameter="{Binding ElementName=pwdBox}"
+                    HorizontalAlignment="Left"/>
 
-            <Button
-                Content="Выход" 
-                HorizontalAlignment="Right" 
-                Width="150"
-                IsCancel="True"
-                Command="{StaticResource CloseAppCommand}"/>
+            <Button Content="Выход"
+                    IsCancel="True"
+                    Command="{StaticResource CloseAppCommand}"    
+                    HorizontalAlignment="Right"/>
 
         </Grid>
-        <StackPanel
-            Margin="5">
+        
+        <StackPanel Margin="5">
 
-            <TextBox
-                Text="{Binding LoginTextBox, UpdateSourceTrigger=PropertyChanged}"
-                Margin="20"
-                materialDesign:HintAssist.Hint="Введите логин" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <TextBox Text="{Binding LoginTextBox, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Введите логин"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="20"/>
 
-            <PasswordBox                
-                x:Name="pwdBox"
-                Margin="20"
-                materialDesign:HintAssist.Hint="Введите пароль" 
-                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Cursor="IBeam"/>
+            <PasswordBox x:Name="pwdBox"
+                         materialDesign:HintAssist.Hint="Введите пароль" 
+                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Cursor="IBeam"
+                         Margin="20"/>
             
         </StackPanel>
     </DockPanel>
