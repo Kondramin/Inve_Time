@@ -58,6 +58,7 @@ namespace Inve_Time.ViewModels
                     _EmployeesViewSource.Filter += OnPhoneFilter;
                     _EmployeesViewSource.Filter += OnEmailFilter;
                     _EmployeesViewSource.Filter += OnPositionNameFilter;
+                    
                     _EmployeesViewSource.View.Refresh();
 
                     OnPropertyChanged(nameof(EmployeesView));
@@ -112,9 +113,9 @@ namespace Inve_Time.ViewModels
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhonrField())) return;
+            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhoneField())) return;
 
-            if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhonrField()))
+            if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhoneField()))
                 e.Accepted = false;
         }
 
@@ -226,7 +227,7 @@ namespace Inve_Time.ViewModels
 
 
 
-        private string ConvertedFilterPhonrField()
+        private string ConvertedFilterPhoneField()
         {
             if (FilterPhoneWord is null) return null;
 
@@ -395,19 +396,19 @@ namespace Inve_Time.ViewModels
 
             if (emp_to_modifi is not EmpBaseInfo empBase) return;
 
-            var emp = _EmployeeRepository.Get(empBase.Id);
+            var employee = _EmployeeRepository.Get(empBase.Id);
 
-            if (!_UserDialog.EditEpmloyee(emp)) return;
+            if (!_UserDialog.EditEpmloyee(employee)) return;
 
-            //TODO: Realise command
+            _EmployeeRepository.Update(employee);
 
-            _EmployeeRepository.Update(emp);
+            EmployeesCollection.Remove(empBase);
 
-            var item = _EmployeesCollection.FirstOrDefault(i => i.Id == emp.Id);
-            if (item != null)
-            {
-                item = new EmpBaseInfo(emp);
-            }
+            var newEmployeeBaseInfo = new EmpBaseInfo(employee);
+
+            EmployeesCollection.Add(newEmployeeBaseInfo);
+
+            SelectedEmployee = newEmployeeBaseInfo;
         }
 
         #endregion
@@ -439,16 +440,16 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_remove = p ?? SelectedEmployee;
 
-            if (emp_to_remove is not EmpBaseInfo emp) return;
+            if (emp_to_remove is not EmpBaseInfo empBase) return;
 
 
-            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {emp.Fio}?", "Удаление сотрудника")) return;
+            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {empBase.Fio}?", "Удаление сотрудника")) return;
 
 
-            _EmployeeRepository.Remove(emp.Id);
+            _EmployeeRepository.Remove(empBase.Id);
 
-            _EmployeesCollection.Remove(emp);
-            if (ReferenceEquals(SelectedEmployee, emp)) SelectedEmployee = null;
+            _EmployeesCollection.Remove(empBase);
+            if (ReferenceEquals(SelectedEmployee, empBase)) SelectedEmployee = null;
         }
 
         #endregion
