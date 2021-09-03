@@ -11,7 +11,7 @@ namespace Inve_Time.Services
             .AddTransient<IAutorisationUserService, AutorisationUserService>()
             .AddTransient<IUserDialog, UserDialogService>()
             .AddTransient<IShowPasswordWindowsService, ShowPasswordWindowsService>()
-            .AddTransient<IEditPasswordService, EditPasswordService>()
+            .AddScoped<IEditPasswordService, EditPasswordService>()
             ;
     }
 }

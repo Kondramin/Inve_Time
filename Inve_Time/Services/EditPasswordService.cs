@@ -23,35 +23,46 @@ namespace Inve_Time.Services
 
             if (employee.Password is null)
             {
-                if (string.IsNullOrEmpty(newPassword)) return false;
-                if (string.IsNullOrEmpty(confirmNewPassword)) return false;
-                if (newPassword == confirmNewPassword)
-                {
-                    Password password = new()
-                    {
-                        Name = newPassword,
-                        EmployeeId = employee.Id,
-                        Employee = employee
-                    };
-
-                    Password pas = _PasswordRepository.Add(password);
-
-                    employee.PasswodrId = pas.Id;
-                    employee.Password = pas;
-                    
-                    _EmployeeRepository.Update(employee);
-
-                    return true;
-                }
+                return NewPassword(employee, newPassword, confirmNewPassword);
             }
 
+            return ChangePassword(employee, oldPassword, newPassword, confirmNewPassword);
+        }
 
-            if (string.IsNullOrEmpty(oldPassword)) return false;
+        private bool NewPassword(Employee employee, string newPassword,string confirmNewPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword)) return false;
+
+            if (newPassword == confirmNewPassword)
+            {
+                Password password = new()
+                {
+                    Name = newPassword,
+                    EmployeeId = employee.Id,
+                    Employee = employee
+                };
+                
+                Password pass = _PasswordRepository.Add(password);
+
+                employee.PasswodrId = pass.Id;
+                employee.Password = pass;
+
+                _EmployeeRepository.Update(employee);
+
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private bool ChangePassword(Employee employee, string oldPassword, string newPassword, string confirmNewPassword)
+        {
+            if (string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword)) return false;
+
             if (employee.Password.Name == oldPassword)
             {
-                if (string.IsNullOrEmpty(newPassword)) return false;
-                if (string.IsNullOrEmpty(confirmNewPassword)) return false;
-                if (oldPassword == confirmNewPassword)
+                if (newPassword == confirmNewPassword)
                 {
                     Password password=_PasswordRepository.Get(employee.Password.Id);
                     password.Name = newPassword;
@@ -60,7 +71,6 @@ namespace Inve_Time.Services
                     return true;
                 }
             }
-
             return false;
         }
     }
