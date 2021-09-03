@@ -49,19 +49,10 @@ namespace Inve_Time.Services
 
             ChangePasswordWindow changePasswordWindow = new()
             {
-
                 DataContext = changePasswordWindowViewModel,
 
-
                 Title = (Employee.Password is null) ? "Создать пароль" : "Изменить пароль",
-
-
-                OldPwdTextBlock =
-                {
-                    IsEnabled = Employee.Password is not null
-                },
-
-
+                
                 OldPwdBox =
                 {
                     IsEnabled = Employee.Password is not null
@@ -69,12 +60,7 @@ namespace Inve_Time.Services
             };
 
 
-            if (changePasswordWindow.ShowDialog() != true)
-            {
-                return false;
-            }
-
-            return true;
+            return changePasswordWindow.ShowDialog() == true;
         }
     }
 }
