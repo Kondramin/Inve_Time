@@ -21,7 +21,7 @@ namespace Inve_Time.Models
             Login = emp.Login;
             Position = emp.Position;
         }
-        
+
 
 
         /// <summary>Helpful property. Return SecondName, Name, Patronymic in one field as FIO</summary>
@@ -30,6 +30,6 @@ namespace Inve_Time.Models
 
 
         /// <summary>Helpful property. Using in filters</summary>
-        public string Any { get => SecondName ?? "" + Name ?? "" + Patronymic ?? "" + Phone ?? "" + Email ?? "" + Position.Name ?? ""; }
+        public string Any { get => (SecondName ?? "") + (Name ?? "") + (Patronymic ?? "") + (Phone ?? "") + (Email ?? "") + (Position.Name ?? ""); }
     }
 }
