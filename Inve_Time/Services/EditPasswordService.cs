@@ -19,22 +19,26 @@ namespace Inve_Time.Services
 
         public bool EditPassword(int employeeId, string oldPassword, string newPassword, string confirmNewPassword)
         {
-            if (string.IsNullOrEmpty(oldPassword)) return false;
-            if (string.IsNullOrEmpty(newPassword)) return false;
-            if (string.IsNullOrEmpty(confirmNewPassword)) return false;
-
             var employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == employeeId);
 
             if (employee.Password is null)
             {
+                if (string.IsNullOrEmpty(newPassword)) return false;
+                if (string.IsNullOrEmpty(confirmNewPassword)) return false;
                 if (newPassword == confirmNewPassword)
                 {
                     Password password = new()
                     {
                         Name = newPassword,
-                        EmployeeId = employee.Id
+                        EmployeeId = employee.Id,
+                        Employee = employee
                     };
-                    employee.Password = _PasswordRepository.Add(password);
+
+                    Password pas = _PasswordRepository.Add(password);
+
+                    employee.PasswodrId = pas.Id;
+                    employee.Password = pas;
+                    
                     _EmployeeRepository.Update(employee);
 
                     return true;
@@ -42,14 +46,15 @@ namespace Inve_Time.Services
             }
 
 
+            if (string.IsNullOrEmpty(oldPassword)) return false;
             if (employee.Password.Name == oldPassword)
             {
+                if (string.IsNullOrEmpty(newPassword)) return false;
+                if (string.IsNullOrEmpty(confirmNewPassword)) return false;
                 if (oldPassword == confirmNewPassword)
                 {
-                    Password password = new()
-                    {
-                        Name = newPassword
-                    };
+                    Password password=_PasswordRepository.Get(employee.Password.Id);
+                    password.Name = newPassword;
                     _PasswordRepository.Update(password);
 
                     return true;
