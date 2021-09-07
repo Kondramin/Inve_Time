@@ -10,7 +10,8 @@ namespace Inve_Time.DataBase.dll.Repositories
 {
     internal class EmployeeRepository : DbRepository<Employee>
     {
-
+        private readonly InveTimeDB _db;
+        private readonly DbSet<Employee> _Set;
 
         public override IQueryable<Employee> Items => base.Items
             .Include(item => item.Position)
@@ -20,18 +21,28 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override void Remove(int id)
         {
-            //var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
-            
-            //base.Remove(id);
+            var item = _Set.Include(item => item.Password).FirstOrDefault(i => i.Id == id) ?? new Employee { Id = id };
+
+            _db.Remove(item);
+
+            if (AutoSaveChanges) _db.SaveChanges();
         }
 
 
-        public override Task RemoveAsync(int id, CancellationToken Cancel = default)
+        public override async Task RemoveAsync(int id, CancellationToken Cancel = default)
         {
-            return base.RemoveAsync(id, Cancel);
+            var item = _Set.Include(item => item.Password).FirstOrDefault(i => i.Id == id) ?? new Employee { Id = id };
+
+            _db.Remove(item);
+
+            if (AutoSaveChanges) await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
 
-        public EmployeeRepository(InveTimeDB db) : base(db) { }
+        public EmployeeRepository(InveTimeDB db) : base(db)
+        {
+            _db = db;
+            _Set = db.Set<Employee>();
+        }
 
     }
 }
