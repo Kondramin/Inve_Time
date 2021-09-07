@@ -7,16 +7,12 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
-    /// <summary>ViewModel of AutorisationWindow</summary>
-    class AutorisationWindowViewModel : ViewModel
+    internal class AutorisationWindowViewModel : ViewModel
     {
-        private readonly IAutorisationUserService _AutorisationService;
+        private readonly IAutorisationUserService _AutorisationUserService;
 
 
-        public AutorisationWindowViewModel(IAutorisationUserService autorisationService)
-        {
-            _AutorisationService = autorisationService;
-        }
+        public AutorisationWindowViewModel(IAutorisationUserService autorisationService) => _AutorisationUserService = autorisationService;
 
 
 
@@ -58,10 +54,7 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Autorisation in app </summary>
         public ICommand AutorisationCommand => _AutorisationCommand
-            ??= new LambdaCommand(OnAutorisationCommandExequted, CanAutorisationCommandExequt);
-
-        /// <summary>Checking the possibility of execution - Autorisation in app </summary>
-        public bool CanAutorisationCommandExequt(object p) => true;
+            ??= new LambdaCommand(OnAutorisationCommandExequted);
 
         /// <summary>Execution logic - Autorisation in app </summary>
         /// <param name="p">PasswordBox</param>
@@ -69,9 +62,9 @@ namespace Inve_Time.ViewModels
         {
             PasswordBox pwdBox = p as PasswordBox;
 
-            if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
+            if (_AutorisationUserService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
             {
-                MainWindowViewModel.AutorisatedEmployee = _AutorisationService.AutorisatedUser;
+                MainWindowViewModel.AutorisatedEmployee = _AutorisationUserService.AutorisatedUser;
                 var mainWindow = new MainWindow();
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
