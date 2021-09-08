@@ -16,8 +16,7 @@ namespace Inve_Time.ViewModels
     class AutoSearchHelpersViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
-
-
+        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
 
         public AutoSearchHelpersViewModel()
         {
@@ -25,7 +24,14 @@ namespace Inve_Time.ViewModels
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
-        public AutoSearchHelpersViewModel(IRepository<Category> CategoryRepository) => _CategoryRepository = CategoryRepository;
+        public AutoSearchHelpersViewModel(
+            IRepository<Category> CategoryRepository,
+            IRepository<HelpCategorySearch> HelpCategorySearchRepository
+            )
+        {
+            _CategoryRepository = CategoryRepository;
+            _HelpCategorySearchRepository = HelpCategorySearchRepository;
+        }
 
 
 
@@ -75,14 +81,27 @@ namespace Inve_Time.ViewModels
         public ICollectionView CategoryView => _CategoryViewSource?.View;
 
 
-        #region SelectedCategory SelectedCategory
+        #region CategoryListBox SelectedCategory
 
         private Category _SelectedCategory;
-        /// <summary>SelectedCategory in ListBox</summary>
+        /// <summary>SelectedCategory in CategoryListBox</summary>
         public Category SelectedCategory
         {
             get => _SelectedCategory;
             set => Set(ref _SelectedCategory, value);
+        }
+
+        #endregion
+
+
+        #region CategorySearcherListBox SelectedCategorySearcher
+
+        private Category _SelectedCategorySearcher;
+        /// <summary>SelectedCategorySearcher in CategorySearcherListBox</summary>
+        public Category SelectedCategorySearcher
+        {
+            get => _SelectedCategorySearcher;
+            set => Set(ref _SelectedCategorySearcher, value);
         }
 
         #endregion
@@ -127,6 +146,80 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
+        //TODO: Realise CRUD to category
+
+
+        #region Command AddNewCategoryCommand - Add new catego
+
+        /// <summary>Add new catego</summary>
+        private ICommand _AddNewCategoryCommand;
+
+        /// <summary>Add new catego</summary>
+        public ICommand AddNewCategoryCommand => _AddNewCategoryCommand
+            ??= new LambdaCommand(OnAddNewCategoryCommandExequted, CanAddNewCategoryCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Add new catego</summary>
+        public bool CanAddNewCategoryCommandExequt(object p)
+        {
+            return true;
+        }
+
+        /// <summary>Execution logic - Add new catego</summary>
+        public void OnAddNewCategoryCommandExequted(object p)
+        {
+           
+        }
+
+        #endregion
+
+
+        #region Command ModifiCategoryCommand - Modifi catego
+
+        /// <summary>Modifi catego</summary>
+        private ICommand _ModifiCategoryCommand;
+
+        /// <summary>Modifi catego</summary>
+        public ICommand ModifiCategoryCommand => _ModifiCategoryCommand
+            ??= new LambdaCommand(OnModifiCategoryCommandExequted, CanModifiCategoryCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Modifi catego</summary>
+        public bool CanModifiCategoryCommandExequt(object p)
+        {
+            return true;
+        }
+
+        /// <summary>Execution logic - Modifi catego</summary>
+        public void OnModifiCategoryCommandExequted(object p)
+        {
+            
+        }
+
+        #endregion
+
+
+        #region Command RemoveCategoryCommand - Remove catego
+
+        /// <summary>Remove catego</summary>
+        private ICommand _RemoveCategoryCommand;
+
+        /// <summary>Remove catego</summary>
+        public ICommand RemoveCategoryCommand => _RemoveCategoryCommand
+            ??= new LambdaCommand(OnRemoveCategoryCommandExequted, CanRemoveCategoryCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Remove catego</summary>
+        public bool CanRemoveCategoryCommandExequt(object p)
+        {
+            return true;
+        }
+
+        /// <summary>Execution logic - Remove catego</summary>
+        public void OnRemoveCategoryCommandExequted(object p)
+        {
+            
+        }
+
+        #endregion
 
         #endregion
     }
