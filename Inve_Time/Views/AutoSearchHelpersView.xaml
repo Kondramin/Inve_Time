@@ -55,9 +55,12 @@
                     <TextBlock Text="Название"/>
                     <TextBox Text="{Binding FilterField, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
-                <Button Content="Добавить"/>
-                <Button Content="Изменить"/>
-                <Button Content="Удалить"/>
+                <Button Content="Добавить"
+                        Command="{Binding AddNewCategoryCommand}"/>
+                <Button Content="Изменить"
+                        Command="{Binding ModifiCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
+                <Button Content="Удалить"
+                        Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
             </StackPanel>
             
             <StackPanel DockPanel.Dock="Bottom">
