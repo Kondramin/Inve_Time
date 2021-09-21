@@ -150,46 +150,42 @@ namespace Inve_Time.ViewModels
         //TODO: Realise CRUD to category
 
 
-        #region Command AddNewCategoryCommand - Add new catego
+        #region Command AddNewCategoryCommand - Add new category
 
-        /// <summary>Add new catego</summary>
+        /// <summary>Add new category</summary>
         private ICommand _AddNewCategoryCommand;
 
-        /// <summary>Add new catego</summary>
+        /// <summary>Add new category</summary>
         public ICommand AddNewCategoryCommand => _AddNewCategoryCommand
             ??= new LambdaCommand(OnAddNewCategoryCommandExequted, CanAddNewCategoryCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Add new catego</summary>
-        public bool CanAddNewCategoryCommandExequt(object p)
-        {
-            return true;
-        }
+        /// <summary>Checking the possibility of execution - Add new category</summary>
+        public bool CanAddNewCategoryCommandExequt(object p) => true;
 
-        /// <summary>Execution logic - Add new catego</summary>
+        /// <summary>Execution logic - Add new category</summary>
         public void OnAddNewCategoryCommandExequted(object p)
         {
-           
+            Category category = new();
+
+
         }
 
         #endregion
 
 
-        #region Command ModifiCategoryCommand - Modifi catego
+        #region Command ModifiCategoryCommand - Modifi category
 
-        /// <summary>Modifi catego</summary>
+        /// <summary>Modifi category</summary>
         private ICommand _ModifiCategoryCommand;
 
-        /// <summary>Modifi catego</summary>
+        /// <summary>Modifi category</summary>
         public ICommand ModifiCategoryCommand => _ModifiCategoryCommand
             ??= new LambdaCommand(OnModifiCategoryCommandExequted, CanModifiCategoryCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Modifi catego</summary>
-        public bool CanModifiCategoryCommandExequt(object p)
-        {
-            return true;
-        }
+        /// <summary>Checking the possibility of execution - Modifi category</summary>
+        public bool CanModifiCategoryCommandExequt(object p) => true;
 
-        /// <summary>Execution logic - Modifi catego</summary>
+        /// <summary>Execution logic - Modifi category</summary>
         public void OnModifiCategoryCommandExequted(object p)
         {
             
@@ -198,22 +194,19 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region Command RemoveCategoryCommand - Remove catego
+        #region Command RemoveCategoryCommand - Remove category
 
-        /// <summary>Remove catego</summary>
+        /// <summary>Remove category</summary>
         private ICommand _RemoveCategoryCommand;
 
-        /// <summary>Remove catego</summary>
+        /// <summary>Remove category</summary>
         public ICommand RemoveCategoryCommand => _RemoveCategoryCommand
             ??= new LambdaCommand(OnRemoveCategoryCommandExequted, CanRemoveCategoryCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Remove catego</summary>
-        public bool CanRemoveCategoryCommandExequt(object p)
-        {
-            return true;
-        }
+        /// <summary>Checking the possibility of execution - Remove category</summary>
+        public bool CanRemoveCategoryCommandExequt(object p) => true;
 
-        /// <summary>Execution logic - Remove catego</summary>
+        /// <summary>Execution logic - Remove category</summary>
         public void OnRemoveCategoryCommandExequted(object p)
         {
             
