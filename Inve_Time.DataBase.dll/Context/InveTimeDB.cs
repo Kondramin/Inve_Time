@@ -16,8 +16,8 @@ namespace Inve_Time.DataBase.dll.Context
         public DbSet<ProductBase> ProductsBase { get; set; }
         public DbSet<ProductInvented> ProductsInvented { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<HelpCategorySearch> HelpCategorySearchers { get; set; }
-        public DbSet<CurrentInventarisation> CurrentInventarisations { get; set; }
+        public DbSet<CategorySearchWord> CategorySearchWords { get; set; }
+        public DbSet<InventarisationEvent> InventarisationEvents { get; set; }
         public DbSet<Password> Passwords { get; set; }
 
 
@@ -58,43 +58,43 @@ namespace Inve_Time.DataBase.dll.Context
                 new Category { Id=23, Name="Кабели" },
                 new Category { Id=24, Name="Прочее" }
                 });
-            modelBuilder.Entity<HelpCategorySearch>().HasData(
-                new HelpCategorySearch[]
+            modelBuilder.Entity<CategorySearchWord>().HasData(
+                new CategorySearchWord[]
                 {
-                    new HelpCategorySearch{ Id=1, Name="внешний", CategoryId=1 },
-                    new HelpCategorySearch{ Id=2, Name="ноутбук", CategoryId=2 },
-                    new HelpCategorySearch{ Id=3, Name="рюкзак", CategoryId=3 },
-                    new HelpCategorySearch{ Id=4, Name="сумка", CategoryId=3 },
-                    new HelpCategorySearch{ Id=5, Name="чемодан", CategoryId=3 },
-                    new HelpCategorySearch{ Id=6, Name="телефон", CategoryId=4 },
-                    new HelpCategorySearch{ Id=7, Name="чехол", CategoryId=5 },
-                    new HelpCategorySearch{ Id=8, Name="бампер", CategoryId=5 },
-                    new HelpCategorySearch{ Id=9, Name="книга", CategoryId=5 },
-                    new HelpCategorySearch{ Id=10, Name="стекло", CategoryId=6 },
-                    new HelpCategorySearch{ Id=11, Name="пленка", CategoryId=6 },
-                    new HelpCategorySearch{ Id=12, Name="браслет", CategoryId=7 },
-                    new HelpCategorySearch{ Id=13, Name="часы", CategoryId=7 },
-                    new HelpCategorySearch{ Id=14, Name="ремешок", CategoryId=8 },
-                    new HelpCategorySearch{ Id=15, Name="видеорегистратор", CategoryId=9 },
-                    new HelpCategorySearch{ Id=16, Name="памяти", CategoryId=10 },
-                    new HelpCategorySearch{ Id=17, Name="батар", CategoryId=11 },
-                    new HelpCategorySearch{ Id=18, Name="IP", CategoryId=12 },
-                    new HelpCategorySearch{ Id=19, Name="мышь", CategoryId=13 },
-                    new HelpCategorySearch{ Id=20, Name="колонка", CategoryId=14 },
-                    new HelpCategorySearch{ Id=21, Name="гарнитура", CategoryId=15 },
-                    new HelpCategorySearch{ Id=22, Name="Wi-Fi", CategoryId=16 },
-                    new HelpCategorySearch{ Id=23, Name="телевизор", CategoryId=17 },
-                    new HelpCategorySearch{ Id=24, Name="TV", CategoryId=18 },
-                    new HelpCategorySearch{ Id=25, Name="блок", CategoryId=19 },
-                    new HelpCategorySearch{ Id=26, Name="кнопка", CategoryId=19 },
-                    new HelpCategorySearch{ Id=27, Name="датчик", CategoryId=19 },
-                    new HelpCategorySearch{ Id=28, Name="пылесос", CategoryId=20 },
-                    new HelpCategorySearch{ Id=29, Name="швабра", CategoryId=20 },
-                    new HelpCategorySearch{ Id=30, Name="самокат", CategoryId=21 },
-                    new HelpCategorySearch{ Id=31, Name="велосипед", CategoryId=21 },
-                    new HelpCategorySearch{ Id=32, Name="гироскутер", CategoryId=21 },
-                    new HelpCategorySearch{ Id=33, Name="лампа", CategoryId=22 },
-                    new HelpCategorySearch{ Id=34, Name="кабель", CategoryId=23 },
+                    new CategorySearchWord{ Id=1, Name="внешний", CategoryId=1 },
+                    new CategorySearchWord{ Id=2, Name="ноутбук", CategoryId=2 },
+                    new CategorySearchWord{ Id=3, Name="рюкзак", CategoryId=3 },
+                    new CategorySearchWord{ Id=4, Name="сумка", CategoryId=3 },
+                    new CategorySearchWord{ Id=5, Name="чемодан", CategoryId=3 },
+                    new CategorySearchWord{ Id=6, Name="телефон", CategoryId=4 },
+                    new CategorySearchWord{ Id=7, Name="чехол", CategoryId=5 },
+                    new CategorySearchWord{ Id=8, Name="бампер", CategoryId=5 },
+                    new CategorySearchWord{ Id=9, Name="книга", CategoryId=5 },
+                    new CategorySearchWord{ Id=10, Name="стекло", CategoryId=6 },
+                    new CategorySearchWord{ Id=11, Name="пленка", CategoryId=6 },
+                    new CategorySearchWord{ Id=12, Name="браслет", CategoryId=7 },
+                    new CategorySearchWord{ Id=13, Name="часы", CategoryId=7 },
+                    new CategorySearchWord{ Id=14, Name="ремешок", CategoryId=8 },
+                    new CategorySearchWord{ Id=15, Name="видеорегистратор", CategoryId=9 },
+                    new CategorySearchWord{ Id=16, Name="памяти", CategoryId=10 },
+                    new CategorySearchWord{ Id=17, Name="батар", CategoryId=11 },
+                    new CategorySearchWord{ Id=18, Name="IP", CategoryId=12 },
+                    new CategorySearchWord{ Id=19, Name="мышь", CategoryId=13 },
+                    new CategorySearchWord{ Id=20, Name="колонка", CategoryId=14 },
+                    new CategorySearchWord{ Id=21, Name="гарнитура", CategoryId=15 },
+                    new CategorySearchWord{ Id=22, Name="Wi-Fi", CategoryId=16 },
+                    new CategorySearchWord{ Id=23, Name="телевизор", CategoryId=17 },
+                    new CategorySearchWord{ Id=24, Name="TV", CategoryId=18 },
+                    new CategorySearchWord{ Id=25, Name="блок", CategoryId=19 },
+                    new CategorySearchWord{ Id=26, Name="кнопка", CategoryId=19 },
+                    new CategorySearchWord{ Id=27, Name="датчик", CategoryId=19 },
+                    new CategorySearchWord{ Id=28, Name="пылесос", CategoryId=20 },
+                    new CategorySearchWord{ Id=29, Name="швабра", CategoryId=20 },
+                    new CategorySearchWord{ Id=30, Name="самокат", CategoryId=21 },
+                    new CategorySearchWord{ Id=31, Name="велосипед", CategoryId=21 },
+                    new CategorySearchWord{ Id=32, Name="гироскутер", CategoryId=21 },
+                    new CategorySearchWord{ Id=33, Name="лампа", CategoryId=22 },
+                    new CategorySearchWord{ Id=34, Name="кабель", CategoryId=23 },
                 });
 
             modelBuilder.Entity<Position>().HasData(

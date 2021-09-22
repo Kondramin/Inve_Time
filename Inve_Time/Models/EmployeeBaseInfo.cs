@@ -3,14 +3,14 @@
 namespace Inve_Time.Models
 {
     /// <summary>Helpfull class of model. Using to working with colections to show info about Employees.</summary>
-    class EmpBaseInfo : Employee
+    class EmployeeBaseInfo : Employee
     {
         /// <summary>Simple ctor</summary>
-        public EmpBaseInfo() { }
+        public EmployeeBaseInfo() { }
 
         /// <summary>Ctor to convert Employee to EmpBaseInfo</summary>
         /// <param name="emp">Employee entity</param>
-        public EmpBaseInfo(Employee emp)
+        public EmployeeBaseInfo(Employee emp)
         {
             Id = emp.Id;
             SecondName = emp.SecondName;

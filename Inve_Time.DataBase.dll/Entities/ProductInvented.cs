@@ -11,10 +11,10 @@ namespace Inve_Time.DataBase.dll.Entities
         public bool Peresort { get; set; } = false;
 
 
-
         public int? ProductBaseId { get; set; }
         public ProductBase ProductBase { get; set; }
 
-        public ICollection<CurrentInventarisation> CurrentInventarisations { get; set; }
+
+        public ICollection<InventarisationEvent> InventarisationEvents { get; set; }
     }
 }

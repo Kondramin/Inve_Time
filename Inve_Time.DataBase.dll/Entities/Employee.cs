@@ -13,11 +13,12 @@ namespace Inve_Time.DataBase.dll.Entities
         public int? PositionId { get; set; }
         public Position Position { get; set; }
 
+
         public int? PasswodrId { get; set; }
         public Password Password { get; set; }
 
 
-        public ICollection<CurrentInventarisation> CurrentInventarisations { get; set; }
+        public ICollection<InventarisationEvent> InventarisationEvents { get; set; }
 
     }
 }

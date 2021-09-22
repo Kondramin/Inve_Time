@@ -2,7 +2,7 @@
 
 namespace Inve_Time.DataBase.dll.Entities
 {
-    public class HelpCategorySearch : NamedEntity
+    public class CategorySearchWord : NamedEntity
     {
         public int? CategoryId { get; set; }
         public Category Category { get; set; }

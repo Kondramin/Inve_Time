@@ -13,8 +13,8 @@ namespace Inve_Time.DataBase.dll.Repositories
             .AddScoped<IRepository<ProductBase>, ProductBaseRepository>()
             .AddScoped<IRepository<ProductInvented>, ProductInventedRepository>()
             .AddScoped<IRepository<Category>, CategoryRepository>()
-            .AddScoped<IRepository<CurrentInventarisation>, CurrentInventarisationRepository>()
-            .AddScoped<IRepository<HelpCategorySearch>, HelpCategorySearchRepository>()
+            .AddScoped<IRepository<InventarisationEvent>, InventarisationEventRepository>()
+            .AddScoped<IRepository<CategorySearchWord>, CategorySearchWordRepository>()
             .AddScoped<IRepository<Password>, DbRepository<Password>>()
             ;
     }

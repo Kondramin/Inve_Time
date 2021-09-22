@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Inve_Time.Views.Windows"
         xmlns:vm="clr-namespace:Inve_Time.ViewModels"
+        xmlns:m="clr-namespace:Inve_Time.Models"
         Style="{StaticResource BaseMaterWindowStyle}"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance {x:Type vm:CategoryEditorWindowViewModel}}"
@@ -34,15 +35,42 @@
                 <Label Content="Категория"
                        FontSize="21" FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-                <TextBox materialDesign:HintAssist.Hint="Название категории"
+                <TextBox Text="{Binding CategoryName, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="Название категории"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Margin="0,30,0,0"/>
+                         Margin="0,30,0,15"/>
+                <Label Content="Горячее слово"
+                       FontSize="18" FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+                <Label Content="изменить/добавить"
+                       Margin="0,15,0,8"
+                       HorizontalAlignment="Center"/>
+                <Grid>
+                    <TextBox HorizontalAlignment="Left"
+                             Width="135"/>
+                    <Button Content="{materialDesign:PackIcon Kind=Done}"
+                            HorizontalAlignment="Right" Width="50"/>
+                </Grid>
+                
             </StackPanel>
         </Grid>
 
         <GroupBox Header="Горячие слова"
                   Grid.Column="1">
-            <ListBox/>
+            <ListBox ItemsSource="{Binding HelpCategorySearchCollection}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="m:HelpCategorySearchModel">
+                        <Grid>
+                            <TextBlock Text="{Binding Name}"
+                                       HorizontalAlignment="Left"/>
+
+                            <Button Content="X"
+                                    HorizontalAlignment="Right"/>
+                        </Grid>
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+            </ListBox>
         </GroupBox>
 
         <UniformGrid Rows="1" 

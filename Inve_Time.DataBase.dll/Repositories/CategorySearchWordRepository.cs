@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace Inve_Time.DataBase.dll.Repositories
 {
-    internal class HelpCategorySearchRepository : DbRepository<HelpCategorySearch>
+    internal class CategorySearchWordRepository : DbRepository<CategorySearchWord>
     {
 
-        public override IQueryable<HelpCategorySearch> Items => base.Items
+        public override IQueryable<CategorySearchWord> Items => base.Items
             .Include(item => item.Category)
             ;
 
-        public HelpCategorySearchRepository(InveTimeDB db) : base(db) { }
+        public CategorySearchWordRepository(InveTimeDB db) : base(db) { }
     }
 }

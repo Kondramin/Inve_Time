@@ -22,7 +22,7 @@ namespace Inve_Time.Services
 
 
 
-        public EmpBaseInfo AutorisatedUser { get; set; }
+        public EmployeeBaseInfo AutorisatedUser { get; set; }
 
         public Employee PossibleEmployee { get; set; }
 

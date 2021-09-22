@@ -34,9 +34,9 @@ namespace Inve_Time.ViewModels
 
         #region ObservableCollection<EmpBaseInfo> EmployeesCollection - collection of employees 
 
-        private ObservableCollection<EmpBaseInfo> _EmployeesCollection;
+        private ObservableCollection<EmployeeBaseInfo> _EmployeesCollection;
         /// <summary>EmployeesCollection - collection of employees</summary>
-        public ObservableCollection<EmpBaseInfo> EmployeesCollection
+        public ObservableCollection<EmployeeBaseInfo> EmployeesCollection
         {
             get => _EmployeesCollection;
             set
@@ -48,7 +48,7 @@ namespace Inve_Time.ViewModels
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(EmpBaseInfo.Fio), ListSortDirection.Ascending)
+                            new SortDescription(nameof(EmployeeBaseInfo.Fio), ListSortDirection.Ascending)
                         }
 
                     };
@@ -80,9 +80,9 @@ namespace Inve_Time.ViewModels
 
         #region EmployeeBaseInfo SelectedEmployee
 
-        private EmpBaseInfo _SelectedEmployee;
+        private EmployeeBaseInfo _SelectedEmployee;
         /// <summary>SelectedEmployee in DataGrid</summary>
-        public EmpBaseInfo SelectedEmployee
+        public EmployeeBaseInfo SelectedEmployee
         {
             get => _SelectedEmployee;
             set => Set(ref _SelectedEmployee, value);
@@ -97,7 +97,7 @@ namespace Inve_Time.ViewModels
 
         private void OnAnyFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
+            if (e.Item is not EmployeeBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
 
             if (empBaseInfo.Any == null || !empBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
                 e.Accepted = false;
@@ -105,7 +105,7 @@ namespace Inve_Time.ViewModels
 
         private void OnFIOFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterFIOWord)) return;
+            if (e.Item is not EmployeeBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterFIOWord)) return;
 
             if (empBaseInfo.Fio == null || !empBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
                 e.Accepted = false;
@@ -113,7 +113,7 @@ namespace Inve_Time.ViewModels
 
         private void OnPhoneFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhoneField())) return;
+            if (e.Item is not EmployeeBaseInfo empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhoneField())) return;
 
             if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhoneField()))
                 e.Accepted = false;
@@ -121,7 +121,7 @@ namespace Inve_Time.ViewModels
 
         private void OnEmailFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterEmailWord)) return;
+            if (e.Item is not EmployeeBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterEmailWord)) return;
 
             if (empBaseInfo.Email == null || !empBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
             {
@@ -131,7 +131,7 @@ namespace Inve_Time.ViewModels
 
         private void OnPositionNameFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not EmpBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterPositionWord)) return;
+            if (e.Item is not EmployeeBaseInfo empBaseInfo || string.IsNullOrEmpty(FilterPositionWord)) return;
 
             if ((empBaseInfo.Position == null) || (!empBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower())))
                 e.Accepted = false;
@@ -290,8 +290,8 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Load Employees from database</summary>
         public async Task OnLoadEmployeesCommandExequted(object p)
         {
-            EmployeesCollection = new ObservableCollection<EmpBaseInfo>(await _EmployeeRepository.Items
-            .Select(e => new EmpBaseInfo
+            EmployeesCollection = new ObservableCollection<EmployeeBaseInfo>(await _EmployeeRepository.Items
+            .Select(e => new EmployeeBaseInfo
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -358,7 +358,7 @@ namespace Inve_Time.ViewModels
 
             if (!_UserDialog.EditEpmloyee(new_employee)) return;
 
-            var empBase = new EmpBaseInfo(_EmployeeRepository.Add(new_employee));
+            var empBase = new EmployeeBaseInfo(_EmployeeRepository.Add(new_employee));
 
             _EmployeesCollection.Add(empBase);
 
@@ -384,7 +384,7 @@ namespace Inve_Time.ViewModels
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
-            if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
 
             else return true;
         }
@@ -394,7 +394,7 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_modifi = p ?? SelectedEmployee;
 
-            if (emp_to_modifi is not EmpBaseInfo empBase) return;
+            if (emp_to_modifi is not EmployeeBaseInfo empBase) return;
 
             var employee = _EmployeeRepository.Get(empBase.Id);
 
@@ -404,7 +404,7 @@ namespace Inve_Time.ViewModels
 
             EmployeesCollection.Remove(empBase);
 
-            var newEmployeeBaseInfo = new EmpBaseInfo(employee);
+            var newEmployeeBaseInfo = new EmployeeBaseInfo(employee);
 
             EmployeesCollection.Add(newEmployeeBaseInfo);
 
@@ -430,7 +430,7 @@ namespace Inve_Time.ViewModels
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
 
-            if (!(p is EmpBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
+            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
 
             else return true;
         }
@@ -440,7 +440,7 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_remove = p ?? SelectedEmployee;
 
-            if (emp_to_remove is not EmpBaseInfo empBase) return;
+            if (emp_to_remove is not EmployeeBaseInfo empBase) return;
 
 
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {empBase.Fio}?", "Удаление сотрудника")) return;

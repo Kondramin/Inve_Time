@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 namespace Inve_Time.DataBase.dll.Entities
 {
-    public class CurrentInventarisation : Entity
+    public class InventarisationEvent : Entity
     {
-        public DateTime InventarisationDate { get; set; }
-
+        public DateTime DateOfEvent { get; set; }
 
 
         public int? EmployeeId { get; set; }

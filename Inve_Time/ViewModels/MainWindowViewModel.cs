@@ -15,9 +15,9 @@ namespace Inve_Time.ViewModels
     class MainWindowViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
-        private readonly IRepository<CurrentInventarisation> _CurrentInventarisationRepository;
+        private readonly IRepository<InventarisationEvent> _InventarisationEventRepository;
         private readonly IRepository<Employee> _EmployeeRepository;
-        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
+        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
         private readonly IRepository<Position> _PositionRepository;
         private readonly IRepository<ProductBase> _ProductBaseRepository;
         private readonly IRepository<ProductInvented> _ProductInventedRepository;
@@ -26,9 +26,9 @@ namespace Inve_Time.ViewModels
 
         public MainWindowViewModel(
             IRepository<Category> CategoryRepository,
-            IRepository<CurrentInventarisation> CurrentInventarisationRepository,
+            IRepository<InventarisationEvent> InventarisationEventRepository,
             IRepository<Employee> EmployeeRepository,
-            IRepository<HelpCategorySearch> HelpCategorySearchRepository,
+            IRepository<CategorySearchWord> CategorySearchWordRepository,
             IRepository<Position> PositionRepository,
             IRepository<ProductBase> ProductBaseRepository,
             IRepository<ProductInvented> ProductInventedRepository,
@@ -36,9 +36,9 @@ namespace Inve_Time.ViewModels
             )
         {
             _CategoryRepository = CategoryRepository;
-            _CurrentInventarisationRepository = CurrentInventarisationRepository;
+            _InventarisationEventRepository = InventarisationEventRepository;
             _EmployeeRepository = EmployeeRepository;
-            _HelpCategorySearchRepository = HelpCategorySearchRepository;
+            _CategorySearchWordRepository = CategorySearchWordRepository;
             _PositionRepository = PositionRepository;
             _ProductBaseRepository = ProductBaseRepository;
             _ProductInventedRepository = ProductInventedRepository;
@@ -48,7 +48,7 @@ namespace Inve_Time.ViewModels
 
 
         /// <summary>Info about autorisated user</summary>
-        public static EmpBaseInfo AutorisatedEmployee;
+        public static EmployeeBaseInfo AutorisatedEmployee;
 
 
         #region string MainWindow Title  = "Inve_Time"
@@ -199,7 +199,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Show AutoSearchHelpersView</summary>
         public void OnShowAutoSearchHelpersViewCommandExequted(object p)
         {
-            CurrentModel = new AutoSearchHelpersViewModel(_CategoryRepository, _HelpCategorySearchRepository);
+            CurrentModel = new AutoSearchHelpersViewModel(_CategoryRepository, _CategorySearchWordRepository);
         }
 
         #endregion

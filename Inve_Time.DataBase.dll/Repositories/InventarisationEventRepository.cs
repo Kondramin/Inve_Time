@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace Inve_Time.DataBase.dll.Repositories
 {
-    internal class CurrentInventarisationRepository : DbRepository<CurrentInventarisation>
+    internal class InventarisationEventRepository : DbRepository<InventarisationEvent>
     {
 
-        public override IQueryable<CurrentInventarisation> Items => base.Items
+        public override IQueryable<InventarisationEvent> Items => base.Items
             .Include(item => item.ResponsibleForEvent)
             .Include(item => item.ProductInventeds)
             ;
 
-        public CurrentInventarisationRepository(InveTimeDB db) : base(db) { }
+        public InventarisationEventRepository(InveTimeDB db) : base(db) { }
     }
 }

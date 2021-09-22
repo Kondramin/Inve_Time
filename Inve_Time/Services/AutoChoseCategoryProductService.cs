@@ -12,19 +12,19 @@ namespace Inve_Time.Services
     {
         private readonly IRepository<ProductBase> _ProductBaseRepository;
         private readonly IRepository<ProductInvented> _ProductInventedRepossitory;
-        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
+        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
         private readonly InveTimeDB _Db;
 
         public AutoChoseCategoryProductService(
             IRepository<ProductBase> ProductRepository,
             IRepository<ProductInvented> ProductInventedRepossitory,
-            IRepository<HelpCategorySearch> HelpCategorySearchRepository,
+            IRepository<CategorySearchWord> CategorySearchWordRepository,
             InveTimeDB db
             )
         {
             _ProductBaseRepository = ProductRepository;
             _ProductInventedRepossitory = ProductInventedRepossitory;
-            _HelpCategorySearchRepository = HelpCategorySearchRepository;
+            _CategorySearchWordRepository = CategorySearchWordRepository;
             _Db = db;
         }
 
@@ -52,7 +52,7 @@ namespace Inve_Time.Services
             if (!(prodStillNullCategory.Any())) return;
 
 
-            foreach (var search in _HelpCategorySearchRepository.Items)
+            foreach (var search in _CategorySearchWordRepository.Items)
             {
                 string SQLsearch = $"%{search.Name}%";
 
@@ -99,7 +99,7 @@ namespace Inve_Time.Services
             if (!(prodStillNullCategory.Any())) return;
 
 
-            foreach (var search in _HelpCategorySearchRepository.Items)
+            foreach (var search in _CategorySearchWordRepository.Items)
             {
                 string SQLsearch = $"%{search.Name}%";
 

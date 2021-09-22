@@ -11,7 +11,7 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override IQueryable<Category> Items => base.Items
             .Include(item => item.Products)
-            .Include(item => item.HelpCategorySearchers)
+            .Include(item => item.CategorySearchWords)
             ;
 
         public CategoryRepository(InveTimeDB db) : base(db) { }

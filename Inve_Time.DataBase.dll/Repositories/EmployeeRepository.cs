@@ -15,7 +15,7 @@ namespace Inve_Time.DataBase.dll.Repositories
 
         public override IQueryable<Employee> Items => base.Items
             .Include(item => item.Position)
-            .Include(Item => Item.CurrentInventarisations)
+            .Include(Item => Item.InventarisationEvents)
             ;
 
 

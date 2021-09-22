@@ -10,7 +10,7 @@ namespace Inve_Time.DataBase.dll.Repositories
     {
 
         public override IQueryable<ProductInvented> Items => base.Items
-            .Include(item => item.CurrentInventarisations)
+            .Include(item => item.InventarisationEvents)
             ;
 
         public ProductInventedRepository(InveTimeDB db) : base(db) { }

@@ -16,7 +16,7 @@ namespace Inve_Time.ViewModels
     class AutoSearchHelpersViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
-        private readonly IRepository<HelpCategorySearch> _HelpCategorySearchRepository;
+        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
 
         public AutoSearchHelpersViewModel()
         {
@@ -26,11 +26,11 @@ namespace Inve_Time.ViewModels
 
         public AutoSearchHelpersViewModel(
             IRepository<Category> CategoryRepository,
-            IRepository<HelpCategorySearch> HelpCategorySearchRepository
+            IRepository<CategorySearchWord> CategorySearchWordRepository
             )
         {
             _CategoryRepository = CategoryRepository;
-            _HelpCategorySearchRepository = HelpCategorySearchRepository;
+            _CategorySearchWordRepository = CategorySearchWordRepository;
         }
 
 

@@ -12,7 +12,6 @@ namespace Inve_Time.DataBase.dll.Entities
         public decimal? Cost { get; set; }
 
 
-
         public ICollection<ProductInvented> ProductInventeds { get; set; }
 
 
