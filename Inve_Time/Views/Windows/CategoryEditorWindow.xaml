@@ -76,9 +76,11 @@
         <UniformGrid Rows="1" 
                      Grid.ColumnSpan="2" Grid.Row="1">
             <Button Content="Сохранить"
-                    IsDefault="True"/>
+                    IsDefault="True"
+                    Command="{StaticResource DialogResultCommand}" CommandParameter="True"/>
             <Button Content="Отмена"
-                    IsCancel="False"/>
+                    IsCancel="False"
+                    Command="{StaticResource DialogResultCommand}" CommandParameter="False"/>
         </UniformGrid>
     </Grid>
 </Window>

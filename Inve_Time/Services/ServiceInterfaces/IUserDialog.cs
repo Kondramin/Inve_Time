@@ -27,5 +27,10 @@ namespace Inve_Time.Services.ServiceInterfaces
         /// <param name="Caption">Caption of MessageBox</param>
         /// <returns>true/false</returns>
         bool ConfirmError(string Error, string Caption);
+
+        /// <summary>Show dialog window to edit category</summary>
+        /// <param name="category">Entity of Category</param>
+        /// <returns>true/false</returns>
+        bool EditCategory(Category category);
     }
 }

@@ -22,7 +22,8 @@ namespace Inve_Time.ViewModels
         {
             CategoryId = category.Id;
             CategoryName = category.Name;
-            CategorySearchWordCollection = new(category.CategorySearchWords.ToArray());
+            if (category.CategorySearchWords is not null)
+                CategorySearchWordCollection = new ObservableCollection<CategorySearchWord>(category.CategorySearchWords.ToArray());
         }
 
         public int CategoryId { get; set; }

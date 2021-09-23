@@ -1,6 +1,7 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +18,7 @@ namespace Inve_Time.ViewModels
     {
         private readonly IRepository<Category> _CategoryRepository;
         private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
+        private readonly IUserDialog _UserDialog;
 
         public SettingsCategoryViewModel()
         {
@@ -26,11 +28,13 @@ namespace Inve_Time.ViewModels
 
         public SettingsCategoryViewModel(
             IRepository<Category> CategoryRepository,
-            IRepository<CategorySearchWord> CategorySearchWordRepository
+            IRepository<CategorySearchWord> CategorySearchWordRepository,
+            IUserDialog UserDialog
             )
         {
             _CategoryRepository = CategoryRepository;
             _CategorySearchWordRepository = CategorySearchWordRepository;
+            _UserDialog = UserDialog;
         }
 
 
@@ -165,9 +169,15 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Add new category</summary>
         public void OnAddNewCategoryCommandExequted(object p)
         {
-            Category category = new();
+            Category new_category = new();
 
+            if (!_UserDialog.EditCategory(new_category)) return;
 
+            _CategoryRepository.Add(new_category);
+
+            _CategoryObservalCollection.Add(new_category);
+
+            SelectedCategory = new_category;
         }
 
         #endregion

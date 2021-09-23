@@ -3,6 +3,7 @@ using Inve_Time.Interfaces.dll;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels;
 using Inve_Time.Views.Windows;
+using System.Linq;
 using System.Windows;
 
 namespace Inve_Time.Services
@@ -34,10 +35,8 @@ namespace Inve_Time.Services
             };
 
 
-            if (employee_editor_window.ShowDialog() != true)
-            {
-                return false;
-            }
+            if (employee_editor_window.ShowDialog() != true) return false;
+
 
             employee.Id = employee_editor_viewModel.EmpId;
             employee.SecondName = employee_editor_viewModel.EmpSecondName;
@@ -54,7 +53,27 @@ namespace Inve_Time.Services
 
         public bool EditCategory(Category category)
         {
-            //TODO: Realise Method of service
+            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
+
+            CategoryEditorWindow categoryEditorWindow = new()
+            {
+                DataContext = categoryEditorWindowViewModel,
+                Title = (category.Name is null) ? "Создать категорию" : "Редактировать категорию"
+
+            };
+
+            if (categoryEditorWindow.ShowDialog() != true) return false;
+
+            category.Name = categoryEditorWindowViewModel.CategoryName;
+            if (category.CategorySearchWords is not null)
+            {
+                category.CategorySearchWords.Clear();
+
+                foreach (var item in categoryEditorWindowViewModel.CategorySearchWordCollection)
+                {
+                    category.CategorySearchWords.Add(item);
+                }
+            }
 
             return true;
         }
