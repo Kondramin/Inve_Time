@@ -12,12 +12,12 @@ using System.Windows.Input;
 namespace Inve_Time.ViewModels
 {
     /// <summary>ViewModel of EmpEditorWindow</summary>
-    class EmpEditorWindowViewModel : ViewModel
+    class EmployeeEditorWindowViewModel : ViewModel
     {
         private readonly IRepository<Position> _PositionRepository;
         private readonly IShowPasswordWindowsService _ShowPasswordWindowsService;
 
-        public EmpEditorWindowViewModel(
+        public EmployeeEditorWindowViewModel(
             Employee emp,
             IRepository<Position> PositionRepository,
             IShowPasswordWindowsService ShowPasswordWindowsService
@@ -36,7 +36,7 @@ namespace Inve_Time.ViewModels
             PositionsCollection = new ObservableCollection<Position>(_PositionRepository.Items.ToArray());
         }
 
-        public EmpEditorWindowViewModel()
+        public EmployeeEditorWindowViewModel()
         {
             if (!App.IsDesignTime)
                 throw new InvalidOperationException("Ctor not for Runtime!!!");

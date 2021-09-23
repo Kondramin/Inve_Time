@@ -25,10 +25,10 @@ namespace Inve_Time.Services
 
         public bool EditEpmloyee(Employee employee)
         {
-            EmpEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ShowPasswordWindowService);
+            EmployeeEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ShowPasswordWindowService);
 
 
-            EmpEditorWindow employee_editor_window = new()
+            EmployeeEditorWindow employee_editor_window = new()
             {
                 DataContext = employee_editor_viewModel
             };
