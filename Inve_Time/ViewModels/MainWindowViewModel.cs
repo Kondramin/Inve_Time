@@ -199,7 +199,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Show AutoSearchHelpersView</summary>
         public void OnShowAutoSearchHelpersViewCommandExequted(object p)
         {
-            CurrentModel = new AutoSearchHelpersViewModel(_CategoryRepository, _CategorySearchWordRepository);
+            CurrentModel = new SettingsCategoryViewModel(_CategoryRepository, _CategorySearchWordRepository);
         }
 
         #endregion

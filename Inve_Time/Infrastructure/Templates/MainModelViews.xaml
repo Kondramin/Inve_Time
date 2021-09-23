@@ -18,8 +18,8 @@
         <views:InventarisationView DataContext="{Binding}"/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type vm:AutoSearchHelpersViewModel}">
-        <views:AutoSearchHelpersView DataContext="{Binding}"/>
+    <DataTemplate DataType="{x:Type vm:SettingsCategoryViewModel}">
+        <views:SettingsCategoryView DataContext="{Binding}"/>
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type vm:EmployeesViewModel}">

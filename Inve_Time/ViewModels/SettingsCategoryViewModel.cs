@@ -13,18 +13,18 @@ using System.Windows.Input;
 namespace Inve_Time.ViewModels
 {
     /// <summary>ViewModel of AutoSearchHelpersView</summary>
-    class AutoSearchHelpersViewModel : ViewModel
+    class SettingsCategoryViewModel : ViewModel
     {
         private readonly IRepository<Category> _CategoryRepository;
         private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
 
-        public AutoSearchHelpersViewModel()
+        public SettingsCategoryViewModel()
         {
             if (!App.IsDesignTime)
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
-        public AutoSearchHelpersViewModel(
+        public SettingsCategoryViewModel(
             IRepository<Category> CategoryRepository,
             IRepository<CategorySearchWord> CategorySearchWordRepository
             )
