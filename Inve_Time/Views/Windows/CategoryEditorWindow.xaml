@@ -35,7 +35,7 @@
                 <Label Content="Категория"
                        FontSize="21" FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-                <TextBox Text="{Binding CategoryName, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding EditingCategory.Name, UpdateSourceTrigger=PropertyChanged}"
                          materialDesign:HintAssist.Hint="Название категории"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Margin="0,30,0,15"/>
@@ -57,7 +57,7 @@
 
         <GroupBox Header="Горячие слова"
                   Grid.Column="1">
-            <ListBox ItemsSource="{Binding HelpCategorySearchCollection}">
+            <ListBox ItemsSource="{Binding EditingCategory.CategorySearchWords}" SelectedItem="{Binding SelectedCategorySearchWord}">
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="m:HelpCategorySearchModel">
                         <Grid>

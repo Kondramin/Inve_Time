@@ -64,16 +64,8 @@ namespace Inve_Time.Services
 
             if (categoryEditorWindow.ShowDialog() != true) return false;
 
-            category.Name = categoryEditorWindowViewModel.CategoryName;
-            if (category.CategorySearchWords is not null)
-            {
-                category.CategorySearchWords.Clear();
+            category = categoryEditorWindowViewModel.EditingCategory;
 
-                foreach (var item in categoryEditorWindowViewModel.CategorySearchWordCollection)
-                {
-                    category.CategorySearchWords.Add(item);
-                }
-            }
 
             return true;
         }
