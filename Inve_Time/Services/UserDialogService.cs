@@ -12,14 +12,17 @@ namespace Inve_Time.Services
     {
         private readonly IRepository<Position> _PositionRepository;
         private readonly IShowPasswordWindowsService _ShowPasswordWindowService;
+        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
 
         public UserDialogService(
             IRepository<Position> PositionRepository,
-            IShowPasswordWindowsService ShowPasswordWindowService
+            IShowPasswordWindowsService ShowPasswordWindowService,
+            IRepository<CategorySearchWord> CategorySearchWordRepository
             )
         {
             _PositionRepository = PositionRepository;
             _ShowPasswordWindowService = ShowPasswordWindowService;
+            _CategorySearchWordRepository = CategorySearchWordRepository;
         }
 
 
@@ -53,7 +56,7 @@ namespace Inve_Time.Services
 
         public bool EditCategory(Category category)
         {
-            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
+            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category, _CategorySearchWordRepository);
 
             CategoryEditorWindow categoryEditorWindow = new()
             {
@@ -64,7 +67,7 @@ namespace Inve_Time.Services
 
             if (categoryEditorWindow.ShowDialog() != true) return false;
 
-            category = categoryEditorWindowViewModel.EditingCategory;
+            //TODO: Complete realising service
 
 
             return true;
