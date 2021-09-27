@@ -67,8 +67,8 @@ namespace Inve_Time.Services
 
             if (categoryEditorWindow.ShowDialog() != true) return false;
 
-            //TODO: Complete realising service
-
+            category.Id = categoryEditorWindowViewModel.CategoryId;
+            category.Name = categoryEditorWindowViewModel.CategoryName;
 
             return true;
         }
