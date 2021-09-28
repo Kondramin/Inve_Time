@@ -3,7 +3,6 @@ using Inve_Time.Interfaces.dll;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels;
 using Inve_Time.Views.Windows;
-using System.Linq;
 using System.Windows;
 
 namespace Inve_Time.Services
@@ -56,13 +55,12 @@ namespace Inve_Time.Services
 
         public bool EditCategory(Category category)
         {
-            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category, _CategorySearchWordRepository);
+            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
 
             CategoryEditorWindow categoryEditorWindow = new()
             {
                 DataContext = categoryEditorWindowViewModel,
                 Title = (category.Name is null) ? "Создать категорию" : "Редактировать категорию"
-
             };
 
             if (categoryEditorWindow.ShowDialog() != true) return false;
