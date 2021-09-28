@@ -291,6 +291,8 @@ namespace Inve_Time.ViewModels
 
             SelectedCategory.CategorySearchWords.Add(_CategorySearchWordRepository.Add(new_categorySearchWord));
 
+            OnPropertyChanged(nameof(SelectedCategory.CategorySearchWords));
+
             SelectedCategorySearchWord = new_categorySearchWord;
 
             NewFieldToCategorySearchWord = null;
