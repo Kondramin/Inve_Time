@@ -380,6 +380,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Checking the possibility of execution - Modifi employee</summary>
         public bool CanModifiEmployeeCommandExequt(object p)
         {
+            //TODO: Refact to lambda
             int requiredAccessLevel = 5;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
@@ -426,6 +427,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Checking the possibility of execution - Remove employee</summary>
         public bool CanRemoveEmployeeCommandExequt(object p)
         {
+            //TODO: Refact to lambda
             int requiredAccessLevel = 7;
 
             if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
