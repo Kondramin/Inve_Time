@@ -5,7 +5,10 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Inve_Time.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:m="clr-namespace:Inve_Time.Models"
              mc:Ignorable="d"
+             
              d:DataContext="{d:DesignInstance {x:Type vm:SettingsCategoryViewModel}}"
              d:DesignHeight="650" d:DesignWidth="950">
 
@@ -63,17 +66,32 @@
                         Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
             </StackPanel>
 
-            <StackPanel DockPanel.Dock="Bottom">
-                <Label Content="Горячие слова"
+            <StackPanel DockPanel.Dock="Bottom"
+                        Margin="10">
+                <Label Content="Горячее слово"
                        FontSize="20"/>
                 <TextBlock Text="{Binding SelectedCategory.Name, StringFormat = Для категории: {0}}"
                            HorizontalAlignment="Center"
                            FontWeight="Bold"
                            FontSize="18"
                            TextWrapping="Wrap"/>
-                <Button Content="Добавить"/>
-                <Button Content="Изменить"/>
-                <Button Content="Удалить"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.4*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBox Text="{Binding SelectedCategorySearchWord, UpdateSourceTrigger=PropertyChanged}" 
+                             Grid.Column="0"
+                             materialDesign:HintAssist.Hint="Изменить горячее слово"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <Button Command="" 
+                            Grid.Column="1" 
+                            Content="{materialDesign:PackIcon Kind=Done}"
+                            Width="50"/>
+                </Grid>
+                
+                
             </StackPanel>
 
             <Label/>
@@ -85,12 +103,48 @@
             <ListBox ItemsSource="{Binding CategoryView}" DisplayMemberPath="Name"
                      SelectedItem="{Binding SelectedCategory}"/>
         </GroupBox>
-
-        <GroupBox Header="Горячие слова"
-                  Grid.Column="2">
-            <ListBox ItemsSource="{Binding SelectedCategory.CategorySearchWords}" DisplayMemberPath="Name"
-                     SelectedItem="{Binding SelectedCategorySearcher}"/>
-        </GroupBox>
-
+        
+        <DockPanel Grid.Column="2">
+            <Grid DockPanel.Dock="Bottom"
+                  Margin="20,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding NewCategorySearchWord, UpdateSourceTrigger=PropertyChanged}" 
+                         Grid.Column="0"
+                         materialDesign:HintAssist.Hint="Новое горячее слово"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <Button Command="{Binding AddNewCategorySearchWordCommand}" 
+                        Grid.Column="1" 
+                        Content="{materialDesign:PackIcon Kind=Plus}"
+                        Width="50"/>
+            </Grid>
+            
+            <GroupBox Header="Горячие слова">
+                <ListBox ItemsSource="{Binding SelectedCategory.CategorySearchWords}" SelectedItem="{Binding SelectedCategorySearchWord}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:HelpCategorySearchModel">
+                            <Grid>
+                                <TextBlock Text="{Binding Name}" 
+                                           VerticalAlignment="Center" FontSize="16"/>
+                                
+                                <Button Content="X" 
+                                        HorizontalAlignment="Right" Width="50"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+            </GroupBox>
+            
+        </DockPanel>
+        
     </Grid>
+    
 </UserControl>

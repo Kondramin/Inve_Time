@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -79,6 +80,24 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region string FilterField
+
+        private string _FilterField;
+        /// <summary>FilterField in AutoSearchHelpersView</summary>
+        public string FilterField
+        {
+            get => _FilterField;
+            set
+            {
+                if (Set(ref _FilterField, value))
+                    _CategoryViewSource.View.Refresh();
+            }
+
+        }
+
+        #endregion
+
+
         private CollectionViewSource _CategoryViewSource;
 
 
@@ -98,32 +117,27 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region CategorySearcherListBox SelectedCategorySearcher
+        #region CategorySearchWordsListBox SelectedCategorySearchWord
 
-        private Category _SelectedCategorySearcher;
-        /// <summary>SelectedCategorySearcher in CategorySearcherListBox</summary>
-        public Category SelectedCategorySearcher
+        private CategorySearchWord _SelectedCategorySearchWord;
+        /// <summary>SelectedCategorySearchWord in CategorySearchWordsListBox</summary>
+        public CategorySearchWord SelectedCategorySearchWord
         {
-            get => _SelectedCategorySearcher;
-            set => Set(ref _SelectedCategorySearcher, value);
+            get => _SelectedCategorySearchWord;
+            set => Set(ref _SelectedCategorySearchWord, value);
         }
 
         #endregion
 
 
-        #region string FilterField
+        #region string NewFieldToCategorySearchWord
 
-        private string _FilterField;
-        /// <summary>FilterField in AutoSearchHelpersView</summary>
-        public string FilterField
+        private string _NewFieldToCategorySearchWord;
+        /// <summary>New Field To CategorySearchWord</summary>
+        public string NewFieldToCategorySearchWord
         {
-            get => _FilterField;
-            set
-            {
-                if (Set(ref _FilterField, value))
-                    _CategoryViewSource.View.Refresh();
-            }
-
+            get => _NewFieldToCategorySearchWord;
+            set => Set(ref _NewFieldToCategorySearchWord, value);
         }
 
         #endregion
@@ -146,12 +160,10 @@ namespace Inve_Time.ViewModels
         public async Task OnLoadCategoryCommandExequted(object p)
         {
             CategoryObservalCollection = new ObservableCollection<Category>(await _CategoryRepository.Items.ToArrayAsync());
+            SelectedCategory = null; //костыль
         }
 
         #endregion
-
-
-        //TODO: Realise CRUD to category
 
 
         #region Command AddNewCategoryCommand - Add new category
@@ -193,12 +205,23 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnModifiCategoryCommandExequted, CanModifiCategoryCommandExequt);
 
         /// <summary>Checking the possibility of execution - Modifi category</summary>
-        public bool CanModifiCategoryCommandExequt(object p) => true;
+        public bool CanModifiCategoryCommandExequt(object p) => 
+            p is Category category
+            && SelectedCategory is not null
+            && category is not null;
 
         /// <summary>Execution logic - Modifi category</summary>
         public void OnModifiCategoryCommandExequted(object p)
         {
-            
+            if (!(p is Category category)) return;
+
+            if (!_UserDialog.EditCategory(category)) return;
+
+            _CategoryRepository.Update(category);
+
+            CategoryObservalCollection.Remove(category);
+            CategoryObservalCollection.Add(category);
+            SelectedCategory = category;
         }
 
         #endregion
@@ -214,15 +237,115 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnRemoveCategoryCommandExequted, CanRemoveCategoryCommandExequt);
 
         /// <summary>Checking the possibility of execution - Remove category</summary>
-        public bool CanRemoveCategoryCommandExequt(object p) => true;
+        public bool CanRemoveCategoryCommandExequt(object p) =>
+            p is Category category
+            && SelectedCategory is not null
+            && category is not null;
 
         /// <summary>Execution logic - Remove category</summary>
         public void OnRemoveCategoryCommandExequted(object p)
+        {
+            var category_to_remove = p ?? SelectedCategory;
+
+            if (!(category_to_remove is Category category)) return;
+
+
+            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить категорию {category.Name}?", "Удаление категории")) return;
+
+            _CategoryRepository.Remove(category.Id);
+
+            _CategoryObservalCollection.Remove(category);
+
+            if (ReferenceEquals(SelectedCategory, category)) SelectedCategory = null;
+        }
+
+        #endregion
+
+
+
+
+        #region Command AddNewCategorySearchWordCommand - Add new category
+
+        /// <summary>Add new category</summary>
+        private ICommand _AddNewCategorySearchWordCommand;
+
+        /// <summary>Add new category</summary>
+        public ICommand AddNewCategorySearchWordCommand => _AddNewCategorySearchWordCommand
+            ??= new LambdaCommand(OnAddNewCategorySearchWordCommandExequted, CanAddNewCategorySearchWordCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Add new category</summary>
+        public bool CanAddNewCategorySearchWordCommandExequt(object p) => 
+            NewFieldToCategorySearchWord is not null
+            && SelectedCategory is not null
+            && !SelectedCategory.CategorySearchWords.Select(cat => cat.Name).Contains(NewFieldToCategorySearchWord);
+
+        /// <summary>Execution logic - Add new category</summary>
+        public void OnAddNewCategorySearchWordCommandExequted(object p)
+        {
+            CategorySearchWord new_categorySearchWord = new()
+            {
+                Name = NewFieldToCategorySearchWord,
+                CategoryId = SelectedCategory.Id,
+                Category = SelectedCategory
+            };
+
+            SelectedCategory.CategorySearchWords.Add(_CategorySearchWordRepository.Add(new_categorySearchWord));
+
+            SelectedCategorySearchWord = new_categorySearchWord;
+
+            NewFieldToCategorySearchWord = null;
+        }
+
+        #endregion
+
+
+        #region Command ModifiCategorySearchWordCommand - Modifi category
+
+        /// <summary>Modifi category</summary>
+        private ICommand _ModifiCategorySearchWordCommand;
+
+        /// <summary>Modifi category</summary>
+        public ICommand ModifiCategorySearchWordCommand => _ModifiCategorySearchWordCommand
+            ??= new LambdaCommand(OnModifiCategorySearchWordCommandExequted, CanModifiCategorySearchWordCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Modifi category</summary>
+        public bool CanModifiCategorySearchWordCommandExequt(object p) =>
+            p is CategorySearchWord category
+            && SelectedCategorySearchWord is not null
+            && category is not null;
+
+        /// <summary>Execution logic - Modifi category</summary>
+        public void OnModifiCategorySearchWordCommandExequted(object p)
         {
             
         }
 
         #endregion
+
+
+        #region Command RemoveCategorySearchWordCommand - Remove category
+
+        /// <summary>Remove category</summary>
+        private ICommand _RemoveCategorySearchWordCommand;
+
+        /// <summary>Remove category</summary>
+        public ICommand RemoveCategorySearchWordCommand => _RemoveCategorySearchWordCommand
+            ??= new LambdaCommand(OnRemoveCategorySearchWordCommandExequted, CanRemoveCategorySearchWordCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Remove category</summary>
+        public bool CanRemoveCategorySearchWordCommandExequt(object p) =>
+            p is CategorySearchWord category
+            && SelectedCategorySearchWord is not null
+            && category is not null;
+
+        /// <summary>Execution logic - Remove category</summary>
+        public void OnRemoveCategorySearchWordCommandExequted(object p)
+        {
+           
+        }
+
+        #endregion
+
 
         #endregion
     }
