@@ -291,7 +291,11 @@ namespace Inve_Time.ViewModels
 
             SelectedCategory.CategorySearchWords.Add(_CategorySearchWordRepository.Add(new_categorySearchWord));
 
-            OnPropertyChanged(nameof(SelectedCategory.CategorySearchWords));
+            //var sel_cat = SelectedCategory;               Это работает но это костыль.....
+            //CategoryObservalCollection.Remove(sel_cat);
+            //CategoryObservalCollection.Add(sel_cat);
+            //SelectedCategory = sel_cat;
+            OnPropertyChanged(nameof(CategoryObservalCollection));
 
             SelectedCategorySearchWord = new_categorySearchWord;
 
