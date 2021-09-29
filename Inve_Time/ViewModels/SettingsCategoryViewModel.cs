@@ -83,7 +83,7 @@ namespace Inve_Time.ViewModels
         #region string FilterField
 
         private string _FilterField;
-        /// <summary>FilterField in AutoSearchHelpersView</summary>
+        /// <summary>FilterField</summary>
         public string FilterField
         {
             get => _FilterField;
@@ -96,6 +96,7 @@ namespace Inve_Time.ViewModels
         }
 
         #endregion
+
 
 
         private CollectionViewSource _CategoryViewSource;
@@ -141,6 +142,20 @@ namespace Inve_Time.ViewModels
         }
 
         #endregion
+
+
+        #region string EditFieldToCategorySearchWord
+
+        private string _EditFieldToCategorySearchWord;
+        /// <summary>Edit Field To CategorySearchWord</summary>
+        public string EditFieldToCategorySearchWord
+        {
+            get => _EditFieldToCategorySearchWord;
+            set => Set(ref _EditFieldToCategorySearchWord, value);
+        }
+
+        #endregion
+
 
 
 
@@ -312,14 +327,24 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Checking the possibility of execution - Modifi category</summary>
         public bool CanModifiCategorySearchWordCommandExequt(object p) =>
-            p is CategorySearchWord category
+            p is CategorySearchWord categorySearchWord
             && SelectedCategorySearchWord is not null
-            && category is not null;
+            && SelectedCategory is not null
+            && categorySearchWord is not null
+            && EditFieldToCategorySearchWord is not null
+            && !SelectedCategory.CategorySearchWords.Select(cat=>cat.Name).Contains(EditFieldToCategorySearchWord);
 
         /// <summary>Execution logic - Modifi category</summary>
         public void OnModifiCategorySearchWordCommandExequted(object p)
         {
-            
+            var editing_categorySearchWord = p ?? SelectedCategorySearchWord;
+            if (editing_categorySearchWord is not CategorySearchWord categorySearchWord) return;
+
+            categorySearchWord.Name = EditFieldToCategorySearchWord;
+            _CategorySearchWordRepository.Update(categorySearchWord);
+            UpdateCategorySearchWordsView(SelectedCategory);
+            SelectedCategorySearchWord = categorySearchWord;
+            EditFieldToCategorySearchWord = null;
         }
 
         #endregion

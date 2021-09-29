@@ -80,12 +80,16 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.4*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <TextBox Text="{Binding SelectedCategorySearchWord, UpdateSourceTrigger=PropertyChanged}" 
+
+                    <TextBox Text="{Binding EditFieldToCategorySearchWord, UpdateSourceTrigger=PropertyChanged}" 
                              Grid.Column="0"
-                             materialDesign:HintAssist.Hint="Изменить горячее слово"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                    <Button Command="" 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             FontSize="16">
+                        <materialDesign:HintAssist.Hint>
+                            <TextBlock Text="{Binding SelectedCategorySearchWord.Name, StringFormat= Изменить горячее слово: {0}}"/>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+                    <Button Command="{Binding ModifiCategorySearchWordCommand}" CommandParameter="{Binding SelectedCategorySearchWord}"
                             Grid.Column="1" 
                             Content="{materialDesign:PackIcon Kind=Done}"
                             Width="50"/>
