@@ -16,7 +16,7 @@ namespace Inve_Time.Data
                 if (type == "MSSQL") opt.UseSqlServer(Configuration.GetConnectionString(type));
                 else throw new InvalidOperationException($"Тип подключения {type} не поддерживается");
             })
-            .AddScoped<DbInitializer>()
+            .AddTransient<DbInitializer>()
             .AddRepositoriesInDb()
             ;
     }
