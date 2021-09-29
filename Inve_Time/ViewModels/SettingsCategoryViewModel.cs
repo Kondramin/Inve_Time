@@ -291,11 +291,7 @@ namespace Inve_Time.ViewModels
 
             SelectedCategory.CategorySearchWords.Add(_CategorySearchWordRepository.Add(new_categorySearchWord));
 
-            //var sel_cat = SelectedCategory;               Это работает но это костыль.....
-            //CategoryObservalCollection.Remove(sel_cat);
-            //CategoryObservalCollection.Add(sel_cat);
-            //SelectedCategory = sel_cat;
-            OnPropertyChanged(nameof(CategoryObservalCollection));
+            UpdateCategorySearchWordsView(SelectedCategory);
 
             SelectedCategorySearchWord = new_categorySearchWord;
 
@@ -352,6 +348,17 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
+        #endregion
+
+
+        #region HeplfulMethods
+
+        private void UpdateCategorySearchWordsView(Category category)
+        {
+            SelectedCategory = null;
+            SelectedCategory = category;
+        }
 
         #endregion
     }
