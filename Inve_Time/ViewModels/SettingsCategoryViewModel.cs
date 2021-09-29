@@ -289,10 +289,10 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnAddNewCategorySearchWordCommandExequted, CanAddNewCategorySearchWordCommandExequt);
 
         /// <summary>Checking the possibility of execution - Add new category</summary>
-        public bool CanAddNewCategorySearchWordCommandExequt(object p) => 
+        public bool CanAddNewCategorySearchWordCommandExequt(object p) =>
             NewFieldToCategorySearchWord is not null
             && SelectedCategory is not null
-            && !SelectedCategory.CategorySearchWords.Select(cat => cat.Name).Contains(NewFieldToCategorySearchWord);
+            && (SelectedCategory.CategorySearchWords is null || !SelectedCategory.CategorySearchWords.Select(cat => cat.Name).Contains(NewFieldToCategorySearchWord));
 
         /// <summary>Execution logic - Add new category</summary>
         public void OnAddNewCategorySearchWordCommandExequted(object p)
@@ -304,7 +304,9 @@ namespace Inve_Time.ViewModels
                 Category = SelectedCategory
             };
 
-            SelectedCategory.CategorySearchWords.Add(_CategorySearchWordRepository.Add(new_categorySearchWord));
+            _CategorySearchWordRepository.Add(new_categorySearchWord);
+
+            SelectedCategory.CategorySearchWords.Add(new_categorySearchWord);
 
             UpdateCategorySearchWordsView(SelectedCategory);
 
@@ -361,14 +363,26 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Checking the possibility of execution - Remove category</summary>
         public bool CanRemoveCategorySearchWordCommandExequt(object p) =>
-            p is CategorySearchWord category
+            p is CategorySearchWord categorySearchWord
             && SelectedCategorySearchWord is not null
-            && category is not null;
+            && categorySearchWord is not null;
 
         /// <summary>Execution logic - Remove category</summary>
         public void OnRemoveCategorySearchWordCommandExequted(object p)
         {
-           
+            var categorySearchWord_to_remove = p ?? SelectedCategorySearchWord;
+
+            if (!(categorySearchWord_to_remove is CategorySearchWord categorySearchWord)) return;
+
+
+            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить категорию {categorySearchWord.Name}?", "Удаление категории")) return;
+
+            _CategorySearchWordRepository.Remove(categorySearchWord.Id);
+
+            _CategoryObservalCollection.FirstOrDefault(cat=>cat.Id==SelectedCategory.Id).CategorySearchWords.Remove(categorySearchWord);
+
+            if (ReferenceEquals(SelectedCategorySearchWord, categorySearchWord)) SelectedCategorySearchWord = null;
+            UpdateCategorySearchWordsView(SelectedCategory);
         }
 
         #endregion

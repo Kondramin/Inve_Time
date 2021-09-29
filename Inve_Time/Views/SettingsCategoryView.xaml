@@ -64,6 +64,8 @@
                         Command="{Binding ModifiCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
                 <Button Content="Удалить"
                         Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
+                <Button Content="X" 
+                    Command="{Binding RemoveCategorySearchWordCommand}" CommandParameter="{Binding SelectedCategorySearchWord}"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Bottom"
@@ -138,9 +140,12 @@
                                 <TextBlock Text="{Binding Name}" 
                                            VerticalAlignment="Center" FontSize="16"/>
                                 
-                                <Button Content="X" 
-                                        HorizontalAlignment="Right" Width="50"/>
+                                <!--<Button Content="X" 
+                                        Command="{Binding DataContext.RemoveCategorySearchWordCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                        CommandParameter="{Binding}"
+                                        HorizontalAlignment="Right" Width="50"/>-->
                             </Grid>
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
