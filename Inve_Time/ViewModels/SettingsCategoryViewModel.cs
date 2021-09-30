@@ -6,6 +6,7 @@ using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -309,7 +310,7 @@ namespace Inve_Time.ViewModels
             SelectedCategory.CategorySearchWords.Add(new_categorySearchWord);
 
             UpdateCategorySearchWordsView(SelectedCategory);
-
+            
             SelectedCategorySearchWord = new_categorySearchWord;
 
             NewFieldToCategorySearchWord = null;
@@ -374,15 +375,36 @@ namespace Inve_Time.ViewModels
 
             if (!(categorySearchWord_to_remove is CategorySearchWord categorySearchWord)) return;
 
-
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить категорию {categorySearchWord.Name}?", "Удаление категории")) return;
 
             _CategorySearchWordRepository.Remove(categorySearchWord.Id);
 
-            _CategoryObservalCollection.FirstOrDefault(cat=>cat.Id==SelectedCategory.Id).CategorySearchWords.Remove(categorySearchWord);
+            SelectedCategory.CategorySearchWords.Remove(categorySearchWord);
 
-            if (ReferenceEquals(SelectedCategorySearchWord, categorySearchWord)) SelectedCategorySearchWord = null;
+            var vvv = SelectedCategory.CategorySearchWords.ToArray();
+
+            
+            SelectedCategory.CategorySearchWords.Clear();  ////более-менее рабочий вариант
+
+            foreach (var item in vvv)
+            {
+                if (item is null)
+                {
+                    
+                    return;
+                }
+                SelectedCategory.CategorySearchWords.Add(item);
+            }
+
+            SelectedCategorySearchWord = null;
+
+            //if (ReferenceEquals(SelectedCategorySearchWord, categorySearchWord)) SelectedCategorySearchWord = null;
+
+            
+
             UpdateCategorySearchWordsView(SelectedCategory);
+              
+
         }
 
         #endregion
