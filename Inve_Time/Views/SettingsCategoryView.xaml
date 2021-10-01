@@ -14,7 +14,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadCategoryCommand}"/>
+            <i:InvokeCommandAction Command="{Binding LoadCategoryModelCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -56,14 +56,14 @@
                        FontSize="16"/>
                 <Grid Margin="10">
                     <TextBlock Text="Название"/>
-                    <TextBox Text="{Binding FilterField, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Text="{Binding CategoryModelNameFilterField, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Button Content="Добавить"
                         Command="{Binding AddNewCategoryCommand}"/>
                 <Button Content="Изменить"
-                        Command="{Binding ModifiCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
+                        Command="{Binding ModifiCategoryCommand}" CommandParameter="{Binding SelectedCategoryModel}"/>
                 <Button Content="Удалить"
-                        Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategory}"/>
+                        Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategoryModel}"/>
                 <Button Content="X" 
                     Command="{Binding RemoveCategorySearchWordCommand}" CommandParameter="{Binding SelectedCategorySearchWord}"/>
             </StackPanel>
@@ -72,7 +72,7 @@
                         Margin="10">
                 <Label Content="Горячее слово"
                        FontSize="20"/>
-                <TextBlock Text="{Binding SelectedCategory.Name, StringFormat = Для категории: {0}}"
+                <TextBlock Text="{Binding SelectedCategoryModel.Name, StringFormat = Для категории: {0}}"
                            HorizontalAlignment="Center"
                            FontWeight="Bold"
                            FontSize="18"
@@ -106,8 +106,8 @@
 
         <GroupBox Header="Категория товара"
                   Grid.Column="1">
-            <ListBox ItemsSource="{Binding CategoryView}" DisplayMemberPath="Name"
-                     SelectedItem="{Binding SelectedCategory}"/>
+            <ListBox ItemsSource="{Binding CategoryModelView}" DisplayMemberPath="Name"
+                     SelectedItem="{Binding SelectedCategoryModel}"/>
         </GroupBox>
         
         <DockPanel Grid.Column="2">
@@ -128,15 +128,14 @@
             </Grid>
             
             <GroupBox Header="Горячие слова">
-                <ListBox ItemsSource="{Binding SelectedCategory.CategorySearchWords}" SelectedItem="{Binding SelectedCategorySearchWord}">
+                <ListBox ItemsSource="{Binding SelectedCategoryModel.CategorySearchWordsObsColl}" SelectedItem="{Binding SelectedCategorySearchWord}">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
-                        
-                        <DataTemplate>
+                        <DataTemplate DataType="m:CategorySearchWordModel">
                                 <Grid>
                                     <TextBlock Text="{Binding Name}"
                                            VerticalAlignment="Center" FontSize="16"/>

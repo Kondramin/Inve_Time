@@ -1,10 +1,13 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -41,39 +44,39 @@ namespace Inve_Time.ViewModels
 
 
 
-        #region ObservableCollection<Category> CategoryObservalCollection - collection of Help category searchers 
+        #region ObservableCollection<CategoryModel> CategoryModelObsColl - ObservableCollection of CategoryModels
 
-        private ObservableCollection<Category> _CategoryObservalCollection;
-        /// <summary>CategoryCollection - collection of Help category searchers</summary>
-        public ObservableCollection<Category> CategoryObservalCollection
+        private ObservableCollection<CategoryModel> _CategoryModelObsColl;
+        /// <summary>CategoryModelObservableCollection</summary>
+        public ObservableCollection<CategoryModel> CategoryModelObsColl
         {
-            get => _CategoryObservalCollection;
+            get => _CategoryModelObsColl;
             set
             {
-                if (Set(ref _CategoryObservalCollection, value))
+                if (Set(ref _CategoryModelObsColl, value))
                 {
-                    _CategoryViewSource = new CollectionViewSource
+                    _CategoryModelViewSource = new CollectionViewSource
                     {
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(Category.Name), ListSortDirection.Ascending)
+                            new SortDescription(nameof(CategoryModel.Name), ListSortDirection.Ascending)
                         }
                     };
 
-                    _CategoryViewSource.Filter += NameFilter;
+                    _CategoryModelViewSource.Filter += CategoryModelNameFilter;
 
-                    OnPropertyChanged(nameof(CategoryView));
+                    OnPropertyChanged(nameof(CategoryModelView));
 
                 }
             }
         }
 
-        private void NameFilter(object sender, FilterEventArgs e)
+        private void CategoryModelNameFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not Category category || string.IsNullOrEmpty(FilterField)) return;
+            if (e.Item is not CategoryModel category || string.IsNullOrEmpty(CategoryModelNameFilterField)) return;
 
-            if (category.Name == null || !category.Name.ToLower().Contains(FilterField.ToLower()))
+            if (category.Name == null || !category.Name.ToLower().Contains(CategoryModelNameFilterField.ToLower()))
                 e.Accepted = false;
         }
 
@@ -81,17 +84,17 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region string FilterField
+        #region string CategoryModelNameFilterField
 
-        private string _FilterField;
-        /// <summary>FilterField</summary>
-        public string FilterField
+        private string _CategoryModelNameFilterField;
+        /// <summary>CategoryModelNameFilterField</summary>
+        public string CategoryModelNameFilterField
         {
-            get => _FilterField;
+            get => _CategoryModelNameFilterField;
             set
             {
-                if (Set(ref _FilterField, value))
-                    _CategoryViewSource.View.Refresh();
+                if (Set(ref _CategoryModelNameFilterField, value))
+                    _CategoryModelViewSource.View.Refresh();
             }
 
         }
@@ -100,20 +103,20 @@ namespace Inve_Time.ViewModels
 
 
 
-        private CollectionViewSource _CategoryViewSource;
+        private CollectionViewSource _CategoryModelViewSource;
 
 
-        public ICollectionView CategoryView => _CategoryViewSource?.View;
+        public ICollectionView CategoryModelView => _CategoryModelViewSource?.View;
 
 
-        #region CategoryListBox SelectedCategory
+        #region CategoryModelListBox SelectedCategoryModel
 
-        private Category _SelectedCategory;
-        /// <summary>SelectedCategory in CategoryListBox</summary>
-        public Category SelectedCategory
+        private CategoryModel _SelectedCategoryModel;
+        /// <summary>SelectedCategoryModel in CategoryModelListBox</summary>
+        public CategoryModel SelectedCategoryModel
         {
-            get => _SelectedCategory;
-            set => Set(ref _SelectedCategory, value);
+            get => _SelectedCategoryModel;
+            set => Set(ref _SelectedCategoryModel, value);
         }
 
         #endregion
@@ -148,7 +151,7 @@ namespace Inve_Time.ViewModels
         #region string EditFieldToCategorySearchWord
 
         private string _EditFieldToCategorySearchWord;
-        /// <summary>Edit Field To CategorySearchWord</summary>
+        /// <summary>Edit Field To CategoryModelSearchWord</summary>
         public string EditFieldToCategorySearchWord
         {
             get => _EditFieldToCategorySearchWord;
@@ -163,20 +166,24 @@ namespace Inve_Time.ViewModels
         #region Commands
 
 
-        #region Command LoadCategoryCommand - Load Category from database
+        #region Command LoadCategoryModelCommand - Load Category from database to CategoryModel
 
-        /// <summary>Load Category from database</summary>
-        private ICommand _LoadCategoryCommand;
+        /// <summary>Load Category from database to CategoryModel</summary>
+        private ICommand _LoadCategoryModelCommand;
 
-        /// <summary>Load Category from database</summary>
-        public ICommand LoadCategoryCommand => _LoadCategoryCommand
-            ??= new LambdaCommandAsync(OnLoadCategoryCommandExequted);
+        /// <summary>Load Category from database to CategoryModel</summary>
+        public ICommand LoadCategoryModelCommand => _LoadCategoryModelCommand
+            ??= new LambdaCommandAsync(OnLoadCategoryModelCommandExequted);
 
-        /// <summary>Execution logic - Load Category from database</summary>
-        public async Task OnLoadCategoryCommandExequted(object p)
+        /// <summary>Execution logic - Load Category from database to CategoryModel</summary>
+        public async Task OnLoadCategoryModelCommandExequted(object p)
         {
-            CategoryObservalCollection = new ObservableCollection<Category>(await _CategoryRepository.Items.ToArrayAsync());
-            SelectedCategory = null; //костыль
+            CategoryModelObsColl = new ObservableCollection<CategoryModel>();
+            foreach(var item in await _CategoryRepository.Items.ToArrayAsync())
+            {
+                CategoryModelObsColl.Add(new CategoryModel(item));
+            }
+            SelectedCategoryModel = null; //костыль
         }
 
         #endregion
@@ -203,41 +210,48 @@ namespace Inve_Time.ViewModels
 
             _CategoryRepository.Add(new_category);
 
-            _CategoryObservalCollection.Add(new_category);
+            CategoryModel categoryModel = new(new_category);
 
-            SelectedCategory = new_category;
+            CategoryModelObsColl.Add(categoryModel);
+
+            SelectedCategoryModel = categoryModel;
         }
 
         #endregion
 
 
-        #region Command ModifiCategoryCommand - Modifi category
+        #region Command ModifiCategoryCommand - Modifi CategorySearchWord
 
-        /// <summary>Modifi category</summary>
+        /// <summary>Modifi CategorySearchWord</summary>
         private ICommand _ModifiCategoryCommand;
 
-        /// <summary>Modifi category</summary>
+        /// <summary>Modifi CategorySearchWord</summary>
         public ICommand ModifiCategoryCommand => _ModifiCategoryCommand
             ??= new LambdaCommand(OnModifiCategoryCommandExequted, CanModifiCategoryCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Modifi category</summary>
+        /// <summary>Checking the possibility of execution - Modifi CategorySearchWord</summary>
         public bool CanModifiCategoryCommandExequt(object p) => 
-            p is Category category
-            && SelectedCategory is not null
-            && category is not null;
+            p is CategoryModel categoryModel
+            && SelectedCategoryModel is not null
+            && categoryModel is not null;
 
-        /// <summary>Execution logic - Modifi category</summary>
+        /// <summary>Execution logic - Modifi CategorySearchWord</summary>
         public void OnModifiCategoryCommandExequted(object p)
         {
-            if (!(p is Category category)) return;
+            if (!(p is CategoryModel categoryModel)) return;
 
-            if (!_UserDialog.EditCategory(category)) return;
+            var editing_Category = _CategoryRepository.Get(categoryModel.Id);
 
-            _CategoryRepository.Update(category);
+            if (!_UserDialog.EditCategory(editing_Category)) return;
 
-            CategoryObservalCollection.Remove(category);
-            CategoryObservalCollection.Add(category);
-            SelectedCategory = category;
+            _CategoryRepository.Update(editing_Category);
+
+            CategoryModelObsColl.Remove(categoryModel);
+
+            categoryModel = new(editing_Category);
+            CategoryModelObsColl.Add(categoryModel);
+
+            SelectedCategoryModel = categoryModel;
         }
 
         #endregion
@@ -254,25 +268,24 @@ namespace Inve_Time.ViewModels
 
         /// <summary>Checking the possibility of execution - Remove category</summary>
         public bool CanRemoveCategoryCommandExequt(object p) =>
-            p is Category category
-            && SelectedCategory is not null
-            && category is not null;
+            p is CategoryModel categoryModel
+            && SelectedCategoryModel is not null
+            && categoryModel is not null;
 
         /// <summary>Execution logic - Remove category</summary>
         public void OnRemoveCategoryCommandExequted(object p)
         {
-            var category_to_remove = p ?? SelectedCategory;
+            var category_to_remove = p ?? SelectedCategoryModel;
 
-            if (!(category_to_remove is Category category)) return;
+            if (!(category_to_remove is CategoryModel categoryModel)) return;
 
+            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить категорию {categoryModel.Name}?", "Удаление категории")) return;
 
-            if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить категорию {category.Name}?", "Удаление категории")) return;
+            _CategoryRepository.Remove(categoryModel.Id);
 
-            _CategoryRepository.Remove(category.Id);
+            CategoryModelObsColl.Remove(categoryModel);
 
-            _CategoryObservalCollection.Remove(category);
-
-            if (ReferenceEquals(SelectedCategory, category)) SelectedCategory = null;
+            if (ReferenceEquals(SelectedCategoryModel, categoryModel)) SelectedCategoryModel = null;
         }
 
         #endregion
@@ -280,36 +293,39 @@ namespace Inve_Time.ViewModels
 
 
 
-        #region Command AddNewCategorySearchWordCommand - Add new category
+        #region Command AddNewCategorySearchWordCommand - Add new CategorySearchWord
 
-        /// <summary>Add new category</summary>
+        /// <summary>Add new CategorySearchWord</summary>
         private ICommand _AddNewCategorySearchWordCommand;
 
-        /// <summary>Add new category</summary>
+        /// <summary>Add new CategorySearchWord</summary>
         public ICommand AddNewCategorySearchWordCommand => _AddNewCategorySearchWordCommand
             ??= new LambdaCommand(OnAddNewCategorySearchWordCommandExequted, CanAddNewCategorySearchWordCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Add new category</summary>
+        /// <summary>Checking the possibility of execution - Add new CategorySearchWord</summary>
         public bool CanAddNewCategorySearchWordCommandExequt(object p) =>
             NewFieldToCategorySearchWord is not null
-            && SelectedCategory is not null
-            && (SelectedCategory.CategorySearchWords is null || !SelectedCategory.CategorySearchWords.Select(cat => cat.Name).Contains(NewFieldToCategorySearchWord));
+            && SelectedCategoryModel is not null
+            && (SelectedCategoryModel.CategorySearchWordsObsColl is null || !SelectedCategoryModel.CategorySearchWordsObsColl.Select(cat => cat.Name).Contains(NewFieldToCategorySearchWord));
 
-        /// <summary>Execution logic - Add new category</summary>
+        /// <summary>Execution logic - Add new CategorySearchWord</summary>
         public void OnAddNewCategorySearchWordCommandExequted(object p)
         {
             CategorySearchWord new_categorySearchWord = new()
             {
                 Name = NewFieldToCategorySearchWord,
-                CategoryId = SelectedCategory.Id,
-                Category = SelectedCategory
+                CategoryId = SelectedCategoryModel.Id,
+                Category = _CategoryRepository.Get(SelectedCategoryModel.Id)
             };
 
             _CategorySearchWordRepository.Add(new_categorySearchWord);
 
-            SelectedCategory.CategorySearchWords.Add(new_categorySearchWord);
+            if (SelectedCategoryModel.CategorySearchWords is null) SelectedCategoryModel.CategorySearchWords = new List<CategorySearchWord>();
+            SelectedCategoryModel.CategorySearchWords.Add(new_categorySearchWord);
 
-            UpdateCategorySearchWordsView(SelectedCategory);
+            SelectedCategoryModel.CategorySearchWordsObsColl.Add(new_categorySearchWord);
+
+            //UpdateCategoryModelSearchWordsView(SelectedCategoryModel);   возможно не поадобится
             
             SelectedCategorySearchWord = new_categorySearchWord;
 
@@ -319,25 +335,25 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        #region Command ModifiCategorySearchWordCommand - Modifi category
+        #region Command ModifiCategorySearchWordCommand - Modifi CategorySearchWord
 
-        /// <summary>Modifi category</summary>
+        /// <summary>Modifi CategorySearchWord</summary>
         private ICommand _ModifiCategorySearchWordCommand;
 
-        /// <summary>Modifi category</summary>
+        /// <summary>Modifi CategorySearchWord</summary>
         public ICommand ModifiCategorySearchWordCommand => _ModifiCategorySearchWordCommand
             ??= new LambdaCommand(OnModifiCategorySearchWordCommandExequted, CanModifiCategorySearchWordCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Modifi category</summary>
+        /// <summary>Checking the possibility of execution - Modifi CategorySearchWord</summary>
         public bool CanModifiCategorySearchWordCommandExequt(object p) =>
             p is CategorySearchWord categorySearchWord
             && SelectedCategorySearchWord is not null
-            && SelectedCategory is not null
+            && SelectedCategoryModel is not null
             && categorySearchWord is not null
             && EditFieldToCategorySearchWord is not null
-            && !SelectedCategory.CategorySearchWords.Select(cat=>cat.Name).Contains(EditFieldToCategorySearchWord);
+            && !SelectedCategoryModel.CategorySearchWordsObsColl.Select(cat=>cat.Name).Contains(EditFieldToCategorySearchWord);
 
-        /// <summary>Execution logic - Modifi category</summary>
+        /// <summary>Execution logic - Modifi CategorySearchWord</summary>
         public void OnModifiCategorySearchWordCommandExequted(object p)
         {
             var editing_categorySearchWord = p ?? SelectedCategorySearchWord;
@@ -345,30 +361,32 @@ namespace Inve_Time.ViewModels
 
             categorySearchWord.Name = EditFieldToCategorySearchWord;
             _CategorySearchWordRepository.Update(categorySearchWord);
-            UpdateCategorySearchWordsView(SelectedCategory);
+            
+            UpdateCategoryModelSearchWordsView(SelectedCategoryModel);
             SelectedCategorySearchWord = categorySearchWord;
+            
             EditFieldToCategorySearchWord = null;
         }
 
         #endregion
 
 
-        #region Command RemoveCategorySearchWordCommand - Remove category
+        #region Command RemoveCategorySearchWordCommand - Remove CategorySearchWord
 
-        /// <summary>Remove category</summary>
+        /// <summary>Remove CategorySearchWord</summary>
         private ICommand _RemoveCategorySearchWordCommand;
 
-        /// <summary>Remove category</summary>
+        /// <summary>Remove CategorySearchWord</summary>
         public ICommand RemoveCategorySearchWordCommand => _RemoveCategorySearchWordCommand
             ??= new LambdaCommand(OnRemoveCategorySearchWordCommandExequted, CanRemoveCategorySearchWordCommandExequt);
 
-        /// <summary>Checking the possibility of execution - Remove category</summary>
+        /// <summary>Checking the possibility of execution - Remove CategorySearchWord</summary>
         public bool CanRemoveCategorySearchWordCommandExequt(object p) =>
             p is CategorySearchWord categorySearchWord
             && SelectedCategorySearchWord is not null
             && categorySearchWord is not null;
 
-        /// <summary>Execution logic - Remove category</summary>
+        /// <summary>Execution logic - Remove CategorySearchWord</summary>
         public void OnRemoveCategorySearchWordCommandExequted(object p)
         {
             var categorySearchWord_to_remove = p ?? SelectedCategorySearchWord;
@@ -379,30 +397,32 @@ namespace Inve_Time.ViewModels
 
             _CategorySearchWordRepository.Remove(categorySearchWord.Id);
 
-            SelectedCategory.CategorySearchWords.Remove(categorySearchWord);
-
-            var vvv = SelectedCategory.CategorySearchWords.ToArray();
-
-            
-            SelectedCategory.CategorySearchWords.Clear();  ////более-менее рабочий вариант
-
-            foreach (var item in vvv)
-            {
-                if (item is null)
-                {
-                    
-                    return;
-                }
-                SelectedCategory.CategorySearchWords.Add(item);
-            }
+            SelectedCategoryModel.CategorySearchWordsObsColl.Remove(categorySearchWord);
 
             SelectedCategorySearchWord = null;
 
-            //if (ReferenceEquals(SelectedCategorySearchWord, categorySearchWord)) SelectedCategorySearchWord = null;
+            //var vvv = SelectedCategoryModel.CategoryModelSearchWords.ToArray();
+
+
+            //SelectedCategoryModel.CategoryModelSearchWords.Clear();  ////более-менее рабочий вариант
+
+            //foreach (var item in vvv)
+            //{
+            //    if (item is null)
+            //    {
+
+            //        return;
+            //    }
+            //    SelectedCategoryModel.CategoryModelSearchWords.Add(item);
+            //}
+
+            SelectedCategorySearchWord = null;
+
+            //if (ReferenceEquals(SelectedCategoryModelSearchWord, categorySearchWord)) SelectedCategoryModelSearchWord = null;
 
             
 
-            UpdateCategorySearchWordsView(SelectedCategory);
+            //UpdateCategoryModelSearchWordsView(SelectedCategoryModel);
               
 
         }
@@ -415,10 +435,10 @@ namespace Inve_Time.ViewModels
 
         #region HeplfulMethods
 
-        private void UpdateCategorySearchWordsView(Category category)
+        private void UpdateCategoryModelSearchWordsView(CategoryModel category)
         {
-            SelectedCategory = null;
-            SelectedCategory = category;
+            SelectedCategoryModel = null;
+            SelectedCategoryModel = category;
         }
 
         #endregion
