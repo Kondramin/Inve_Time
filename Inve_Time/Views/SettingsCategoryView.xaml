@@ -64,8 +64,6 @@
                         Command="{Binding ModifiCategoryCommand}" CommandParameter="{Binding SelectedCategoryModel}"/>
                 <Button Content="Удалить"
                         Command="{Binding RemoveCategoryCommand}" CommandParameter="{Binding SelectedCategoryModel}"/>
-                <Button Content="X" 
-                    Command="{Binding RemoveCategorySearchWordCommand}" CommandParameter="{Binding SelectedCategorySearchWord}"/>
             </StackPanel>
 
             <StackPanel DockPanel.Dock="Bottom"
