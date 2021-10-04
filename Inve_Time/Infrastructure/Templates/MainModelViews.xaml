@@ -26,4 +26,8 @@
         <views:EmployeesView DataContext="{Binding}"/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ProductsViewModel}">
+        <views:ProductsView DataContext="{Binding}"/>
+    </DataTemplate>
+
 </ResourceDictionary>
