@@ -72,6 +72,11 @@ namespace Inve_Time.Services
         }
 
 
+        public bool EditProduct(ProductBase productBase)
+        {
+            return true;
+        }
+
 
         public bool ConfirmInformation(string Information, string Caption) => MessageBox.Show(
             Information, Caption,
