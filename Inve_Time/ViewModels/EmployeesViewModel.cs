@@ -14,7 +14,6 @@ using System.Windows.Input;
 
 namespace Inve_Time.ViewModels
 {
-    /// <summary>ViewModel of EmployeeView</summary>
     class EmployeesViewModel : ViewModel
     {
         private readonly IRepository<Employee> _EmployeeRepository;
@@ -342,14 +341,7 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnAddNewEmployeeCommandExequted, CanAddNewEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Add new employee</summary>
-        public bool CanAddNewEmployeeCommandExequt(object p)
-        {
-            int requiredAccessLevel = 3;
-
-            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
-
-            else return true;
-        }
+        public bool CanAddNewEmployeeCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 3;
 
         /// <summary>Execution logic - Add new employee</summary>
         public void OnAddNewEmployeeCommandExequted(object p)
@@ -378,17 +370,7 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnModifiEmployeeCommandExequted, CanModifiEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Modifi employee</summary>
-        public bool CanModifiEmployeeCommandExequt(object p)
-        {
-            //TODO: Refact to lambda
-            int requiredAccessLevel = 5;
-
-            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
-
-            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
-
-            else return true;
-        }
+        public bool CanModifiEmployeeCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 5;
 
         /// <summary>Execution logic - Modifi employee</summary>
         public void OnModifiEmployeeCommandExequted(object p)
@@ -425,17 +407,7 @@ namespace Inve_Time.ViewModels
             ??= new LambdaCommand(OnRemoveEmployeeCommandExequted, CanRemoveEmployeeCommandExequt);
 
         /// <summary>Checking the possibility of execution - Remove employee</summary>
-        public bool CanRemoveEmployeeCommandExequt(object p)
-        {
-            //TODO: Refact to lambda
-            int requiredAccessLevel = 7;
-
-            if (MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel < requiredAccessLevel) return false;
-
-            if (!(p is EmployeeBaseInfo) || (p is null) || (SelectedEmployee is null)) return false;
-
-            else return true;
-        }
+        public bool CanRemoveEmployeeCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 7;
 
         /// <summary>Execution logic - Remove employee</summary>
         public void OnRemoveEmployeeCommandExequted(object p)
