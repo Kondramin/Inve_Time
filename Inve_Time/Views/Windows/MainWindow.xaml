@@ -28,12 +28,13 @@
                 <MenuItem Header="Начальная страниица"
                           Command="{Binding ShowStartViewCommand}"/>
                 
-                <MenuItem Header="Отчёты">
+                <MenuItem Header="Информация">
                     
-                    <MenuItem Header="Сотрудники" 
+                    <MenuItem Header="Сотрудники сети" 
                               Command="{Binding ShowEmployeesViewCommand}"/>
                     
-                    <MenuItem Header="Товары"/>
+                    <MenuItem Header="Товары"
+                              Command="{Binding ShowProductsViewCommand}"/>
                     
                     <MenuItem Header="Инвентаризации"/>
                 

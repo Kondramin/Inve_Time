@@ -205,6 +205,27 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region Command ShowProductsViewCommand - Show ProductsView
+
+        /// <summary>Show ProductsView</summary>
+        private ICommand _ShowProductsViewCommand;
+
+        /// <summary>Show ProductsView</summary>
+        public ICommand ShowProductsViewCommand => _ShowProductsViewCommand
+            ??= new LambdaCommand(OnShowProductsViewCommandExequted, CanShowProductsViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show ProductsView</summary>
+        public bool CanShowProductsViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show ProductsView</summary>
+        public void OnShowProductsViewCommandExequted(object p)
+        {
+            CurrentModel = new ProductsViewModel(_ProductBaseRepository, _UserDialog);
+        }
+
+        #endregion
+
+
         #endregion
 
     }
