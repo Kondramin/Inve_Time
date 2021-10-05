@@ -12,16 +12,19 @@ namespace Inve_Time.Services
         private readonly IRepository<Position> _PositionRepository;
         private readonly IShowPasswordWindowsService _ShowPasswordWindowService;
         private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
+        private readonly IRepository<Category> _CategoryRepos;
 
         public UserDialogService(
             IRepository<Position> PositionRepository,
             IShowPasswordWindowsService ShowPasswordWindowService,
-            IRepository<CategorySearchWord> CategorySearchWordRepository
+            IRepository<CategorySearchWord> CategorySearchWordRepository,
+            IRepository<Category> CategoryRepos
             )
         {
             _PositionRepository = PositionRepository;
             _ShowPasswordWindowService = ShowPasswordWindowService;
             _CategorySearchWordRepository = CategorySearchWordRepository;
+            _CategoryRepos = CategoryRepos;
         }
 
 
@@ -56,7 +59,6 @@ namespace Inve_Time.Services
         public bool EditCategory(Category category)
         {
             CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
-
             CategoryEditorWindow categoryEditorWindow = new()
             {
                 DataContext = categoryEditorWindowViewModel,
@@ -74,6 +76,21 @@ namespace Inve_Time.Services
 
         public bool EditProduct(ProductBase productBase)
         {
+            ProductEditorWindowViewModel productEditorWindowViewModel = new(productBase, _CategoryRepos);
+            ProductEditorWindow productEditorWindow = new()
+            {
+                DataContext = productEditorWindowViewModel,
+                Title = (productBase.Name is null) ? "Создание товара" : "Редактирование товара"
+            };
+
+            if (productEditorWindow.ShowDialog() != true) return false;
+
+            productBase.Name = productEditorWindowViewModel.ProductName;
+            productBase.VendorCode = productEditorWindowViewModel.ProductVendorCode;
+            productBase.Barcode = productEditorWindowViewModel.ProductBarcode;
+            productBase.Cost = productEditorWindowViewModel.ProductCost;
+            productBase.Category = productEditorWindowViewModel.SelectedProductCategory;
+
             return true;
         }
 
