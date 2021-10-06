@@ -132,7 +132,7 @@ namespace Inve_Time.ViewModels
             }
         }
         
-
+        //TODO: Realise Cost Filters
 
         #region Filter Fields
 
@@ -201,6 +201,38 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+        #region decimal? ProductsView FilterLowCols 
+
+        private decimal? _FilterLowColsWord;
+        /// <summary>ProductsView FilterLowCols - searching decimal?</summary>
+        public decimal? FilterLowColsWord
+        {
+            get => _FilterLowColsWord;
+            set
+            {
+                if (Set(ref _FilterLowColsWord, value))
+                    _ProductsViewSource.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        #region decimal? ProductsView FilterHightCols 
+
+        private decimal? _FilterHightColsWord;
+        /// <summary>ProductsView FilterHightCols - searching decimal?</summary>
+        public decimal? FilterHightColsWord
+        {
+            get => _FilterHightColsWord;
+            set
+            {
+                if (Set(ref _FilterHightColsWord, value))
+                    _ProductsViewSource.View.Refresh();
+            }
+        }
+
+        #endregion
+
 
         #endregion
 
@@ -256,6 +288,8 @@ namespace Inve_Time.ViewModels
             FilterProductNameWord = null;
             FilterVendorCodeWord = null;
             FilterBarcodeWord = null;
+            FilterLowColsWord = null;
+            FilterHightColsWord = null;
         }
 
         #endregion
@@ -306,10 +340,6 @@ namespace Inve_Time.ViewModels
             var product_toModifi = p ?? SelectedProduct;
 
             if (product_toModifi is not ProductBase productBase) return;
-
-
-            //TODO: Отладить, проверить, точно ли не нужен
-            //var product = _EmployeeRepository.Get(productBase.Id);
 
             if (!_UserDialog.EditProduct(productBase)) return;
 

@@ -50,7 +50,7 @@
                 <DataGridTextColumn Header="Штрихкод" Binding="{Binding Barcode}"/>
                 <DataGridTextColumn Header="Товар" Width="*" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Категория" Binding="{Binding Category.Name}"/>
-                <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}"/>
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost, StringFormat=N2,ConverterCulture=ru-RU}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -93,6 +93,25 @@
                     <TextBlock Text="Штрихкод"/>
                     <TextBox Text="{Binding FilterBarcodeWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition MinWidth="100"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition MinWidth="100"/>
+                    </Grid.ColumnDefinitions>
+                    
+                        <TextBlock Text="Цена:" Grid.Column="0"/>
+                        <TextBlock Text="От" Grid.Column="1"/>
+                        <TextBox Width="100" Grid.Column="2" Text="{Binding FilterLowColsWord, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                        <TextBlock Text="До" Grid.Column="3"/>
+                        <TextBox Width="100" Grid.Column="4" Text="{Binding FilterHightColsWord, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                    
+                    
+                </Grid>
+                <Label/>
 
                 <Label Height="23"/>
 
