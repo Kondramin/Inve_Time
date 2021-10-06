@@ -3,6 +3,7 @@ using Inve_Time.Interfaces.dll;
 using Inve_Time.ViewModels.Base;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Inve_Time.ViewModels
@@ -72,8 +73,9 @@ namespace Inve_Time.ViewModels
 
         #region decimal? ProductCost
 
-        private decimal? _ProductCost;
+        private decimal? _ProductCost = null;
         /// <summary>ProductBase - Cost</summary>
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? ProductCost
         {
             get => _ProductCost;
@@ -108,7 +110,6 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-
-        //TODO:Need realise converter to Cost(decimal)
+                
     }
 }

@@ -60,8 +60,7 @@
 
             <Grid>
                 <TextBlock Text="Стоимость"/>
-                <xctk:MaskedTextBox Mask="0000.00" 
-                                    Text="{Binding EmpPhone}"/>
+                <TextBox Text="{Binding ProductCost, StringFormat=N2, ConverterCulture=ru-RU}"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Категория"/>
