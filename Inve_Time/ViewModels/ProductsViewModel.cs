@@ -60,6 +60,8 @@ namespace Inve_Time.ViewModels
                     _ProductsViewSource.Filter += OnProductNameFilter;
                     _ProductsViewSource.Filter += OnVendorCodeFilter;
                     _ProductsViewSource.Filter += OnBarcodeFilter;
+                    _ProductsViewSource.Filter += OnLowCostFilter;
+                    _ProductsViewSource.Filter += OnHightCostFilter;
 
 
                     _ProductsViewSource.View.Refresh();
@@ -131,8 +133,27 @@ namespace Inve_Time.ViewModels
                 e.Accepted = false;
             }
         }
-        
-        //TODO: Realise Cost Filters
+
+        private void OnLowCostFilter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterLowCostWord)) return;
+
+            if (productBase.Cost == null || productBase.Cost < Convert.ToDecimal(FilterLowCostWord))
+            {
+                e.Accepted = false;
+            }
+        }
+
+        private void OnHightCostFilter(object sender, FilterEventArgs e)
+        {
+            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterHightCostWord)) return;
+
+            if (productBase.Cost == null || productBase.Cost > Convert.ToDecimal(FilterHightCostWord))
+            {
+                e.Accepted = false;
+            }
+        }
+
 
         #region Filter Fields
 
@@ -201,32 +222,32 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-        #region decimal? ProductsView FilterLowCols 
+        #region string ProductsView FilterLowCost 
 
-        private decimal? _FilterLowColsWord;
-        /// <summary>ProductsView FilterLowCols - searching decimal?</summary>
-        public decimal? FilterLowColsWord
+        private string _FilterLowCostWord;
+        /// <summary>ProductsView FilterLowCost - searching string</summary>
+        public string FilterLowCostWord
         {
-            get => _FilterLowColsWord;
+            get => _FilterLowCostWord;
             set
             {
-                if (Set(ref _FilterLowColsWord, value))
+                if (Set(ref _FilterLowCostWord, ConvertToCost(value)))
                     _ProductsViewSource.View.Refresh();
             }
         }
 
         #endregion
 
-        #region decimal? ProductsView FilterHightCols 
+        #region string ProductsView FilterHightCost 
 
-        private decimal? _FilterHightColsWord;
-        /// <summary>ProductsView FilterHightCols - searching decimal?</summary>
-        public decimal? FilterHightColsWord
+        private string _FilterHightCostWord;
+        /// <summary>ProductsView FilterHightCost - searching string</summary>
+        public string FilterHightCostWord
         {
-            get => _FilterHightColsWord;
+            get => _FilterHightCostWord;
             set
             {
-                if (Set(ref _FilterHightColsWord, value))
+                if (Set(ref _FilterHightCostWord, ConvertToCost(value)))
                     _ProductsViewSource.View.Refresh();
             }
         }
@@ -242,7 +263,28 @@ namespace Inve_Time.ViewModels
             return productBase.VendorCode ?? "" + productBase.Barcode ?? "" + productBase.Name ?? "";
         }
 
+        private string ConvertToCost(string line)
+        {
+            string new_line = null;
 
+            bool plasedDot = false;
+            int dotPosition = line.Length;
+
+            for(int i = 0; i < line.Length && i <= dotPosition+2; i++)
+            {
+                if (int.TryParse(line[i].ToString(), out int result)) new_line += result;
+
+                if(!plasedDot && line[i].ToString() == "," || line[i].ToString() == ".")
+                {
+                    plasedDot = true;
+                    dotPosition = i;
+                    new_line += ",";
+                }
+            }
+            return new_line;
+        }
+        
+        
         #endregion
 
 
@@ -288,8 +330,8 @@ namespace Inve_Time.ViewModels
             FilterProductNameWord = null;
             FilterVendorCodeWord = null;
             FilterBarcodeWord = null;
-            FilterLowColsWord = null;
-            FilterHightColsWord = null;
+            FilterLowCostWord = null;
+            FilterHightCostWord = null;
         }
 
         #endregion

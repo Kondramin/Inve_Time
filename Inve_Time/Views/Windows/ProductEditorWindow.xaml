@@ -60,7 +60,7 @@
 
             <Grid>
                 <TextBlock Text="Стоимость"/>
-                <TextBox Text="{Binding ProductCost, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                <TextBox Text="{Binding ProductCostFromString}"/>
             </Grid>
             <Grid>
                 <TextBlock Text="Категория"/>

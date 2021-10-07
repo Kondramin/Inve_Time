@@ -27,6 +27,7 @@ namespace Inve_Time.ViewModels
             ProductVendorCode = productBase.VendorCode;
             ProductBarcode = productBase.Barcode;
             ProductCost = productBase.Cost;
+            ProductCostFromString = productBase.Cost.ToString();
             SelectedProductCategory = productBase.Category;
             CategoryObsColl = new ObservableCollection<Category>(_CategoryRepos.Items.OrderBy(cat => cat.Name).ToArray());
         }
@@ -70,16 +71,54 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+        //TODO: Need Refactoring
 
         #region decimal? ProductCost
 
-        private decimal? _ProductCost = null;
+        private decimal? _ProductCost;
         /// <summary>ProductBase - Cost</summary>
         [Column(TypeName = "decimal(18,2)")]
         public decimal? ProductCost
         {
             get => _ProductCost;
             set => Set(ref _ProductCost, value);
+        }
+
+        
+
+        private string _ProductCostFromString;
+        /// <summary>ProductBase - Cost</summary>
+        public string ProductCostFromString
+        {
+            get => _ProductCostFromString;
+            set
+            { 
+                if(Set(ref _ProductCostFromString, ConvertToCost(value)))
+                {
+                    ProductCost = Convert.ToDecimal(ProductCostFromString);
+                }
+            } 
+        }
+
+        private string ConvertToCost(string line)
+        {
+            string new_line = null;
+
+            bool plasedDot = false;
+            int dotPosition = line.Length;
+
+            for (int i = 0; i < line.Length && i <= dotPosition + 2; i++)
+            {
+                if (int.TryParse(line[i].ToString(), out int result)) new_line += result;
+
+                if (!plasedDot && line[i].ToString() == "," || line[i].ToString() == ".")
+                {
+                    plasedDot = true;
+                    dotPosition = i;
+                    new_line += ",";
+                }
+            }
+            return new_line;
         }
 
         #endregion

@@ -105,9 +105,9 @@
                     
                         <TextBlock Text="Цена:" Grid.Column="0"/>
                         <TextBlock Text="От" Grid.Column="1"/>
-                        <TextBox Width="100" Grid.Column="2" Text="{Binding FilterLowColsWord, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                        <TextBox Width="100" Grid.Column="2" Text="{Binding FilterLowCostWord}"/>
                         <TextBlock Text="До" Grid.Column="3"/>
-                        <TextBox Width="100" Grid.Column="4" Text="{Binding FilterHightColsWord, StringFormat=N2, ConverterCulture=ru-RU}"/>
+                        <TextBox Width="100" Grid.Column="4" Text="{Binding FilterHightCostWord}"/>
                     
                     
                 </Grid>
