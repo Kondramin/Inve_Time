@@ -226,6 +226,27 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
+        #region Command ShowInventarisationInfoViewCommand - Show ProductsView
+
+        /// <summary>Show ProductsView</summary>
+        private ICommand _ShowInventarisationInfoViewCommand;
+
+        /// <summary>Show ProductsView</summary>
+        public ICommand ShowInventarisationInfoViewCommand => _ShowInventarisationInfoViewCommand
+            ??= new LambdaCommand(OnShowInventarisationInfoViewCommandExequted, CanShowInventarisationInfoViewCommandExequt);
+
+        /// <summary>Checking the possibility of execution - Show ProductsView</summary>
+        public bool CanShowInventarisationInfoViewCommandExequt(object p) => true;
+
+        /// <summary>Execution logic - Show ProductsView</summary>
+        public void OnShowInventarisationInfoViewCommandExequted(object p)
+        {
+            CurrentModel = new InventarisationInfoViewModel(_InventarisationEventRepository, _UserDialog);
+        }
+
+        #endregion
+
+
         #endregion
 
     }

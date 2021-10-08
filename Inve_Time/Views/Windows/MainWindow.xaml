@@ -36,7 +36,8 @@
                     <MenuItem Header="Товары"
                               Command="{Binding ShowProductsViewCommand}"/>
                     
-                    <MenuItem Header="Инвентаризации"/>
+                    <MenuItem Header="Инвентаризации"
+                              Command="{Binding ShowInventarisationInfoViewCommand}"/>
                 
                 </MenuItem>
 

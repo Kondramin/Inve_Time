@@ -30,4 +30,8 @@
         <views:ProductsView DataContext="{Binding}"/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:InventarisationInfoViewModel}">
+        <views:InventarisetionInfoView DataContext="{Binding}"/>
+    </DataTemplate>
+
 </ResourceDictionary>
