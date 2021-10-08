@@ -27,7 +27,6 @@ namespace Inve_Time.ViewModels
             ProductVendorCode = productBase.VendorCode;
             ProductBarcode = productBase.Barcode;
             ProductCost = productBase.Cost;
-            ProductCostFromString = productBase.Cost.ToString();
             SelectedProductCategory = productBase.Category;
             CategoryObsColl = new ObservableCollection<Category>(_CategoryRepos.Items.OrderBy(cat => cat.Name).ToArray());
         }
@@ -71,9 +70,8 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
-        //TODO: Need Refactoring
 
-        #region decimal? ProductCost
+        #region decimal? ProductCost && string ProductCostFromString
 
         private decimal? _ProductCost;
         /// <summary>ProductBase - Cost</summary>
@@ -81,7 +79,13 @@ namespace Inve_Time.ViewModels
         public decimal? ProductCost
         {
             get => _ProductCost;
-            set => Set(ref _ProductCost, value);
+            set 
+            {
+                if (Set(ref _ProductCost, value))
+                {
+                    ProductCostFromString = ProductCost.ToString();
+                }
+            }
         }
 
         
