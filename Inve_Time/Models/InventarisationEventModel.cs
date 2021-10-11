@@ -5,10 +5,7 @@ namespace Inve_Time.Models
 {
     internal class InventarisationEventModel : InventarisationEvent
     {
-        public InventarisationEventModel()
-        {
-
-        }
+        public InventarisationEventModel() { }
 
         public InventarisationEventModel(InventarisationEvent inventarisationEvent)
         {

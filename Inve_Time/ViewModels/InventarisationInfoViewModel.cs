@@ -1,6 +1,7 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.DataBase.dll.Entities;
 using Inve_Time.Interfaces.dll;
+using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
@@ -33,36 +34,36 @@ namespace Inve_Time.ViewModels
 
 
 
-        #region ObservableCollection<InventarisationEvent> InventarisationEventObsCol - ObservableCollection of InventarisationEvents 
+        #region ObservableCollection<InventarisationEventModel> InventarisationEventModelObsCol - ObservableCollection of InventarisationEventModels 
 
-        private ObservableCollection<InventarisationEvent> _InventarisationEventObsCol;
-        /// <summary>InventarisationEventObsCol - ObservableCollection of InventarisationEvents</summary>
-        public ObservableCollection<InventarisationEvent> InventarisationEventObsCol
+        private ObservableCollection<InventarisationEventModel> _InventarisationEventModelObsCol = new();
+        /// <summary>InventarisationEventModelObsCol - ObservableCollection of InventarisationEventModels</summary>
+        public ObservableCollection<InventarisationEventModel> InventarisationEventModelObsCol
         {
-            get => _InventarisationEventObsCol;
+            get => _InventarisationEventModelObsCol;
             set
             {
-                if (Set(ref _InventarisationEventObsCol, value))
+                if (Set(ref _InventarisationEventModelObsCol, value))
                 {
-                    _InventarisationEventViewSource = new CollectionViewSource
+                    _InventarisationEventModelViewSource = new CollectionViewSource
                     {
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(InventarisationEvent.DateOfEvent), ListSortDirection.Ascending)
+                            new SortDescription(nameof(InventarisationEventModel.DateOfEvent), ListSortDirection.Ascending)
                         }
                     };
 
 
-                    //            _InventarisationEventViewSource.Filter += OnAnyFilter;
-                    //            _InventarisationEventViewSource.Filter += OnFIOFilter;
-                    //            _InventarisationEventViewSource.Filter += OnPhoneFilter;
-                    //            _InventarisationEventViewSource.Filter += OnEmailFilter;
-                    //            _InventarisationEventViewSource.Filter += OnPositionNameFilter;
+                    //            _InventarisationEventModelViewSource.Filter += OnAnyFilter;
+                    //            _InventarisationEventModelViewSource.Filter += OnFIOFilter;
+                    //            _InventarisationEventModelViewSource.Filter += OnPhoneFilter;
+                    //            _InventarisationEventModelViewSource.Filter += OnEmailFilter;
+                    //            _InventarisationEventModelViewSource.Filter += OnPositionNameFilter;
 
-                    _InventarisationEventViewSource.View.Refresh();
+                    _InventarisationEventModelViewSource.View.Refresh();
 
-                    OnPropertyChanged(nameof(InventarisationEventView));
+                    OnPropertyChanged(nameof(InventarisationEventModelView));
 
                 }
             }
@@ -71,22 +72,22 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        /// <summary>CollectoinViewSource of InventarisationEvent</summary>
-        private CollectionViewSource _InventarisationEventViewSource;
+        /// <summary>CollectoinViewSource of InventarisationEventModel</summary>
+        private CollectionViewSource _InventarisationEventModelViewSource;
 
 
-        /// <summary>ICollection of InventarisationEvent. Using to show in DataGrid</summary>
-        public ICollectionView InventarisationEventView => _InventarisationEventViewSource?.View;
+        /// <summary>ICollection of InventarisationEventModel. Using to show in DataGrid</summary>
+        public ICollectionView InventarisationEventModelView => _InventarisationEventModelViewSource?.View;
 
 
-        #region InventarisationEvent SelectedInventarisationEvent
+        #region InventarisationEventModel SelectedInventarisationEventModel
 
-        private InventarisationEvent _SelectedInventarisationEvent;
-        /// <summary>SelectedInventarisationEvent in DataGrid</summary>
-        public InventarisationEvent SelectedInventarisationEvent
+        private InventarisationEventModel _SelectedInventarisationEventModel;
+        /// <summary>SelectedInventarisationEventModel in DataGrid</summary>
+        public InventarisationEventModel SelectedInventarisationEventModel
         {
-            get => _SelectedInventarisationEvent;
-            set => Set(ref _SelectedInventarisationEvent, value);
+            get => _SelectedInventarisationEventModel;
+            set => Set(ref _SelectedInventarisationEventModel, value);
         }
 
         #endregion
@@ -98,7 +99,7 @@ namespace Inve_Time.ViewModels
 
         //private void OnAnyFilter(object sender, FilterEventArgs e)
         //{
-        //    if (e.Item is not InventarisationEvent empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
+        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
 
         //    if (empBaseInfo.Any == null || !empBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
         //        e.Accepted = false;
@@ -106,7 +107,7 @@ namespace Inve_Time.ViewModels
 
         //private void OnFIOFilter(object sender, FilterEventArgs e)
         //{
-        //    if (e.Item is not InventarisationEvent empBaseInfo || string.IsNullOrEmpty(FilterFIOWord)) return;
+        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(FilterFIOWord)) return;
 
         //    if (empBaseInfo.Fio == null || !empBaseInfo.Fio.ToLower().Contains(FilterFIOWord.ToLower()))
         //        e.Accepted = false;
@@ -114,7 +115,7 @@ namespace Inve_Time.ViewModels
 
         //private void OnPhoneFilter(object sender, FilterEventArgs e)
         //{
-        //    if (e.Item is not InventarisationEvent empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhoneField())) return;
+        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(ConvertedFilterPhoneField())) return;
 
         //    if (empBaseInfo.Phone == null || !empBaseInfo.Phone.Contains(ConvertedFilterPhoneField()))
         //        e.Accepted = false;
@@ -122,7 +123,7 @@ namespace Inve_Time.ViewModels
 
         //private void OnEmailFilter(object sender, FilterEventArgs e)
         //{
-        //    if (e.Item is not InventarisationEvent empBaseInfo || string.IsNullOrEmpty(FilterEmailWord)) return;
+        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(FilterEmailWord)) return;
 
         //    if (empBaseInfo.Email == null || !empBaseInfo.Email.ToLower().Contains(FilterEmailWord.ToLower()))
         //    {
@@ -132,7 +133,7 @@ namespace Inve_Time.ViewModels
 
         //private void OnPositionNameFilter(object sender, FilterEventArgs e)
         //{
-        //    if (e.Item is not InventarisationEvent empBaseInfo || string.IsNullOrEmpty(FilterPositionWord)) return;
+        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(FilterPositionWord)) return;
 
         //    if ((empBaseInfo.Position == null) || (!empBaseInfo.Position.Name.ToLower().Contains(FilterPositionWord.ToLower())))
         //        e.Accepted = false;
@@ -153,7 +154,7 @@ namespace Inve_Time.ViewModels
         //    set
         //    {
         //        if (Set(ref _FilterAnyWord, value))
-        //            _InventarisationEventViewSource.View.Refresh();
+        //            _InventarisationEventModelViewSource.View.Refresh();
         //    }
         //}
 
@@ -169,7 +170,7 @@ namespace Inve_Time.ViewModels
         //    set
         //    {
         //        if (Set(ref _FilterFIOWord, value))
-        //            _InventarisationEventViewSource.View.Refresh();
+        //            _InventarisationEventModelViewSource.View.Refresh();
         //    }
         //}
 
@@ -185,7 +186,7 @@ namespace Inve_Time.ViewModels
         //    set
         //    {
         //        if (Set(ref _FilterPhoneWord, value))
-        //            _InventarisationEventViewSource.View.Refresh();
+        //            _InventarisationEventModelViewSource.View.Refresh();
         //    }
         //}
 
@@ -201,7 +202,7 @@ namespace Inve_Time.ViewModels
         //    set
         //    {
         //        if (Set(ref _FilterEmailWord, value))
-        //            _InventarisationEventViewSource.View.Refresh();
+        //            _InventarisationEventModelViewSource.View.Refresh();
         //    }
         //}
 
@@ -217,7 +218,7 @@ namespace Inve_Time.ViewModels
         //    set
         //    {
         //        if (Set(ref _FilterPositionWord, value))
-        //            _InventarisationEventViewSource.View.Refresh();
+        //            _InventarisationEventModelViewSource.View.Refresh();
         //    }
         //}
 
@@ -279,21 +280,22 @@ namespace Inve_Time.ViewModels
 
 
 
-        #region Command LoadInventarisationEventsCommand - Load InventarisationEvents from database
+        #region Command LoadInventarisationEventModelsCommand - Load InventarisationEventModels from database
 
-        /// <summary>Load InventarisationEvents from database</summary>
-        private ICommand _LoadInventarisationEventsCommand;
+        /// <summary>Load InventarisationEventModels from database</summary>
+        private ICommand _LoadInventarisationEventModelsCommand;
 
-        /// <summary>Load InventarisationEvents from database</summary>
-        public ICommand LoadInventarisationEventsCommand => _LoadInventarisationEventsCommand
-            ??= new LambdaCommandAsync(OnLoadInventarisationEventsCommandExequted);
+        /// <summary>Load InventarisationEventModels from database</summary>
+        public ICommand LoadInventarisationEventModelsCommand => _LoadInventarisationEventModelsCommand
+            ??= new LambdaCommandAsync(OnLoadInventarisationEventModelsCommandExequted);
 
-        /// <summary>Execution logic - Load InventarisationEvents from database</summary>
-        public async Task OnLoadInventarisationEventsCommandExequted(object p)
+        /// <summary>Execution logic - Load InventarisationEventModels from database</summary>
+        public async Task OnLoadInventarisationEventModelsCommandExequted(object p)
         {
-            InventarisationEventObsCol = new ObservableCollection<InventarisationEvent>(await _InventarisationEventRepos.Items
-            .OrderBy(i => i.DateOfEvent)
-            .ToArrayAsync());
+            foreach(var inventEvent in await _InventarisationEventRepos.Items.OrderBy(i => i.DateOfEvent).ToArrayAsync())
+            {
+                InventarisationEventModelObsCol.Add(new InventarisationEventModel(inventEvent));
+            }
         }
 
         #endregion
@@ -340,11 +342,11 @@ namespace Inve_Time.ViewModels
 
         //    if (!_UserDialog.EditEpmloyee(new_employee)) return;
 
-        //    var empBase = new InventarisationEvent(_EmployeeRepository.Add(new_employee));
+        //    var empBase = new InventarisationEventModel(_EmployeeRepository.Add(new_employee));
 
-        //    _InventarisationEventObsCol.Add(empBase);
+        //    _InventarisationEventModelObsCol.Add(empBase);
 
-        //    SelectedInventarisationEvent = empBase;
+        //    SelectedInventarisationEventModel = empBase;
         //}
 
         //#endregion
@@ -365,9 +367,9 @@ namespace Inve_Time.ViewModels
         ///// <summary>Execution logic - Modifi employee</summary>
         //public void OnModifiEmployeeCommandExequted(object p)
         //{
-        //    var emp_to_modifi = p ?? SelectedInventarisationEvent;
+        //    var emp_to_modifi = p ?? SelectedInventarisationEventModel;
 
-        //    if (emp_to_modifi is not InventarisationEvent empBase) return;
+        //    if (emp_to_modifi is not InventarisationEventModel empBase) return;
 
         //    var employee = _EmployeeRepository.Get(empBase.Id);
 
@@ -375,13 +377,13 @@ namespace Inve_Time.ViewModels
 
         //    _EmployeeRepository.Update(employee);
 
-        //    InventarisationEventObsCol.Remove(empBase);
+        //    InventarisationEventModelObsCol.Remove(empBase);
 
-        //    var newInventarisationEvent = new InventarisationEvent(employee);
+        //    var newInventarisationEventModel = new InventarisationEventModel(employee);
 
-        //    InventarisationEventObsCol.Add(newInventarisationEvent);
+        //    InventarisationEventModelObsCol.Add(newInventarisationEventModel);
 
-        //    SelectedInventarisationEvent = newInventarisationEvent;
+        //    SelectedInventarisationEventModel = newInventarisationEventModel;
         //}
 
         //#endregion
@@ -402,9 +404,9 @@ namespace Inve_Time.ViewModels
         ///// <summary>Execution logic - Remove employee</summary>
         //public void OnRemoveEmployeeCommandExequted(object p)
         //{
-        //    var emp_to_remove = p ?? SelectedInventarisationEvent;
+        //    var emp_to_remove = p ?? SelectedInventarisationEventModel;
 
-        //    if (emp_to_remove is not InventarisationEvent empBase) return;
+        //    if (emp_to_remove is not InventarisationEventModel empBase) return;
 
 
         //    if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить сотрудника {empBase.Fio}?", "Удаление сотрудника")) return;
@@ -412,8 +414,8 @@ namespace Inve_Time.ViewModels
 
         //    _EmployeeRepository.Remove(empBase.Id);
 
-        //    _InventarisationEventObsCol.Remove(empBase);
-        //    if (ReferenceEquals(SelectedInventarisationEvent, empBase)) SelectedInventarisationEvent = null;
+        //    _InventarisationEventModelObsCol.Remove(empBase);
+        //    if (ReferenceEquals(SelectedInventarisationEventModel, empBase)) SelectedInventarisationEventModel = null;
         //}
 
         //#endregion
