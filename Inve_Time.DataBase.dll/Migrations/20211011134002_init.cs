@@ -68,7 +68,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                     AmountData = table.Column<int>(type: "int", nullable: true),
                     AmountFact = table.Column<int>(type: "int", nullable: true),
                     AmountResult = table.Column<int>(type: "int", nullable: true),
-                    Peresort = table.Column<bool>(type: "bit", nullable: true),
+                    Re_Grading = table.Column<bool>(type: "bit", nullable: true),
                     ProductBaseId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

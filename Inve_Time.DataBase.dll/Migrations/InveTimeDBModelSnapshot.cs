@@ -582,11 +582,11 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Property<int>("AmountResult")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Peresort")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("ProductBaseId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Re_Grading")
+                        .HasColumnType("bit");
 
                     b.HasIndex("ProductBaseId");
 
