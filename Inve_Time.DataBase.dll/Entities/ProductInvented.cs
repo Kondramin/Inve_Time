@@ -8,7 +8,7 @@ namespace Inve_Time.DataBase.dll.Entities
         public int AmountFact { get; set; }
 
         public int AmountResult { get; set; }
-        public bool Peresort { get; set; } = false;
+        public bool Re_Grading { get; set; } = false;
 
 
         public int? ProductBaseId { get; set; }
