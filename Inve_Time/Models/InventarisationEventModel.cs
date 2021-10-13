@@ -43,5 +43,18 @@ namespace Inve_Time.Models
         public ObservableCollection<ProductInvented> Re_gradingAmountObsColl { get; set; } = new();
         public ObservableCollection<ProductInvented> OverAmountObsColl { get; set; } = new();
         public ObservableCollection<ProductInvented> ShortageAmountObsColl { get; set; } = new();
+
+        public decimal? ShortagePrice
+        {
+            get
+            {
+                decimal? cost = 0;
+                foreach(var item in ShortageAmountObsColl)
+                {
+                    cost += item.Cost;
+                }
+                return cost;
+            }
+        }
     }
 }

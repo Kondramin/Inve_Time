@@ -301,7 +301,7 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        //#region Command CleanFilterFieldsCommand - Clean filter fields
+        #region Command CleanFilterFieldsCommand - Clean filter fields
 
         ///// <summary>Clean filter fields</summary>
         //private ICommand _CleanFilterFieldsCommand;
@@ -320,66 +320,66 @@ namespace Inve_Time.ViewModels
         //    FilterPositionWord = null;
         //}
 
-        //#endregion
+        #endregion
 
 
-        //#region Command AddNewEmployeeCommand - Add new employee
+        #region Command AddInventarisationEventCommand - Add new InventarisationEvent
 
-        ///// <summary>Add new employee</summary>
-        //private ICommand _AddNewEmployeeCommand;
+        /// <summary>Add new InventarisationEvent</summary>
+        private ICommand _AddInventarisationEventCommand;
 
-        ///// <summary>Add new employee</summary>
-        //public ICommand AddNewEmployeeCommand => _AddNewEmployeeCommand
-        //    ??= new LambdaCommand(OnAddNewEmployeeCommandExequted, CanAddNewEmployeeCommandExequt);
+        /// <summary>Add new InventarisationEvent</summary>
+        public ICommand AddInventarisationEventCommand => _AddInventarisationEventCommand
+            ??= new LambdaCommand(OnAddInventarisationEventCommandExequted, CanAddInventarisationEventCommandExequt);
 
-        ///// <summary>Checking the possibility of execution - Add new employee</summary>
-        //public bool CanAddNewEmployeeCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 3;
+        /// <summary>Checking the possibility of execution - Add new InventarisationEvent</summary>
+        public bool CanAddInventarisationEventCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 3;
 
-        ///// <summary>Execution logic - Add new employee</summary>
-        //public void OnAddNewEmployeeCommandExequted(object p)
-        //{
-        //    var new_employee = new Employee();
+        /// <summary>Execution logic - Add new InventarisationEvent</summary>
+        public void OnAddInventarisationEventCommandExequted(object p)
+        {
+            var new_InventarisationEvent = new InventarisationEvent();
 
-        //    if (!_UserDialog.EditEpmloyee(new_employee)) return;
+            //if (!_UserDialog.EditEpmloyee(new_InventarisationEvent)) return;
 
-        //    var empBase = new InventarisationEventModel(_EmployeeRepository.Add(new_employee));
+            var InventarisationEventModel = new InventarisationEventModel(_InventarisationEventRepos.Add(new_InventarisationEvent));
 
-        //    _InventarisationEventModelObsCol.Add(empBase);
+            _InventarisationEventModelObsCol.Add(InventarisationEventModel);
 
-        //    SelectedInventarisationEventModel = empBase;
-        //}
+            SelectedInventarisationEventModel = InventarisationEventModel;
+        }
 
-        //#endregion
+        #endregion
 
 
-        //#region Command ModifiEmployeeCommand - Modifi employee
+        //#region Command ModifiInventarisationEventCommand - Modifi InventarisationEvent
 
-        ///// <summary>Modifi employee</summary>
-        //private ICommand _ModifiEmployeeCommand;
+        ///// <summary>Modifi InventarisationEvent</summary>
+        //private ICommand _ModifiInventarisationEventCommand;
 
-        ///// <summary>Modifi employee</summary>
-        //public ICommand ModifiEmployeeCommand => _ModifiEmployeeCommand
-        //    ??= new LambdaCommand(OnModifiEmployeeCommandExequted, CanModifiEmployeeCommandExequt);
+        ///// <summary>Modifi InventarisationEvent</summary>
+        //public ICommand ModifiInventarisationEventCommand => _ModifiInventarisationEventCommand
+        //    ??= new LambdaCommand(OnModifiInventarisationEventCommandExequted, CanModifiInventarisationEventCommandExequt);
 
-        ///// <summary>Checking the possibility of execution - Modifi employee</summary>
-        //public bool CanModifiEmployeeCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 5;
+        ///// <summary>Checking the possibility of execution - Modifi InventarisationEvent</summary>
+        //public bool CanModifiInventarisationEventCommandExequt(object p) => MainWindowViewModel.AutorisatedEmployee.Position.AccessLevel > 5;
 
-        ///// <summary>Execution logic - Modifi employee</summary>
-        //public void OnModifiEmployeeCommandExequted(object p)
+        ///// <summary>Execution logic - Modifi InventarisationEvent</summary>
+        //public void OnModifiInventarisationEventCommandExequted(object p)
         //{
         //    var emp_to_modifi = p ?? SelectedInventarisationEventModel;
 
         //    if (emp_to_modifi is not InventarisationEventModel empBase) return;
 
-        //    var employee = _EmployeeRepository.Get(empBase.Id);
+        //    var InventarisationEvent = _EmployeeRepository.Get(empBase.Id);
 
-        //    if (!_UserDialog.EditEpmloyee(employee)) return;
+        //    if (!_UserDialog.EditEpmloyee(InventarisationEvent)) return;
 
-        //    _EmployeeRepository.Update(employee);
+        //    _EmployeeRepository.Update(InventarisationEvent);
 
         //    InventarisationEventModelObsCol.Remove(empBase);
 
-        //    var newInventarisationEventModel = new InventarisationEventModel(employee);
+        //    var newInventarisationEventModel = new InventarisationEventModel(InventarisationEvent);
 
         //    InventarisationEventModelObsCol.Add(newInventarisationEventModel);
 
