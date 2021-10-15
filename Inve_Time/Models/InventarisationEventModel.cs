@@ -17,6 +17,7 @@ namespace Inve_Time.Models
             DistributeProduct();
         }
 
+
         private void DistributeProduct()
         {
             if (ProductInventeds is null) return;

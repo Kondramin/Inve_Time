@@ -95,6 +95,14 @@ namespace Inve_Time.Services
         }
 
 
+        public bool EditInventarisationEvent (InventarisationEvent inventarisationEvent)
+        {
+
+
+            return true;
+        }
+
+
         public bool ConfirmInformation(string Information, string Caption) => MessageBox.Show(
             Information, Caption,
             MessageBoxButton.YesNo,
