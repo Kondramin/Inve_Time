@@ -16,11 +16,11 @@ namespace Inve_Time.ViewModels
 {
     internal class ProductsViewModel : ViewModel
     {
-        private readonly IRepository<ProductBase> _ProductBaseRepos;
+        private readonly IRepository<ProductInfo> _ProductBaseRepos;
         private readonly IUserDialog _UserDialog;
 
         public ProductsViewModel(
-            IRepository<ProductBase> ProductBaseRepos,
+            IRepository<ProductInfo> ProductBaseRepos,
             IUserDialog UserDialog
             )
         {
@@ -37,9 +37,9 @@ namespace Inve_Time.ViewModels
 
         #region ObservableCollection<ProductBase> ProductsObsColl - ObservableCollection of products 
 
-        private ObservableCollection<ProductBase> _ProductsObsColl;
+        private ObservableCollection<ProductInfo> _ProductsObsColl;
         /// <summary>ProductsObsColl - ObservableCollection of products</summary>
-        public ObservableCollection<ProductBase> ProductsObsColl
+        public ObservableCollection<ProductInfo> ProductsObsColl
         {
             get => _ProductsObsColl;
             set
@@ -51,7 +51,7 @@ namespace Inve_Time.ViewModels
                         Source = value,
                         SortDescriptions =
                         {
-                            new SortDescription(nameof(ProductBase.Category.Name), ListSortDirection.Ascending)
+                            new SortDescription(nameof(ProductInfo.Category.Name), ListSortDirection.Ascending)
                         }
 
                     };
@@ -85,9 +85,9 @@ namespace Inve_Time.ViewModels
 
         #region ProductBase SelectedProduct
 
-        private ProductBase _SelectedProduct;
+        private ProductInfo _SelectedProduct;
         /// <summary>SelectedProduct in DataGrid</summary>
-        public ProductBase SelectedProduct
+        public ProductInfo SelectedProduct
         {
             get => _SelectedProduct;
             set => Set(ref _SelectedProduct, value);
@@ -102,7 +102,7 @@ namespace Inve_Time.ViewModels
 
         private void OnAnyFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterAnyWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterAnyWord)) return;
 
             if (!ConvetnToAny(productBase).ToLower().Contains(FilterAnyWord.ToLower()))
                 e.Accepted = false;
@@ -110,7 +110,7 @@ namespace Inve_Time.ViewModels
 
         private void OnProductNameFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterProductNameWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterProductNameWord)) return;
 
             if (productBase.Name == null || !productBase.Name.ToLower().Contains(FilterProductNameWord.ToLower()))
                 e.Accepted = false;
@@ -118,7 +118,7 @@ namespace Inve_Time.ViewModels
 
         private void OnVendorCodeFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterVendorCodeWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterVendorCodeWord)) return;
 
             if (productBase.VendorCode == null || !productBase.VendorCode.Contains(FilterVendorCodeWord))
                 e.Accepted = false;
@@ -126,7 +126,7 @@ namespace Inve_Time.ViewModels
 
         private void OnBarcodeFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterBarcodeWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterBarcodeWord)) return;
 
             if (productBase.Barcode == null || !productBase.Barcode.ToLower().Contains(FilterBarcodeWord.ToLower()))
             {
@@ -136,7 +136,7 @@ namespace Inve_Time.ViewModels
 
         private void OnLowCostFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterLowCostWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterLowCostWord)) return;
 
             if (productBase.Cost == null || productBase.Cost < Convert.ToDecimal(FilterLowCostWord))
             {
@@ -146,7 +146,7 @@ namespace Inve_Time.ViewModels
 
         private void OnHightCostFilter(object sender, FilterEventArgs e)
         {
-            if (e.Item is not ProductBase productBase || string.IsNullOrEmpty(FilterHightCostWord)) return;
+            if (e.Item is not ProductInfo productBase || string.IsNullOrEmpty(FilterHightCostWord)) return;
 
             if (productBase.Cost == null || productBase.Cost > Convert.ToDecimal(FilterHightCostWord))
             {
@@ -258,7 +258,7 @@ namespace Inve_Time.ViewModels
         #endregion
 
 
-        private string ConvetnToAny(ProductBase productBase)
+        private string ConvetnToAny(ProductInfo productBase)
         {
             return productBase.VendorCode ?? "" + productBase.Barcode ?? "" + productBase.Name ?? "";
         }
@@ -305,7 +305,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Load Products from database</summary>
         public async Task OnLoadProductBaseCommandExequted(object p)
         {
-            ProductsObsColl = new ObservableCollection<ProductBase>(await _ProductBaseRepos.Items
+            ProductsObsColl = new ObservableCollection<ProductInfo>(await _ProductBaseRepos.Items
                 .OrderBy(p => p.Category.Name)
                 .ThenBy(p => p.Name)
                 .ToArrayAsync());
@@ -352,7 +352,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Add new product</summary>
         public void OnAddNewProductCommandExequted(object p)
         {
-            var new_product = new ProductBase();
+            var new_product = new ProductInfo();
 
             if (!_UserDialog.EditProduct(new_product)) return;
 
@@ -381,7 +381,7 @@ namespace Inve_Time.ViewModels
         {
             var product_toModifi = p ?? SelectedProduct;
 
-            if (product_toModifi is not ProductBase productBase) return;
+            if (product_toModifi is not ProductInfo productBase) return;
 
             if (!_UserDialog.EditProduct(productBase)) return;
 
@@ -413,7 +413,7 @@ namespace Inve_Time.ViewModels
         {
             var emp_to_remove = p ?? SelectedProduct;
 
-            if (emp_to_remove is not ProductBase productBase) return;
+            if (emp_to_remove is not ProductInfo productBase) return;
 
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить товар {productBase.Name}?", "Удаление товара")) return;
 

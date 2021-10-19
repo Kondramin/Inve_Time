@@ -19,7 +19,7 @@ namespace Inve_Time.ViewModels
         private readonly IRepository<Employee> _EmployeeRepository;
         private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
         private readonly IRepository<Position> _PositionRepository;
-        private readonly IRepository<ProductBase> _ProductBaseRepository;
+        private readonly IRepository<ProductInfo> _ProductBaseRepository;
         private readonly IRepository<ProductInvented> _ProductInventedRepository;
         private readonly IUserDialog _UserDialog;
 
@@ -30,7 +30,7 @@ namespace Inve_Time.ViewModels
             IRepository<Employee> EmployeeRepository,
             IRepository<CategorySearchWord> CategorySearchWordRepository,
             IRepository<Position> PositionRepository,
-            IRepository<ProductBase> ProductBaseRepository,
+            IRepository<ProductInfo> ProductBaseRepository,
             IRepository<ProductInvented> ProductInventedRepository,
             IUserDialog userDialog
             )

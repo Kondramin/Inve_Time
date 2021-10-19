@@ -13,8 +13,8 @@ namespace Inve_Time.DataBase.dll.Context
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<ProductBase> ProductsBase { get; set; }
-        public DbSet<ProductInvented> ProductsInvented { get; set; }
+        public DbSet<ProductInfo> ProductInfos { get; set; }
+        public DbSet<ProductInvented> ProductsInventeds { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategorySearchWord> CategorySearchWords { get; set; }
         public DbSet<InventarisationEvent> InventarisationEvents { get; set; }

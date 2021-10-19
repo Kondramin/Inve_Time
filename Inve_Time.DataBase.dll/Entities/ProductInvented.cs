@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using Inve_Time.DataBase.dll.Entities.Base;
+using System.Collections.Generic;
 
 namespace Inve_Time.DataBase.dll.Entities
 {
-    public class ProductInvented : ProductBase
+    public class ProductInvented : Entity
     {
         public int AmountData { get; set; }
         public int AmountFact { get; set; }
 
         public int AmountResult { get; set; }
-        public bool Re_Grading { get; set; } = false;
+        public bool Re_Grading { get; set; }
 
 
-        public int? ProductBaseId { get; set; }
-        public ProductBase ProductBase { get; set; }
+        public int? ProductInfoId { get; set; }
+        public ProductInfo ProductInfo { get; set; }
 
 
         public ICollection<InventarisationEvent> InventarisationEvents { get; set; }

@@ -519,7 +519,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductBase", b =>
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -535,10 +535,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Property<decimal?>("Cost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -549,9 +545,36 @@ namespace Inve_Time.DataBase.dll.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ProductsBase");
+                    b.ToTable("ProductInfos");
+                });
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ProductBase");
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AmountData")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AmountFact")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AmountResult")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Re_Grading")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductInfoId");
+
+                    b.ToTable("ProductsInventeds");
                 });
 
             modelBuilder.Entity("InventarisationEventProductInvented", b =>
@@ -567,30 +590,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.HasIndex("ProductInventedsId");
 
                     b.ToTable("InventarisationEventProductInvented");
-                });
-
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
-                {
-                    b.HasBaseType("Inve_Time.DataBase.dll.Entities.ProductBase");
-
-                    b.Property<int>("AmountData")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AmountFact")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AmountResult")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductBaseId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Re_Grading")
-                        .HasColumnType("bit");
-
-                    b.HasIndex("ProductBaseId");
-
-                    b.HasDiscriminator().HasValue("ProductInvented");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.CategorySearchWord", b =>
@@ -613,11 +612,11 @@ namespace Inve_Time.DataBase.dll.Migrations
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.InventarisationEvent", b =>
                 {
-                    b.HasOne("Inve_Time.DataBase.dll.Entities.Employee", "ResponsibleForEvent")
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.Employee", "ResponsibleEmployee")
                         .WithMany("InventarisationEvents")
                         .HasForeignKey("EmployeeId");
 
-                    b.Navigation("ResponsibleForEvent");
+                    b.Navigation("ResponsibleEmployee");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Password", b =>
@@ -629,13 +628,22 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductBase", b =>
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInfo", b =>
                 {
                     b.HasOne("Inve_Time.DataBase.dll.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
+                {
+                    b.HasOne("Inve_Time.DataBase.dll.Entities.ProductInfo", "ProductInfo")
+                        .WithMany("ProductInventeds")
+                        .HasForeignKey("ProductInfoId");
+
+                    b.Navigation("ProductInfo");
                 });
 
             modelBuilder.Entity("InventarisationEventProductInvented", b =>
@@ -651,15 +659,6 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .HasForeignKey("ProductInventedsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInvented", b =>
-                {
-                    b.HasOne("Inve_Time.DataBase.dll.Entities.ProductBase", "ProductBase")
-                        .WithMany("ProductInventeds")
-                        .HasForeignKey("ProductBaseId");
-
-                    b.Navigation("ProductBase");
                 });
 
             modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.Category", b =>
@@ -681,7 +680,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductBase", b =>
+            modelBuilder.Entity("Inve_Time.DataBase.dll.Entities.ProductInfo", b =>
                 {
                     b.Navigation("ProductInventeds");
                 });

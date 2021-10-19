@@ -10,7 +10,7 @@ namespace Inve_Time.DataBase.dll.Repositories
     {
 
         public override IQueryable<InventarisationEvent> Items => base.Items
-            .Include(item => item.ResponsibleForEvent)
+            .Include(item => item.ResponsibleEmployee)
             .Include(item => item.ProductInventeds)
             ;
 

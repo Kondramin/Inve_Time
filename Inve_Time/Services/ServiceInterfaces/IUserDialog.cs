@@ -36,6 +36,6 @@ namespace Inve_Time.Services.ServiceInterfaces
         /// <summary>Show dialog window to edit product</summary>
         /// <param name="productBase">Entity of ProdutcBase</param>
         /// <returns>true/false</returns>
-        bool EditProduct(ProductBase productBase);
+        bool EditProduct(ProductInfo productBase);
     }
 }

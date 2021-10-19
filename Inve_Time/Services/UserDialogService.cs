@@ -74,7 +74,7 @@ namespace Inve_Time.Services
         }
 
 
-        public bool EditProduct(ProductBase productBase)
+        public bool EditProduct(ProductInfo productBase)
         {
             ProductEditorWindowViewModel productEditorWindowViewModel = new(productBase, _CategoryRepos);
             ProductEditorWindow productEditorWindow = new()

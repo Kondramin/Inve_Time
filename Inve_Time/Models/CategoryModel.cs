@@ -7,7 +7,7 @@ namespace Inve_Time.Models
     {
         public CategoryModel()
         {
-            ProductsObsColl = (Products is null) ? new ObservableCollection<ProductBase>() : new ObservableCollection<ProductBase>(Products);
+            ProductsObsColl = (Products is null) ? new ObservableCollection<ProductInfo>() : new ObservableCollection<ProductInfo>(Products);
             CategorySearchWordsObsColl = (CategorySearchWords is null) ? new ObservableCollection<CategorySearchWord>() : new ObservableCollection<CategorySearchWord>(CategorySearchWords);
         }
 
@@ -18,10 +18,10 @@ namespace Inve_Time.Models
             Products = category.Products;
             CategorySearchWords = category.CategorySearchWords;
 
-            ProductsObsColl = (Products is null) ? new ObservableCollection<ProductBase>() : new ObservableCollection<ProductBase>(Products);
+            ProductsObsColl = (Products is null) ? new ObservableCollection<ProductInfo>() : new ObservableCollection<ProductInfo>(Products);
             CategorySearchWordsObsColl = (CategorySearchWords is null) ? new ObservableCollection<CategorySearchWord>() : new ObservableCollection<CategorySearchWord>(CategorySearchWords);
         }
-        public ObservableCollection<ProductBase> ProductsObsColl { get; set; }
+        public ObservableCollection<ProductInfo> ProductsObsColl { get; set; }
 
         public ObservableCollection<CategorySearchWord> CategorySearchWordsObsColl { get; set; }
     }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inve_Time.DataBase.dll.Entities
 {
-    public class ProductBase : NamedEntity
+    public class ProductInfo : NamedEntity
     {
         public string Barcode { get; set; }
         public string VendorCode { get; set; }

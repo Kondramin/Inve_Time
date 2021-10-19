@@ -55,7 +55,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductsBase",
+                name: "ProductInfos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -64,27 +64,15 @@ namespace Inve_Time.DataBase.dll.Migrations
                     VendorCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AmountData = table.Column<int>(type: "int", nullable: true),
-                    AmountFact = table.Column<int>(type: "int", nullable: true),
-                    AmountResult = table.Column<int>(type: "int", nullable: true),
-                    Re_Grading = table.Column<bool>(type: "bit", nullable: true),
-                    ProductBaseId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductsBase", x => x.Id);
+                    table.PrimaryKey("PK_ProductInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductsBase_Categories_CategoryId",
+                        name: "FK_ProductInfos_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ProductsBase_ProductsBase_ProductBaseId",
-                        column: x => x.ProductBaseId,
-                        principalTable: "ProductsBase",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -111,6 +99,29 @@ namespace Inve_Time.DataBase.dll.Migrations
                         name: "FK_Employees_Positions_PositionId",
                         column: x => x.PositionId,
                         principalTable: "Positions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsInventeds",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AmountData = table.Column<int>(type: "int", nullable: false),
+                    AmountFact = table.Column<int>(type: "int", nullable: false),
+                    AmountResult = table.Column<int>(type: "int", nullable: false),
+                    Re_Grading = table.Column<bool>(type: "bit", nullable: false),
+                    ProductInfoId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsInventeds", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductsInventeds_ProductInfos_ProductInfoId",
+                        column: x => x.ProductInfoId,
+                        principalTable: "ProductInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -172,9 +183,9 @@ namespace Inve_Time.DataBase.dll.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InventarisationEventProductInvented_ProductsBase_ProductInventedsId",
+                        name: "FK_InventarisationEventProductInvented_ProductsInventeds_ProductInventedsId",
                         column: x => x.ProductInventedsId,
-                        principalTable: "ProductsBase",
+                        principalTable: "ProductsInventeds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -299,14 +310,14 @@ namespace Inve_Time.DataBase.dll.Migrations
                 filter: "[EmployeeId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsBase_CategoryId",
-                table: "ProductsBase",
+                name: "IX_ProductInfos_CategoryId",
+                table: "ProductInfos",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsBase_ProductBaseId",
-                table: "ProductsBase",
-                column: "ProductBaseId");
+                name: "IX_ProductsInventeds_ProductInfoId",
+                table: "ProductsInventeds",
+                column: "ProductInfoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -324,16 +335,19 @@ namespace Inve_Time.DataBase.dll.Migrations
                 name: "InventarisationEvents");
 
             migrationBuilder.DropTable(
-                name: "ProductsBase");
+                name: "ProductsInventeds");
 
             migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ProductInfos");
 
             migrationBuilder.DropTable(
                 name: "Positions");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }

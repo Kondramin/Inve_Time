@@ -19,7 +19,7 @@ namespace Inve_Time.ViewModels
         }
 
 
-        public ProductEditorWindowViewModel(ProductBase productBase, IRepository<Category> CategoryRepos)
+        public ProductEditorWindowViewModel(ProductInfo productBase, IRepository<Category> CategoryRepos)
         {
             _CategoryRepos = CategoryRepos;
 

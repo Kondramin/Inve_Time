@@ -84,43 +84,43 @@ namespace Inve_Time.Services
 
         public void SaveDataInDataBase(DataTable data)
         {
-            _ProductInventedRepository.AutoSaveChanges = false;
-            foreach (DataRow row in data.Rows)
-            {
-                var cells = row.ItemArray;
-                var product = new ProductInvented()
-                {
-                    Barcode = cells[0].ToString(),
-                    VendorCode = cells[1].ToString(),
-                    Name = cells[2].ToString(),
-                    AmountData = Convert.ToInt32(cells[3])
-                };
+            //_ProductInventedRepository.AutoSaveChanges = false;
+            //foreach (DataRow row in data.Rows)
+            //{
+            //    var cells = row.ItemArray;
+            //    var product = new ProductInvented()
+            //    {
+            //        Barcode = cells[0].ToString(),
+            //        VendorCode = cells[1].ToString(),
+            //        Name = cells[2].ToString(),
+            //        AmountData = Convert.ToInt32(cells[3])
+            //    };
 
-                _ProductInventedRepository.Add(product);
+            //    _ProductInventedRepository.Add(product);
 
-            }
-            _Db.SaveChanges();
+            //}
+            //_Db.SaveChanges();
         }
 
         public async Task SaveDataInDataBaseAsync(DataTable data)
         {
-            _ProductInventedRepository.AutoSaveChanges = false;
+            //_ProductInventedRepository.AutoSaveChanges = false;
 
-            foreach (DataRow row in data.Rows)
-            {
+            //foreach (DataRow row in data.Rows)
+            //{
 
-                var cells = row.ItemArray;
-                var product = new ProductInvented()
-                {
-                    Barcode = cells[0].ToString(),
-                    VendorCode = cells[1].ToString(),
-                    Name = cells[2].ToString(),
-                    AmountData = Convert.ToInt32(cells[3])
-                };
+            //    var cells = row.ItemArray;
+            //    var product = new ProductInvented()
+            //    {
+            //        Barcode = cells[0].ToString(),
+            //        VendorCode = cells[1].ToString(),
+            //        Name = cells[2].ToString(),
+            //        AmountData = Convert.ToInt32(cells[3])
+            //    };
 
-                await _ProductInventedRepository.AddAsync(product);
+            //    await _ProductInventedRepository.AddAsync(product);
 
-            }
+            //}
             await _Db.SaveChangesAsync();
         }
 

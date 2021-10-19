@@ -10,7 +10,7 @@ namespace Inve_Time.DataBase.dll.Repositories
         public static IServiceCollection AddRepositoriesInDb(this IServiceCollection services) => services
             .AddTransient<IRepository<Employee>, EmployeeRepository>()
             .AddTransient<IRepository<Position>, PositionRepository>()
-            .AddTransient<IRepository<ProductBase>, ProductBaseRepository>()
+            .AddTransient<IRepository<ProductInfo>, ProductInfoRepository>()
             .AddTransient<IRepository<ProductInvented>, ProductInventedRepository>()
             .AddTransient<IRepository<Category>, CategoryRepository>()
             .AddTransient<IRepository<InventarisationEvent>, InventarisationEventRepository>()

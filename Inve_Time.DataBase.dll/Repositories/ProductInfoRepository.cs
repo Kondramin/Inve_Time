@@ -6,17 +6,17 @@ using System.Linq;
 
 namespace Inve_Time.DataBase.dll.Repositories
 {
-    internal class ProductBaseRepository : DbRepository<ProductBase>
+    internal class ProductInfoRepository : DbRepository<ProductInfo>
     {
 
 
-        public override IQueryable<ProductBase> Items => base.Items
+        public override IQueryable<ProductInfo> Items => base.Items
             .Include(item => item.Category)
             .Include(item => item.ProductInventeds)
             ;
 
 
-        public ProductBaseRepository(InveTimeDB db) : base(db) { }
+        public ProductInfoRepository(InveTimeDB db) : base(db) { }
 
     }
 }
