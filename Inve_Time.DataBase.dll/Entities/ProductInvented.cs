@@ -8,6 +8,7 @@ namespace Inve_Time.DataBase.dll.Entities
         public int AmountData { get; set; }
         public int AmountFact { get; set; }
 
+        /// <summary>result=AmountData-AmountFact</summary>
         public int AmountResult { get; set; }
         public bool Re_Grading { get; set; }
 

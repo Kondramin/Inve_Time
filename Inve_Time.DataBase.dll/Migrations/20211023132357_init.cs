@@ -133,6 +133,7 @@ namespace Inve_Time.DataBase.dll.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateOfEvent = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CloseToModifi = table.Column<bool>(type: "bit", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

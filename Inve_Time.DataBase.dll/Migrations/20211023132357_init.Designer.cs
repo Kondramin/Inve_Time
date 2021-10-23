@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inve_Time.DataBase.dll.Migrations
 {
     [DbContext(typeof(InveTimeDB))]
-    [Migration("20211019140701_init")]
+    [Migration("20211023132357_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,6 +439,9 @@ namespace Inve_Time.DataBase.dll.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("CloseToModifi")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateOfEvent")
                         .HasColumnType("datetime2");

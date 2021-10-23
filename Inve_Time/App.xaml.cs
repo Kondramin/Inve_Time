@@ -39,7 +39,7 @@ namespace Inve_Time
 
         internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
             .AddDatabase(host.Configuration.GetSection("Database"))
-            //.AddViewModels()
+            .AddViewModels()
             .AddServices()
             ;
 
