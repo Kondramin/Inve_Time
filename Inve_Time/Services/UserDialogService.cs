@@ -74,22 +74,22 @@ namespace Inve_Time.Services
         }
 
 
-        public bool EditProduct(ProductInfo productBase)
+        public bool EditProduct(ProductInfo productInfo)
         {
-            ProductEditorWindowViewModel productEditorWindowViewModel = new(productBase, _CategoryRepos);
+            ProductEditorWindowViewModel productEditorWindowViewModel = new(productInfo, _CategoryRepos);
             ProductEditorWindow productEditorWindow = new()
             {
                 DataContext = productEditorWindowViewModel,
-                Title = (productBase.Name is null) ? "Создание товара" : "Редактирование товара"
+                Title = (productInfo.Name is null) ? "Создание товара" : "Редактирование товара"
             };
 
             if (productEditorWindow.ShowDialog() != true) return false;
 
-            productBase.Name = productEditorWindowViewModel.ProductName;
-            productBase.VendorCode = productEditorWindowViewModel.ProductVendorCode;
-            productBase.Barcode = productEditorWindowViewModel.ProductBarcode;
-            productBase.Cost = productEditorWindowViewModel.ProductCost;
-            productBase.Category = productEditorWindowViewModel.SelectedProductCategory;
+            productInfo.Name = productEditorWindowViewModel.ProductName;
+            productInfo.VendorCode = productEditorWindowViewModel.ProductVendorCode;
+            productInfo.Barcode = productEditorWindowViewModel.ProductBarcode;
+            productInfo.Cost = productEditorWindowViewModel.ProductCost;
+            productInfo.Category = productEditorWindowViewModel.SelectedProductCategory;
 
             return true;
         }

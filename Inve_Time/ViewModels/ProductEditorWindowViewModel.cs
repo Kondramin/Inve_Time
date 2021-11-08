@@ -10,7 +10,7 @@ namespace Inve_Time.ViewModels
 {
     internal class ProductEditorWindowViewModel : ViewModel
     {
-        private readonly IRepository<Category> _CategoryRepos;
+        private readonly IRepository<Category> _CategoryRepository;
 
         public ProductEditorWindowViewModel()
         {
@@ -19,16 +19,17 @@ namespace Inve_Time.ViewModels
         }
 
 
-        public ProductEditorWindowViewModel(ProductInfo productBase, IRepository<Category> CategoryRepos)
+        public ProductEditorWindowViewModel(ProductInfo productInfo, IRepository<Category> CategoryRepository)
         {
-            _CategoryRepos = CategoryRepos;
+            _CategoryRepository = CategoryRepository;
 
-            ProductName = productBase.Name;
-            ProductVendorCode = productBase.VendorCode;
-            ProductBarcode = productBase.Barcode;
-            ProductCost = productBase.Cost;
-            SelectedProductCategory = productBase.Category;
-            CategoryObsColl = new ObservableCollection<Category>(_CategoryRepos.Items.OrderBy(cat => cat.Name).ToArray());
+            ProductName = productInfo.Name;
+            ProductVendorCode = productInfo.VendorCode;
+            ProductBarcode = productInfo.Barcode;
+            ProductCost = productInfo.Cost;
+            SelectedProductCategory = productInfo.Category;
+
+            CategoryObsColl = new ObservableCollection<Category>(_CategoryRepository.Items.OrderBy(cat => cat.Name).ToArray());
         }
 
 

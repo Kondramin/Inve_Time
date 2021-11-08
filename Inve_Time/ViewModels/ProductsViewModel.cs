@@ -16,15 +16,15 @@ namespace Inve_Time.ViewModels
 {
     internal class ProductsViewModel : ViewModel
     {
-        private readonly IRepository<ProductInfo> _ProductBaseRepos;
+        private readonly IRepository<ProductInfo> _ProductInfoRepos;
         private readonly IUserDialog _UserDialog;
 
         public ProductsViewModel(
-            IRepository<ProductInfo> ProductBaseRepos,
+            IRepository<ProductInfo> ProductInfoRepos,
             IUserDialog UserDialog
             )
         {
-            _ProductBaseRepos = ProductBaseRepos;
+            _ProductInfoRepos = ProductInfoRepos;
             _UserDialog = UserDialog;
         }
 
@@ -305,7 +305,7 @@ namespace Inve_Time.ViewModels
         /// <summary>Execution logic - Load Products from database</summary>
         public async Task OnLoadProductBaseCommandExequted(object p)
         {
-            ProductsObsColl = new ObservableCollection<ProductInfo>(await _ProductBaseRepos.Items
+            ProductsObsColl = new ObservableCollection<ProductInfo>(await _ProductInfoRepos.Items
                 .OrderBy(p => p.Category.Name)
                 .ThenBy(p => p.Name)
                 .ToArrayAsync());
@@ -356,7 +356,7 @@ namespace Inve_Time.ViewModels
 
             if (!_UserDialog.EditProduct(new_product)) return;
 
-            ProductsObsColl.Add(_ProductBaseRepos.Add(new_product));
+            ProductsObsColl.Add(_ProductInfoRepos.Add(new_product));
 
             SelectedProduct = new_product;
         }
@@ -385,7 +385,7 @@ namespace Inve_Time.ViewModels
 
             if (!_UserDialog.EditProduct(productBase)) return;
 
-            _ProductBaseRepos.Update(productBase);
+            _ProductInfoRepos.Update(productBase);
 
             ProductsObsColl.Remove(productBase);
             ProductsObsColl.Add(productBase);
@@ -417,7 +417,7 @@ namespace Inve_Time.ViewModels
 
             if (!_UserDialog.ConfirmInformation($"Вы уверены, что хотите удалить товар {productBase.Name}?", "Удаление товара")) return;
 
-            _ProductBaseRepos.Remove(productBase.Id);
+            _ProductInfoRepos.Remove(productBase.Id);
 
             ProductsObsColl.Remove(productBase);
             if (ReferenceEquals(SelectedProduct, productBase)) SelectedProduct = null;
