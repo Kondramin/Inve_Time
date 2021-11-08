@@ -75,7 +75,7 @@
                 Grid.Row="1">
 
                 <Grid>
-                    <TextBlock Text="Всё"/>
+                    <TextBlock Text="Дата"/>
                     <TextBox Text="{Binding FilterAnyWord, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <Label/>

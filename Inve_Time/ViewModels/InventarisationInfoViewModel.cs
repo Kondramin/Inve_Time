@@ -54,8 +54,8 @@ namespace Inve_Time.ViewModels
                         }
                     };
 
-
-                    //            _InventarisationEventModelViewSource.Filter += OnAnyFilter;
+                    
+                    //_InventarisationEventModelViewSource.Filter += OnDateFilter;
                     //            _InventarisationEventModelViewSource.Filter += OnFIOFilter;
                     //            _InventarisationEventModelViewSource.Filter += OnPhoneFilter;
                     //            _InventarisationEventModelViewSource.Filter += OnEmailFilter;
@@ -97,11 +97,13 @@ namespace Inve_Time.ViewModels
         #region About Filters
 
 
-        //private void OnAnyFilter(object sender, FilterEventArgs e)
-        //{
-        //    if (e.Item is not InventarisationEventModel empBaseInfo || string.IsNullOrEmpty(FilterAnyWord)) return;
+        //TODO: Realise filters
 
-        //    if (empBaseInfo.Any == null || !empBaseInfo.Any.ToLower().Contains(FilterAnyWord.ToLower()))
+        //private void OnDateFilter(object sender, FilterEventArgs e)
+        //{
+        //    if (e.Item is not InventarisationEventModel inventarisationEventModel || string.IsNullOrEmpty(StartDateTimeFilter.ToString())) return;
+
+        //    if (inventarisationEventModel.DateOfEvent == null || !inventarisationEventModel.Any.ToLower().Contains(FilterAnyWord.ToLower()))
         //        e.Accepted = false;
         //}
 
@@ -141,24 +143,26 @@ namespace Inve_Time.ViewModels
 
 
 
-        //#region Filter Fields
+        #region Filter Fields
 
 
-        //#region string EmployeeView FilterAny 
 
-        //private string _FilterAnyWord;
-        ///// <summary>EmployeeView FilterAny - searching word</summary>
-        //public string FilterAnyWord
-        //{
-        //    get => _FilterAnyWord;
-        //    set
-        //    {
-        //        if (Set(ref _FilterAnyWord, value))
-        //            _InventarisationEventModelViewSource.View.Refresh();
-        //    }
-        //}
+        #region DateTime InventarisationEventModelView StartDateTimeFilter
 
-        //#endregion
+        private DateTime _StartDateTimeFilter;
+        public DateTime StartDateTimeFilter
+        {
+            get => _StartDateTimeFilter;
+            set
+            {
+                if(Set(ref _StartDateTimeFilter, value))
+                    _InventarisationEventModelViewSource.View.Refresh();
+            }
+        }
+
+        #endregion
+
+        
 
         //#region string EmployeeView FilterFIO 
 
@@ -424,5 +428,7 @@ namespace Inve_Time.ViewModels
 
         #endregion
 
+
+        #endregion
     }
 }

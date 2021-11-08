@@ -1,4 +1,5 @@
-﻿using Inve_Time.ViewModels.Base;
+﻿using Inve_Time.Models;
+using Inve_Time.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,25 @@ namespace Inve_Time.ViewModels
             if (!App.IsDesignTime)
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
+
+        public InventarisationEventModelEditorWindowViewModel(InventarisationEventModel inventarisationEventModel)
+        {
+            InventarisationEventModel = inventarisationEventModel;
+        }
+
+        
+        
+        #region InventarisationEventModel InventarisationEventModel
+
+        private InventarisationEventModel _InventarisationEventModel;
+        /// <summary>MainWindow InventarisationEventModel</summary>
+        public InventarisationEventModel InventarisationEventModel
+        {
+            get => _InventarisationEventModel;
+            set => Set(ref _InventarisationEventModel, value);
+        }
+
+        #endregion
+
     }
 }
