@@ -1,6 +1,6 @@
-﻿using Inve_Time.DataBase.dll.Entities.Base;
+﻿using Inve_Time.Entities.Base;
 
-namespace Inve_Time.DataBase.dll.Entities
+namespace Inve_Time.Entities.Entities
 {
     public class CategorySearchWord : NamedEntity
     {

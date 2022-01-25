@@ -1,19 +1,20 @@
-﻿using System.Linq;
+﻿using Inve_Time.Interfaces.Entities;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Inve_Time.Interfaces.dll
+namespace Inve_Time.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class, IEntity, new()
     {
 
 
-        /// <summary>Return all entities of selcted type</summary>
+        /// <summary>Return all entities of selected type</summary>
         IQueryable<T> Items { get; }
 
         /// <summary>
-        /// This property using to safe data in database. When you need add/update/remove many entites at a time, 
-        /// you need set решы value to false. But don't forget to save data manually.
+        /// This property using to safe data in database. When you need add/update/remove many entities at a time, 
+        /// you need set this value to false. But don't forget to save data manually.
         /// </summary>
         bool AutoSaveChanges { get; set; }
 

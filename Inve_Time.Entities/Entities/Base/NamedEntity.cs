@@ -1,4 +1,4 @@
-﻿namespace Inve_Time.DataBase.dll.Entities.Base
+﻿namespace Inve_Time.Entities.Base
 {
     public abstract class NamedEntity : Entity
     {

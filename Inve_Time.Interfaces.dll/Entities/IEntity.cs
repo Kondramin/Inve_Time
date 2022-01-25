@@ -1,4 +1,4 @@
-﻿namespace Inve_Time.Interfaces.dll
+﻿namespace Inve_Time.Interfaces.Entities
 {
     public interface IEntity
     {

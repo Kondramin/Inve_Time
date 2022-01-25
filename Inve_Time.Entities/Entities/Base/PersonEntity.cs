@@ -1,6 +1,6 @@
-﻿namespace Inve_Time.DataBase.dll.Entities.Base
+﻿namespace Inve_Time.Entities.Base
 {
-    public abstract class Person : NamedEntity
+    public abstract class PersonEntity : NamedEntity
     {
         public string SecondName { get; set; }
         public string Patronymic { get; set; }

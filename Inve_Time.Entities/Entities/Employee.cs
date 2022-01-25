@@ -1,24 +1,27 @@
-﻿using Inve_Time.DataBase.dll.Entities.Base;
+﻿using Inve_Time.Entities.Base;
 using System.Collections.Generic;
 
-namespace Inve_Time.DataBase.dll.Entities
+namespace Inve_Time.Entities.Entities
 {
-    public class Employee : Person
+    public class Employee : PersonEntity
     {
         public string Login { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
 
 
+
         public int? PositionId { get; set; }
         public Position Position { get; set; }
+
 
 
         public int? PasswodrId { get; set; }
         public Password Password { get; set; }
 
 
-        public ICollection<InventarisationEvent> InventarisationEvents { get; set; }
+
+        public ICollection<InventoryEvent> InventoryEvents { get; set; }
 
     }
 }

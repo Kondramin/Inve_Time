@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.dll.csproj" />
+    <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

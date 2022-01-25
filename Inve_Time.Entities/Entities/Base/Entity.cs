@@ -1,6 +1,6 @@
-﻿using Inve_Time.Interfaces.dll;
+﻿using Inve_Time.Interfaces.Entities;
 
-namespace Inve_Time.DataBase.dll.Entities.Base
+namespace Inve_Time.Entities.Base
 {
     public abstract class Entity : IEntity
     {
