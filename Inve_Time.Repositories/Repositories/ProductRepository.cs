@@ -6,14 +6,15 @@ using System.Linq;
 
 namespace Inve_Time.Repositories
 {
-    internal class CategorySearchWordRepository : DbRepository<CategorySearchWord>
+    internal class ProductRepository : DbRepository<Product>
     {
-        public CategorySearchWordRepository(InveTimeDB db) : base(db) { }
+        public ProductRepository(InveTimeDB db) : base(db) { }
 
 
 
-        public override IQueryable<CategorySearchWord> Items => base.Items
+        public override IQueryable<Product> Items => base.Items
             .Include(item => item.Category)
+            .Include(item => item.ProductInventeds)
             ;
 
     }
