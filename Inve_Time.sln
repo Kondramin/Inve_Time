@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inve_Time", "Inve_Time\Inve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inve_Time.Interfaces", "Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj", "{FFE1B848-27D8-4B0B-B50D-5E5EEE768215}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inve_Time.DataBase.dll", "Inve_Time.DataBase.dll\Inve_Time.DataBase.dll.csproj", "{8C8044EF-3456-47A1-9401-F66D0AC735F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inve_Time.Database", "Inve_Time.DataBase.dll\Inve_Time.Database.csproj", "{8C8044EF-3456-47A1-9401-F66D0AC735F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inve_Time.Tests", "Inve_Time.Tests\Inve_Time.Tests.csproj", "{755221C9-3C50-45CF-A0F4-98BDC32FA364}"
 EndProject

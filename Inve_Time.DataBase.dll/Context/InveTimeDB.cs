@@ -1,8 +1,8 @@
-﻿using Inve_Time.DataBase.dll.Entities;
+﻿using Inve_Time.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Inve_Time.DataBase.dll.Context
+namespace Inve_Time.DataBase.Context
 {
     public class InveTimeDB : DbContext
     {
@@ -13,11 +13,11 @@ namespace Inve_Time.DataBase.dll.Context
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
-        public DbSet<ProductInfo> ProductInfos { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductInvented> ProductsInventeds { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategorySearchWord> CategorySearchWords { get; set; }
-        public DbSet<InventarisationEvent> InventarisationEvents { get; set; }
+        public DbSet<InventoryEvent> InventoryEvents { get; set; }
         public DbSet<Password> Passwords { get; set; }
 
 
@@ -28,6 +28,8 @@ namespace Inve_Time.DataBase.dll.Context
 
 
         #region Initial Data
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
@@ -46,7 +48,7 @@ namespace Inve_Time.DataBase.dll.Context
                 new Category { Id=11, Name="Батарейки" },
                 new Category { Id=12, Name="IP-камеры" },
                 new Category { Id=13, Name="Мыши компьютерные" },
-                new Category { Id=14, Name="Портативная аккустика" },
+                new Category { Id=14, Name="Портативная акустика" },
                 new Category { Id=15, Name="Гарнитуры" },
                 new Category { Id=16, Name="Сетевое оборудование" },
                 new Category { Id=17, Name="Телевизоры" },
@@ -110,12 +112,12 @@ namespace Inve_Time.DataBase.dll.Context
                 );
 
             modelBuilder.Entity<Password>().HasData(
-                new Password { Id = 1, Name = "admin", EmployeeId = 1 }
+                new Password { Id = 1, Name = "admin" }
                 );
         }
+
+
         #endregion
-
-
 
     }
 }
