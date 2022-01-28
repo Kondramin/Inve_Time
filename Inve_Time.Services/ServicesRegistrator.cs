@@ -7,7 +7,7 @@ namespace Inve_Time.Services
     public static class ServicesRegistrator
     {
         public static IServiceCollection AddServices(this IServiceCollection services) => services
-            .AddTransient<IAutorisatoinService, AutorisatoinService>()
+            .AddTransient<IAutorisationService, AutorisationService>()
             ;
     }
 }

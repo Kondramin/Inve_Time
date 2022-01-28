@@ -23,7 +23,8 @@ namespace Inve_Time.Repositories.Repositories
         public override IQueryable<Employee> Items => base.Items
             .Include(item => item.Position)
             .Include(item => item.Market)
-            .Include(Item => Item.InventoryEvents)
+            .Include(item => item.InventoryEvents)
+            .Include(item => item.Password)
             ;
 
 
