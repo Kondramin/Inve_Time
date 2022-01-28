@@ -1,5 +1,5 @@
-﻿using Inve_Time.DataBase.dll.Context;
-using Inve_Time.DataBase.dll.Repositories;
+﻿using Inve_Time.DataBase.Context;
+using Inve_Time.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

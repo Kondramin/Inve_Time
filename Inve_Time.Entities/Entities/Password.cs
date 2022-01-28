@@ -2,7 +2,5 @@
 
 namespace Inve_Time.Entities.Entities
 {
-    public class Password : NamedEntity
-    {
-    }
+    public class Password : NamedEntity { }
 }

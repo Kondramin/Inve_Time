@@ -1,101 +1,98 @@
-﻿using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.Interfaces.dll;
+﻿using Inve_Time.Models;
 using Inve_Time.Services.ServiceInterfaces;
-using Inve_Time.ViewModels;
-using Inve_Time.Views.Windows;
 using System.Windows;
 
 namespace Inve_Time.Services
 {
     internal class UserDialogService : IUserDialog
     {
-        private readonly IRepository<Position> _PositionRepository;
-        private readonly IShowPasswordWindowsService _ShowPasswordWindowService;
-        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
-        private readonly IRepository<Category> _CategoryRepos;
+        //private readonly IRepository<PositionModel> _PositionRepository;
+        //private readonly IShowPasswordWindowsService _ShowPasswordWindowService;
+        //private readonly IRepository<CategorySearchWordModel> _CategorySearchWordRepository;
+        //private readonly IRepository<CategoryModel> _CategoryRepos;
 
         public UserDialogService(
-            IRepository<Position> PositionRepository,
-            IShowPasswordWindowsService ShowPasswordWindowService,
-            IRepository<CategorySearchWord> CategorySearchWordRepository,
-            IRepository<Category> CategoryRepos
+            //IRepository<PositionModel> PositionRepository,
+            //IShowPasswordWindowsService ShowPasswordWindowService,
+            //IRepository<CategorySearchWordModel> CategorySearchWordRepository,
+            //IRepository<CategoryModel> CategoryRepos
             )
         {
-            _PositionRepository = PositionRepository;
-            _ShowPasswordWindowService = ShowPasswordWindowService;
-            _CategorySearchWordRepository = CategorySearchWordRepository;
-            _CategoryRepos = CategoryRepos;
+            //_PositionRepository = PositionRepository;
+            //_ShowPasswordWindowService = ShowPasswordWindowService;
+            //_CategorySearchWordRepository = CategorySearchWordRepository;
+            //_CategoryRepos = CategoryRepos;
         }
 
 
 
-        public bool EditEpmloyee(Employee employee)
+        public bool EditEpmloyee(EmployeeModel employeeModel)
         {
-            EmployeeEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ShowPasswordWindowService);
+            //EmployeeEditorWindowViewModel employee_editor_viewModel = new(employee, _PositionRepository, _ShowPasswordWindowService);
 
 
-            EmployeeEditorWindow employee_editor_window = new()
-            {
-                DataContext = employee_editor_viewModel
-            };
+            //EmployeeEditorWindow employee_editor_window = new()
+            //{
+            //    DataContext = employee_editor_viewModel
+            //};
 
 
-            if (employee_editor_window.ShowDialog() != true) return false;
+            //if (employee_editor_window.ShowDialog() != true) return false;
 
 
-            employee.Id = employee_editor_viewModel.EmpId;
-            employee.SecondName = employee_editor_viewModel.EmpSecondName;
-            employee.Name = employee_editor_viewModel.EmpName;
-            employee.Patronymic = employee_editor_viewModel.EmpPatronymic;
-            employee.Phone = employee_editor_viewModel.EmpPhone;
-            employee.Email = employee_editor_viewModel.EmpEmail;
-            employee.Login = employee_editor_viewModel.EmpLogin;
-            employee.Position = employee_editor_viewModel.SelectedPosition;
+            //employee.Id = employee_editor_viewModel.EmpId;
+            //employee.SecondName = employee_editor_viewModel.EmpSecondName;
+            //employee.Name = employee_editor_viewModel.EmpName;
+            //employee.Patronymic = employee_editor_viewModel.EmpPatronymic;
+            //employee.Phone = employee_editor_viewModel.EmpPhone;
+            //employee.Email = employee_editor_viewModel.EmpEmail;
+            //employee.Login = employee_editor_viewModel.EmpLogin;
+            //employee.Position = employee_editor_viewModel.SelectedPosition;
 
             return true;
         }
 
 
-        public bool EditCategory(Category category)
+        public bool EditCategory(CategoryModel categoryModel)
         {
-            CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
-            CategoryEditorWindow categoryEditorWindow = new()
-            {
-                DataContext = categoryEditorWindowViewModel,
-                Title = (category.Name is null) ? "Создать категорию" : "Редактировать категорию"
-            };
+            //CategoryEditorWindowViewModel categoryEditorWindowViewModel = new(category);
+            //CategoryEditorWindow categoryEditorWindow = new()
+            //{
+            //    DataContext = categoryEditorWindowViewModel,
+            //    Title = (category.Name is null) ? "Создать категорию" : "Редактировать категорию"
+            //};
 
-            if (categoryEditorWindow.ShowDialog() != true) return false;
+            //if (categoryEditorWindow.ShowDialog() != true) return false;
 
-            category.Id = categoryEditorWindowViewModel.CategoryId;
-            category.Name = categoryEditorWindowViewModel.CategoryName;
+            //category.Id = categoryEditorWindowViewModel.CategoryId;
+            //category.Name = categoryEditorWindowViewModel.CategoryName;
 
             return true;
         }
 
 
-        public bool EditProduct(ProductInfo productInfo)
+        public bool EditProduct(ProductModel productModel)
         {
-            ProductEditorWindowViewModel productEditorWindowViewModel = new(productInfo, _CategoryRepos);
-            ProductEditorWindow productEditorWindow = new()
-            {
-                DataContext = productEditorWindowViewModel,
-                Title = (productInfo.Name is null) ? "Создание товара" : "Редактирование товара"
-            };
+            //ProductEditorWindowViewModel productEditorWindowViewModel = new(productInfo, _CategoryRepos);
+            //ProductEditorWindow productEditorWindow = new()
+            //{
+            //    DataContext = productEditorWindowViewModel,
+            //    Title = (productInfo.Name is null) ? "Создание товара" : "Редактирование товара"
+            //};
 
-            if (productEditorWindow.ShowDialog() != true) return false;
+            //if (productEditorWindow.ShowDialog() != true) return false;
 
-            productInfo.Name = productEditorWindowViewModel.ProductName;
-            productInfo.VendorCode = productEditorWindowViewModel.ProductVendorCode;
-            productInfo.Barcode = productEditorWindowViewModel.ProductBarcode;
-            productInfo.Cost = productEditorWindowViewModel.ProductCost;
-            productInfo.Category = productEditorWindowViewModel.SelectedProductCategory;
+            //productInfo.Name = productEditorWindowViewModel.ProductName;
+            //productInfo.VendorCode = productEditorWindowViewModel.ProductVendorCode;
+            //productInfo.Barcode = productEditorWindowViewModel.ProductBarcode;
+            //productInfo.Cost = productEditorWindowViewModel.ProductCost;
+            //productInfo.Category = productEditorWindowViewModel.SelectedProductCategory;
 
             return true;
         }
 
 
-        public bool EditInventarisationEvent (InventarisationEvent inventarisationEvent)
+        public bool EditInventarisationEvent (InventoryEventModel inventoryEventModel)
         {
 
 
@@ -123,6 +120,7 @@ namespace Inve_Time.Services
             MessageBoxButton.YesNo,
             MessageBoxImage.Error)
             == MessageBoxResult.Yes;
+
     }
 }
 

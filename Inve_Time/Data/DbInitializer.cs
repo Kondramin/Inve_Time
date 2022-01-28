@@ -1,4 +1,4 @@
-﻿using Inve_Time.DataBase.dll.Context;
+﻿using Inve_Time.DataBase.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

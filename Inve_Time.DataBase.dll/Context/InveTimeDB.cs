@@ -114,6 +114,14 @@ namespace Inve_Time.DataBase.Context
             modelBuilder.Entity<Password>().HasData(
                 new Password { Id = 1, Name = "admin" }
                 );
+            modelBuilder.Entity<Market>().HasData(
+                new Market[]
+                {
+                    new Market { Id = 1, Name = "Mi_Minsk_Galereya" },
+                    new Market { Id = 2, Name = "Mi_Minsk_Expobel" },
+                    new Market { Id = 3, Name = "Mi_Minsk_E-City" },
+                    new Market { Id = 4, Name = "Mi_Minsk_Skala" }
+                });
         }
 
 

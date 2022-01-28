@@ -16,24 +16,24 @@ namespace Inve_Time.ViewModels
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
-        public InventarisationEventModelEditorWindowViewModel(InventarisationEventModel inventarisationEventModel)
-        {
-            InventarisationEventModel = inventarisationEventModel;
-        }
+        //public InventarisationEventModelEditorWindowViewModel(InventarisationEventModel inventarisationEventModel)
+        //{
+        //    InventarisationEventModel = inventarisationEventModel;
+        //}
 
         
         
-        #region InventarisationEventModel InventarisationEventModel
+        //#region InventarisationEventModel InventarisationEventModel
 
-        private InventarisationEventModel _InventarisationEventModel;
-        /// <summary>MainWindow InventarisationEventModel</summary>
-        public InventarisationEventModel InventarisationEventModel
-        {
-            get => _InventarisationEventModel;
-            set => Set(ref _InventarisationEventModel, value);
-        }
+        //private InventarisationEventModel _InventarisationEventModel;
+        ///// <summary>MainWindow InventarisationEventModel</summary>
+        //public InventarisationEventModel InventarisationEventModel
+        //{
+        //    get => _InventarisationEventModel;
+        //    set => Set(ref _InventarisationEventModel, value);
+        //}
 
-        #endregion
+        //#endregion
 
     }
 }

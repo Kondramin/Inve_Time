@@ -9,18 +9,21 @@
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.95.4" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Inve_Time.DataBase.dll\Inve_Time.Database.csproj" />
+    <ProjectReference Include="..\Inve_Time.Entities\Inve_Time.Entities.csproj" />
+    <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj" />
+    <ProjectReference Include="..\Inve_Time.Repositories\Inve_Time.Repositories.csproj" />
   </ItemGroup>
 
   <ItemGroup>

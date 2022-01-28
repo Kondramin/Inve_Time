@@ -6,7 +6,7 @@ namespace Inve_Time.Services.ServiceInterfaces
     interface IAutorisationUserService
     {
         /// <summary>Property, contained info about autorisated user</summary>
-        EmployeeBaseInfo AutorisatedUser { get; set; }
+        EmployeeModel AutorisatedUser { get; set; }
 
         /// <summary>Validate user in app. If return "true" - prop "AutorisatedUser" will be include info about autorisated user</summary>
         /// <param name="login">Input login</param>

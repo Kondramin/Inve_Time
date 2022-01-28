@@ -16,6 +16,10 @@ namespace Inve_Time.Entities.Entities
 
 
 
+        public Market Market { get; set; }
+
+
+
         public int? PasswodrId { get; set; }
         public Password Password { get; set; }
 

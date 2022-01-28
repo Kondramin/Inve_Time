@@ -1,39 +1,34 @@
-﻿using Inve_Time.DataBase.dll.Context;
-using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.Interfaces.dll;
-using Inve_Time.Services.ServiceInterfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using Inve_Time.Services.ServiceInterfaces;
 using System.Threading.Tasks;
 
 namespace Inve_Time.Services
 {
     internal class AutoChoseCategoryProductService : IAutoChoseCategoryProductService
     {
-        private readonly IRepository<ProductInfo> _ProductBaseRepository;
-        private readonly IRepository<ProductInvented> _ProductInventedRepossitory;
-        private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
-        private readonly InveTimeDB _Db;
+        //private readonly IRepository<ProductInfo> _ProductBaseRepository;
+        //private readonly IRepository<ProductInvented> _ProductInventedRepossitory;
+        //private readonly IRepository<CategorySearchWord> _CategorySearchWordRepository;
+        //private readonly InveTimeDB _Db;
 
         public AutoChoseCategoryProductService(
-            IRepository<ProductInfo> ProductRepository,
-            IRepository<ProductInvented> ProductInventedRepossitory,
-            IRepository<CategorySearchWord> CategorySearchWordRepository,
-            InveTimeDB db
+            //IRepository<ProductInfo> ProductRepository,
+            //IRepository<ProductInvented> ProductInventedRepossitory,
+            //IRepository<CategorySearchWord> CategorySearchWordRepository,
+            //InveTimeDB db
             )
         {
-            _ProductBaseRepository = ProductRepository;
-            _ProductInventedRepossitory = ProductInventedRepossitory;
-            _CategorySearchWordRepository = CategorySearchWordRepository;
-            _Db = db;
+            //_ProductBaseRepository = ProductRepository;
+            //_ProductInventedRepossitory = ProductInventedRepossitory;
+            //_CategorySearchWordRepository = CategorySearchWordRepository;
+            //_Db = db;
         }
 
 
 
         public void IdentifyCategory()
         {
-            _ProductBaseRepository.AutoSaveChanges = false;
-            _ProductInventedRepossitory.AutoSaveChanges = false;
+            //_ProductBaseRepository.AutoSaveChanges = false;
+            //_ProductInventedRepossitory.AutoSaveChanges = false;
 
 
             //foreach (var nullCategory in _ProductInventedRepossitory.Items.Where(p => EF.Functions.Like(p.Category.Name, null)))

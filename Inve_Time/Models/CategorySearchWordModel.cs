@@ -1,8 +1,12 @@
-﻿using Inve_Time.DataBase.dll.Entities;
-
-namespace Inve_Time.Models
+﻿namespace Inve_Time.Models
 {
-    class CategorySearchWordModel : CategorySearchWord
+    public class CategorySearchWordModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+
+
+        public CategoryModel Category { get; set; }
     }
 }

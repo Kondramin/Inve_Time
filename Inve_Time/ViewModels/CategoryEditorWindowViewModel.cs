@@ -1,5 +1,4 @@
-﻿using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.ViewModels.Base;
+﻿using Inve_Time.ViewModels.Base;
 using System;
 
 namespace Inve_Time.ViewModels
@@ -13,26 +12,26 @@ namespace Inve_Time.ViewModels
                 throw new InvalidOperationException("Ctor not for Runtime!!!");
         }
 
-        public CategoryEditorWindowViewModel(Category category)
-        {
-            CategoryId = category.Id;
-            CategoryName = category.Name;
-        }
+        //public CategoryEditorWindowViewModel(/*Category category*/)
+        //{
+        //    CategoryId = category.Id;
+        //    CategoryName = category.Name;
+        //}
 
 
-        public int CategoryId { get; set; }
+        //public int CategoryId { get; set; }
 
 
-        #region CategoryName
+        //#region CategoryName
 
-        private string _CategoryName;
-        /// <summary>CategoryName to edit</summary>
-        public string CategoryName
-        {
-            get => _CategoryName;
-            set => Set(ref _CategoryName, value);
-        }
+        //private string _CategoryName;
+        ///// <summary>CategoryName to edit</summary>
+        //public string CategoryName
+        //{
+        //    get => _CategoryName;
+        //    set => Set(ref _CategoryName, value);
+        //}
 
-        #endregion
+        //#endregion
     }
 }

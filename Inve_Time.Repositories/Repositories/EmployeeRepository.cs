@@ -4,7 +4,7 @@ using Inve_Time.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Inve_Time.Repositories
+namespace Inve_Time.Repositories.Repositories
 {
     internal class EmployeeRepository : DbRepository<Employee>
     {
@@ -22,13 +22,14 @@ namespace Inve_Time.Repositories
 
         public override IQueryable<Employee> Items => base.Items
             .Include(item => item.Position)
+            .Include(item => item.Market)
             .Include(Item => Item.InventoryEvents)
             ;
 
 
 
 
-        //TODO: Пока не знаю, пригодится ли с учётом переделки. Если не понадобится, то переделать ctor.
+        //TODO: Пока не знаю, пригодится ли с учётом переделки. Если не понадобится, то переделать конструктор.
         //public override void Remove(int id)
         //{
         //    var item = _Set.Include(item => item.Password).FirstOrDefault(i => i.Id == id) ?? new Employee { Id = id };

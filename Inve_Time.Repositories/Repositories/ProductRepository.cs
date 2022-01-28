@@ -4,7 +4,7 @@ using Inve_Time.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Inve_Time.Repositories
+namespace Inve_Time.Repositories.Repositories
 {
     internal class ProductRepository : DbRepository<Product>
     {
@@ -14,7 +14,6 @@ namespace Inve_Time.Repositories
 
         public override IQueryable<Product> Items => base.Items
             .Include(item => item.Category)
-            .Include(item => item.ProductInventeds)
             ;
 
     }

@@ -1,7 +1,4 @@
 ﻿using ClosedXML.Excel;
-using Inve_Time.DataBase.dll.Context;
-using Inve_Time.DataBase.dll.Entities;
-using Inve_Time.Interfaces.dll;
 using Inve_Time.Services.ServiceInterfaces;
 using System;
 using System.Data;
@@ -11,15 +8,15 @@ namespace Inve_Time.Services
 {
     internal class ParserService : IParserService
     {
-        private readonly IRepository<ProductInvented> _ProductInventedRepository;
-        private readonly InveTimeDB _Db;
+        //private readonly IRepository<ProductInvented> _ProductInventedRepository;
+        //private readonly InveTimeDB _Db;
 
 
 
-        public ParserService(IRepository<ProductInvented> ProductInventedRepository, InveTimeDB db)
+        public ParserService(/*IRepository<ProductInvented> ProductInventedRepository, InveTimeDB db*/)
         {
-            _ProductInventedRepository = ProductInventedRepository;
-            _Db = db;
+            //_ProductInventedRepository = ProductInventedRepository;
+            //_Db = db;
         }
 
         public DataTable GetDataFromExele(string path)
@@ -121,7 +118,7 @@ namespace Inve_Time.Services
             //    await _ProductInventedRepository.AddAsync(product);
 
             //}
-            await _Db.SaveChangesAsync();
+            //await _Db.SaveChangesAsync();
         }
 
     }

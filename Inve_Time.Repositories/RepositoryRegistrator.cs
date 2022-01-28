@@ -1,6 +1,7 @@
 ﻿using Inve_Time.Entities.Entities;
 using Inve_Time.Interfaces.Repositories;
 using Inve_Time.Repositories.Base;
+using Inve_Time.Repositories.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Inve_Time.Repositories
@@ -14,6 +15,7 @@ namespace Inve_Time.Repositories
             .AddTransient<IRepository<ProductInvented>, ProductInventedRepository>()
             .AddTransient<IRepository<Category>, CategoryRepository>()
             .AddTransient<IRepository<InventoryEvent>, InventoryEventRepository>()
+            .AddTransient<IRepository<Market>, MarketRepository>()
             .AddTransient<IRepository<CategorySearchWord>, CategorySearchWordRepository>()
             .AddTransient<IRepository<Password>, DbRepository<Password>>()
             ;

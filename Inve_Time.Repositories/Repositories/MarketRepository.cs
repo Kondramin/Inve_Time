@@ -6,14 +6,14 @@ using System.Linq;
 
 namespace Inve_Time.Repositories.Repositories
 {
-    internal class ProductInventedRepository : DbRepository<ProductInvented>
+    internal class MarketRepository : DbRepository<Market>
     {
-        public ProductInventedRepository(InveTimeDB db) : base(db) { }
+        public MarketRepository(InveTimeDB db) : base(db) { }
 
 
 
-        public override IQueryable<ProductInvented> Items => base.Items
-            .Include(item => item.ProductInfo)
+        public override IQueryable<Market> Items => base.Items
+            .Include(item => item.Staff)
             .Include(item => item.InventoryEvents)
             ;
 

@@ -4,7 +4,7 @@ using Inve_Time.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Inve_Time.Repositories
+namespace Inve_Time.Repositories.Repositories
 {
     internal class CategorySearchWordRepository : DbRepository<CategorySearchWord>
     {
