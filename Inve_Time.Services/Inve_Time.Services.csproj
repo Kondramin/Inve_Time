@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inve_Time.Entities\Inve_Time.Entities.csproj" />
+    <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj" />
+    <ProjectReference Include="..\Inve_Time.Repositories\Inve_Time.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>

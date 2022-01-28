@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Inve_Time.DataBase.dll\Inve_Time.Database.csproj" />
     <ProjectReference Include="..\Inve_Time.Repositories\Inve_Time.Repositories.csproj" />
+    <ProjectReference Include="..\Inve_Time.Services\Inve_Time.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
