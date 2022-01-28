@@ -5,10 +5,10 @@ namespace Inve_Time.Services
 {
     static class ServicesRegistrator
     {
-        public static IServiceCollection AddServices(this IServiceCollection services) => services
+        public static IServiceCollection RegistrateServices(this IServiceCollection services) => services
+            .AddServices()
             .AddTransient<IParserService, ParserService>()
             .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
-            .AddTransient<IAutorisationUserService, AutorisationUserService>()
             .AddTransient<IUserDialog, UserDialogService>()
             .AddTransient<IShowPasswordWindowsService, ShowPasswordWindowsService>()
             .AddScoped<IEditPasswordService, EditPasswordService>()
