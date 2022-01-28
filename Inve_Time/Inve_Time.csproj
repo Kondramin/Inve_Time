@@ -21,8 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Inve_Time.DataBase.dll\Inve_Time.Database.csproj" />
-    <ProjectReference Include="..\Inve_Time.Entities\Inve_Time.Entities.csproj" />
-    <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj" />
     <ProjectReference Include="..\Inve_Time.Repositories\Inve_Time.Repositories.csproj" />
   </ItemGroup>
 
