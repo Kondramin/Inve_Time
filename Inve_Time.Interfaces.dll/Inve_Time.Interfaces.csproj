@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Inve_Time.Entities\Inve_Time.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

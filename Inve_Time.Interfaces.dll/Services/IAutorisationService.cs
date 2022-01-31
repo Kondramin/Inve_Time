@@ -1,7 +1,11 @@
-﻿namespace Inve_Time.Interfaces.Services
+﻿using Inve_Time.Entities.Entities;
+
+namespace Inve_Time.Interfaces.Services
 {
     public interface IAutorisationService
     {
+        /// <summary>Get entity completed autorisation</summary>
+        Employee AutorisatedEmployee { get; set; }
         /// <summary>Validate user in app</summary>
         /// <param name="login">Input login</param>
         /// <param name="password">Input password</param>
@@ -17,6 +21,6 @@
         /// <param name="employeeId">Id of possible user</param>
         /// <param name="password">User password</param>
         /// <returns>true/false</returns>
-        bool ValidatePassword(int employeeId, string password);
+        bool ValidatePassword(string password);
     }
 }

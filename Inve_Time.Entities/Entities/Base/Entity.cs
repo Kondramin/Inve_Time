@@ -1,4 +1,4 @@
-﻿using Inve_Time.Interfaces.Entities;
+﻿using Inve_Time.Entities.Interface;
 
 namespace Inve_Time.Entities.Base
 {

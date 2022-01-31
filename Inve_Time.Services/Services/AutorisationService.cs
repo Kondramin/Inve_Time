@@ -18,14 +18,13 @@ namespace Inve_Time.Services.Services
 
 
 
-        private int employeeId { get; set; }
-
+        public Employee AutorisatedEmployee { get; set; }
 
 
         public bool ValidateLoginAndPassword(string login, string password)
         {
             if (!VaidateLogin(login)) return false;
-            if (!ValidatePassword(employeeId, password)) return false;
+            if (!ValidatePassword(password)) return false;
 
             return true;
         }
@@ -35,18 +34,17 @@ namespace Inve_Time.Services.Services
         public bool VaidateLogin(string login)
         {
             if (!_EmployeeRepository.Items.Any(emp => emp.Login == login)) return false;
-            employeeId = _EmployeeRepository.Items.FirstOrDefault(emp => emp.Login == login).Id;
+            AutorisatedEmployee = _EmployeeRepository.Items.Include(emp => emp.Password).FirstOrDefault(emp => emp.Login == login);
 
             return true;
         }
 
 
 
-        public bool ValidatePassword(int employeeId, string password)
+        public bool ValidatePassword(string password)
         {
-            var employee = _EmployeeRepository.Items.FirstOrDefault(emp => emp.Id == employeeId);
-            if (employee == null) return false;
-            if (employee.Password.Name != password.GetHashCode().ToString()) return false;
+            if (AutorisatedEmployee == null) return false;
+            if (AutorisatedEmployee.Password.Name != password.GetHashCode().ToString()) return false;
 
             return true;
         }
