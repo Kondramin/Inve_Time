@@ -8,7 +8,6 @@ namespace Inve_Time.Services
         public static IServiceCollection RegistrateServices(this IServiceCollection services) => services
             .AddServices()
             .AddTransient<IParserService, ParserService>()
-            .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
             .AddTransient<IUserDialog, UserDialogService>()
             .AddTransient<IShowPasswordWindowsService, ShowPasswordWindowsService>()
             .AddScoped<IEditPasswordService, EditPasswordService>()
