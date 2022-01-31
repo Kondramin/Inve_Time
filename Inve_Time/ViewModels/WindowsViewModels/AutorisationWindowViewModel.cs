@@ -73,6 +73,7 @@ namespace Inve_Time.ViewModels.WindowsViewModels
             }
             else
             {
+                MessageBox.Show("Не Верный логин или пароль!");
                 LoginTextBox = "";
                 pwdBox.Password = "";
             }
