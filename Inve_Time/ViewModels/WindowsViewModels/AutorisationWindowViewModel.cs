@@ -1,5 +1,8 @@
-﻿using Inve_Time.Commands.Base;
+﻿using AutoMapper;
+using Inve_Time.Commands.Base;
+using Inve_Time.Entities.Entities;
 using Inve_Time.Interfaces.Services;
+using Inve_Time.Models;
 using Inve_Time.ViewModels.Base;
 using System.Windows;
 using System.Windows.Controls;
@@ -66,7 +69,13 @@ namespace Inve_Time.ViewModels.WindowsViewModels
             if (_AutorisationService.ValidateLoginAndPassword(LoginTextBox, pwdBox.Password))
             {
                 //MainWindowViewModel.AutorisatedEmployee = _AutorisationService.AutorisatedUser;
+                MainWindowViewModel.AutorisatedEmployeeModel = MappToEmployeeModel(_AutorisationService.AutorisatedEmployee);
+
+
                 var mainWindow = new MainWindow();
+
+                
+
                 mainWindow.Show();
                 Application.Current.MainWindow.Close();
                 Application.Current.MainWindow = mainWindow;
@@ -84,6 +93,17 @@ namespace Inve_Time.ViewModels.WindowsViewModels
 
         #endregion
 
+
+        private EmployeeModel MappToEmployeeModel(Employee employee)
+        {
+            var mappConfig = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeModel>()
+                .ForMember("PositionName", opt => opt.MapFrom(emp => emp.Position.Name))
+                .ForMember("MarketName", opt => opt.MapFrom(emp => emp.Market.Name)));
+            var mapper = new Mapper(mappConfig);
+            var employeeModel = mapper.Map<EmployeeModel>(employee);
+
+            return employeeModel;
+        }
 
     }
 }

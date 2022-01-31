@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />

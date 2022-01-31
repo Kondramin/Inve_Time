@@ -14,15 +14,12 @@ namespace Inve_Time.Models
 
 
 
-        public PositionModel Position { get; set; }
+        public string PositionName { get; set; }
 
 
 
-        public MarketModel Market { get; set; }
+        public string MarketName { get; set; }
 
-
-
-        public ObservableCollection<InventoryEventModel> InventoryEvents { get; set; }
 
 
         /// <summary>Helpful property. Return SecondName, Name, Patronymic in one field as FIO</summary>
@@ -30,7 +27,7 @@ namespace Inve_Time.Models
 
 
 
-        /// <summary>Helpful property. Using in filters</summary>
-        public string Any { get => (SecondName ?? "") + (Name ?? "") + (Patronymic ?? "") + (Phone ?? "") + (Email ?? "") + (Position.Name ?? ""); }
+        /// <summary>Helpful property. Using in filters</summary>//TODO: Проверить необходимость
+        public string Any { get => (SecondName ?? "") + (Name ?? "") + (Patronymic ?? "") + (Phone ?? "") + (Email ?? "") + (PositionName ?? ""); }
     }
 }

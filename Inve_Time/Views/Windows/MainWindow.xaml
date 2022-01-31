@@ -25,12 +25,12 @@
             
             <MenuItem Header="Общее">
                 
-                <MenuItem Header="Начальная страниица"
+                <MenuItem Header="Начальная страница"
                           Command="{Binding ShowStartViewCommand}"/>
                 
                 <MenuItem Header="Информация">
                     
-                    <MenuItem Header="Сотрудники сети" 
+                    <MenuItem Header="Сотрудники" 
                               Command="{Binding ShowEmployeesViewCommand}"/>
                     
                     <MenuItem Header="Товары"
