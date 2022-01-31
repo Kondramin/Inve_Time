@@ -9,6 +9,7 @@ namespace Inve_Time.Services
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddTransient<IAutorisationService, AutorisationService>()
             .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
+            .AddTransient<IParserFromExcelService, ParserFromExcelService>()
             ;
     }
 }
