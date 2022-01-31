@@ -1,4 +1,4 @@
-﻿using Inve_Time.Interfaces.Entities;
+﻿using Inve_Time.Entities.Interface;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
