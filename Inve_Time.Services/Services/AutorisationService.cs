@@ -44,7 +44,7 @@ namespace Inve_Time.Services.Services
         public bool ValidatePassword(string password)
         {
             if (AutorisatedEmployee == null) return false;
-            if (AutorisatedEmployee.Password.Name != password.GetHashCode().ToString()) return false;
+            if (AutorisatedEmployee.Password.Name != password) return false;
 
             return true;
         }

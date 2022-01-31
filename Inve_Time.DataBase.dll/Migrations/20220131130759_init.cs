@@ -35,19 +35,6 @@ namespace Inve_Time.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Passwords",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Passwords", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Positions",
                 columns: table => new
                 {
@@ -116,7 +103,6 @@ namespace Inve_Time.Database.Migrations
                     PositionId = table.Column<int>(type: "int", nullable: true),
                     MarketId = table.Column<int>(type: "int", nullable: true),
                     PasswodrId = table.Column<int>(type: "int", nullable: true),
-                    PasswordId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SecondName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Patronymic = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -128,12 +114,6 @@ namespace Inve_Time.Database.Migrations
                         name: "FK_Employees_Market_MarketId",
                         column: x => x.MarketId,
                         principalTable: "Market",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Employees_Passwords_PasswordId",
-                        column: x => x.PasswordId,
-                        principalTable: "Passwords",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -195,6 +175,26 @@ namespace Inve_Time.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Passwords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Passwords", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Passwords_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InventoryEventProductInvented",
                 columns: table => new
                 {
@@ -238,11 +238,11 @@ namespace Inve_Time.Database.Migrations
                     { 16, "Сетевое оборудование" },
                     { 11, "Батарейки" },
                     { 2, "Ноутбуки" },
+                    { 3, "Рюкзаки/сумки/чемоданы" },
                     { 12, "IP-камеры" },
-                    { 4, "Мобильные телефоны" },
                     { 5, "Чехлы/бампера/книги для телефона" },
                     { 6, "Защитные стёкла/плёнки" },
-                    { 3, "Рюкзаки/сумки/чемоданы" },
+                    { 4, "Мобильные телефоны" },
                     { 8, "Ремешки для часов/браслетов" },
                     { 9, "Видеорегистраторы" },
                     { 10, "Карты памяти" },
@@ -259,11 +259,6 @@ namespace Inve_Time.Database.Migrations
                     { 3, null, "Mi_Minsk_E-City" },
                     { 4, null, "Mi_Minsk_Skala" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Passwords",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Positions",
@@ -318,8 +313,13 @@ namespace Inve_Time.Database.Migrations
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "Email", "Login", "MarketId", "Name", "PasswodrId", "PasswordId", "Patronymic", "Phone", "PositionId", "SecondName" },
-                values: new object[] { 1, null, "Admin", null, "Admin", 1, null, null, null, 1, "Admin" });
+                columns: new[] { "Id", "Email", "Login", "MarketId", "Name", "PasswodrId", "Patronymic", "Phone", "PositionId", "SecondName" },
+                values: new object[] { 1, null, "Admin", null, "Admin", 1, null, null, 1, null });
+
+            migrationBuilder.InsertData(
+                table: "Passwords",
+                columns: new[] { "Id", "EmployeeId", "Name" },
+                values: new object[] { 1, 1, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CategorySearchWords_CategoryId",
@@ -330,11 +330,6 @@ namespace Inve_Time.Database.Migrations
                 name: "IX_Employees_MarketId",
                 table: "Employees",
                 column: "MarketId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_PasswordId",
-                table: "Employees",
-                column: "PasswordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_PositionId",
@@ -357,6 +352,13 @@ namespace Inve_Time.Database.Migrations
                 column: "MarketId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Passwords_EmployeeId",
+                table: "Passwords",
+                column: "EmployeeId",
+                unique: true,
+                filter: "[EmployeeId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
@@ -376,6 +378,9 @@ namespace Inve_Time.Database.Migrations
                 name: "InventoryEventProductInvented");
 
             migrationBuilder.DropTable(
+                name: "Passwords");
+
+            migrationBuilder.DropTable(
                 name: "InventoryEvents");
 
             migrationBuilder.DropTable(
@@ -389,9 +394,6 @@ namespace Inve_Time.Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "Market");
-
-            migrationBuilder.DropTable(
-                name: "Passwords");
 
             migrationBuilder.DropTable(
                 name: "Positions");

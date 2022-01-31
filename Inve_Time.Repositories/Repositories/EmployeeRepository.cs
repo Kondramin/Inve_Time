@@ -24,7 +24,6 @@ namespace Inve_Time.Repositories.Repositories
             .Include(item => item.Position)
             .Include(item => item.Market)
             .Include(item => item.InventoryEvents)
-            .Include(item => item.Password)
             ;
 
 

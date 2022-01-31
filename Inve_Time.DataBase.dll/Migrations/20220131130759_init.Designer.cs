@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inve_Time.Database.Migrations
 {
     [DbContext(typeof(InveTimeDB))]
-    [Migration("20220128160235_init")]
+    [Migration("20220131130759_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -406,9 +406,6 @@ namespace Inve_Time.Database.Migrations
                     b.Property<int?>("PasswodrId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PasswordId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Patronymic")
                         .HasColumnType("nvarchar(max)");
 
@@ -425,8 +422,6 @@ namespace Inve_Time.Database.Migrations
 
                     b.HasIndex("MarketId");
 
-                    b.HasIndex("PasswordId");
-
                     b.HasIndex("PositionId");
 
                     b.ToTable("Employees");
@@ -438,8 +433,7 @@ namespace Inve_Time.Database.Migrations
                             Login = "Admin",
                             Name = "Admin",
                             PasswodrId = 1,
-                            PositionId = 1,
-                            SecondName = "Admin"
+                            PositionId = 1
                         });
                 });
 
@@ -518,10 +512,17 @@ namespace Inve_Time.Database.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique()
+                        .HasFilter("[EmployeeId] IS NOT NULL");
 
                     b.ToTable("Passwords");
 
@@ -529,7 +530,8 @@ namespace Inve_Time.Database.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "admin"
+                            EmployeeId = 1,
+                            Name = "Admin"
                         });
                 });
 
@@ -656,17 +658,11 @@ namespace Inve_Time.Database.Migrations
                         .WithMany("Staff")
                         .HasForeignKey("MarketId");
 
-                    b.HasOne("Inve_Time.Entities.Entities.Password", "Password")
-                        .WithMany()
-                        .HasForeignKey("PasswordId");
-
                     b.HasOne("Inve_Time.Entities.Entities.Position", "Position")
                         .WithMany("Employees")
                         .HasForeignKey("PositionId");
 
                     b.Navigation("Market");
-
-                    b.Navigation("Password");
 
                     b.Navigation("Position");
                 });
@@ -684,6 +680,15 @@ namespace Inve_Time.Database.Migrations
                     b.Navigation("Market");
 
                     b.Navigation("ResponsibleEmployee");
+                });
+
+            modelBuilder.Entity("Inve_Time.Entities.Entities.Password", b =>
+                {
+                    b.HasOne("Inve_Time.Entities.Entities.Employee", "Employee")
+                        .WithOne("Password")
+                        .HasForeignKey("Inve_Time.Entities.Entities.Password", "EmployeeId");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Inve_Time.Entities.Entities.Product", b =>
@@ -729,6 +734,8 @@ namespace Inve_Time.Database.Migrations
             modelBuilder.Entity("Inve_Time.Entities.Entities.Employee", b =>
                 {
                     b.Navigation("InventoryEvents");
+
+                    b.Navigation("Password");
                 });
 
             modelBuilder.Entity("Inve_Time.Entities.Entities.Market", b =>
