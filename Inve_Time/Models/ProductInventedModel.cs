@@ -1,10 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Inve_Time.Models.Base;
+using System.Collections.ObjectModel;
 
 namespace Inve_Time.Models
 {
-    public class ProductInventedModel
+    public class ProductInventedModel : EntityModel
     {
-        public int Id { get; set; }
         public int AmountData { get; set; }
         public int AmountFact { get; set; }
 

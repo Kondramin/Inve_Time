@@ -1,10 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using Inve_Time.Models.Base;
 
 namespace Inve_Time.Models
 {
-    public class EmployeeModel
+    public class EmployeeModel : EntityModel
     { 
-        public int Id { get; set; }
         public string Name { get; set; }
         public string SecondName { get; set; }
         public string Patronymic { get; set; }

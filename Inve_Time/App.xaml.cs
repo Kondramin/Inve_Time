@@ -41,6 +41,7 @@ namespace Inve_Time
             .AddDatabase(host.Configuration.GetSection("Database"))
             .AddViewModels()
             .AddServices()
+            .AddAutoMappers()
             ;
 
 

@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Inve_Time.Models.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Inve_Time.Models
 {
-    public class ProductModel
+    public class ProductModel : EntityModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Barcode { get; set; }
         public string VendorCode { get; set; }

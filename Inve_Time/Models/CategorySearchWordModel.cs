@@ -1,8 +1,9 @@
-﻿namespace Inve_Time.Models
+﻿using Inve_Time.Models.Base;
+
+namespace Inve_Time.Models
 {
-    public class CategorySearchWordModel
+    public class CategorySearchWordModel : EntityModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
 
