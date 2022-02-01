@@ -1,8 +1,8 @@
-﻿using Inve_Time.Models;
-using Inve_Time.Services.ServiceInterfaces;
+﻿using Inve_Time.Interfaces.Services;
+using Inve_Time.Models;
 using System.Windows;
 
-namespace Inve_Time.Services
+namespace Inve_Time.Services.LocalRealisation
 {
     internal class UserDialogService : IUserDialog
     {
@@ -121,6 +121,20 @@ namespace Inve_Time.Services
             MessageBoxImage.Error)
             == MessageBoxResult.Yes;
 
+        public bool EditEpmloyee(int employeeId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EditCategory(int categoryId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool EditProduct(int productId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

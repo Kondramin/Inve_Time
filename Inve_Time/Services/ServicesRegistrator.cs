@@ -1,4 +1,5 @@
-﻿using Inve_Time.Services.ServiceInterfaces;
+﻿using Inve_Time.Interfaces.Services;
+using Inve_Time.Services.LocalRealisation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Inve_Time.Services
@@ -8,7 +9,7 @@ namespace Inve_Time.Services
         public static IServiceCollection AddServices(this IServiceCollection services) => services
             .AddGlobalServices()
             .AddTransient<IUserDialog, UserDialogService>()
-            .AddTransient<IShowPasswordWindowsService, ShowPasswordWindowsService>()
+            .AddTransient<IShowEditingPasswordWindowsService, ShowEditingPasswordWindowsService>()
             ;
     }
 }

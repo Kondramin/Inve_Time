@@ -1,5 +1,5 @@
 ﻿using Inve_Time.Commands.Base;
-using Inve_Time.Services.ServiceInterfaces;
+using Inve_Time.Interfaces.Services;
 using Inve_Time.ViewModels.Base;
 using System;
 using System.Windows;
@@ -11,104 +11,81 @@ namespace Inve_Time.ViewModels.WindowsViewModels.EditWindowsViewModels
     /// <summary>ViewModel of ChangePasswordWindow</summary>
     class ChangePasswordWindowViewModel : ViewModel
     {
-        //private readonly IEditPasswordService _EditPasswordService;
-        //private readonly IAutorisationUserService _AutorisationUserService;
+        private readonly IEditPasswordService _EditPasswordService;
 
         public ChangePasswordWindowViewModel(
-            //int employeeId,
-            //IEditPasswordService EditPasswordService,
-            //IAutorisationUserService AutorisationUserService
+            int employeeId,
+            IEditPasswordService EditPasswordService
             )
         {
-            //EmpId = employeeId;
-            //_EditPasswordService = EditPasswordService;
-            //_AutorisationUserService = AutorisationUserService;
+            EmployeeId = employeeId;
+            _EditPasswordService = EditPasswordService;
         }
 
-        //public ChangePasswordWindowViewModel()
-        //{
-        //    if (!App.IsDesignTime)
-        //        throw new InvalidOperationException("Ctor not for Runtime!!!");
-        //}
+        public ChangePasswordWindowViewModel()
+        {
+            if (!App.IsDesignTime)
+                throw new InvalidOperationException("Ctor not for Runtime!!!");
+        }
 
 
 
-        //private int EmpId { get; set; }
+        private int EmployeeId { get; set; }
 
 
-        //#region Commands
+        #region Commands
 
 
-        //#region Command ConfirmChangePasswordCommand - Add new employee
+        #region Command ChangePasswordCommand - Command to changing password
 
-        ///// <summary>Add new employee</summary>
-        //private ICommand _ConfirmChangePasswordCommand;
+        /// <summary>Command to changing password</summary>
+        private ICommand _ChangePasswordCommand;
 
-        ///// <summary>Add new employee</summary>
-        //public ICommand ConfirmChangePasswordCommand => _ConfirmChangePasswordCommand
-        //    ??= new LambdaCommand(OnConfirmChangePasswordCommandExequted, CanConfirmChangePasswordCommandExequt);
+        /// <summary>Command to changing password</summary>
+        public ICommand ChangePasswordCommand => _ChangePasswordCommand
+            ??= new LambdaCommand(OnChangePasswordCommandExequted, CanChangePasswordCommandExequt);
 
-        ///// <summary>Checking the possibility of execution - Add new employee</summary>
-        //public bool CanConfirmChangePasswordCommandExequt(object p) => true;
+        /// <summary>Checking the possibility of execution - Command to changing password</summary>
+        public bool CanChangePasswordCommandExequt(object p) => true;
 
-        ///// <summary>Execution logic - Add new employee</summary>
-        //public void OnConfirmChangePasswordCommandExequted(object p)
-        //{
-        //    if (p is not PasswordBox[] paswordBoxes) return;
-
-
-        //    PasswordBox oldPasswordBox = paswordBoxes[0];
-        //    PasswordBox newPasswordBox = paswordBoxes[1];
-        //    PasswordBox confirmNewPasswordBox = paswordBoxes[2];
+        /// <summary>Execution logic - Command to changing password</summary>
+        public void OnChangePasswordCommandExequted(object p)
+        {
+            if (p is not PasswordBox[] paswordBoxes) return;
 
 
-        //    var window = App.CurrentWindow;
+            PasswordBox oldPasswordBox = paswordBoxes[0];
+            PasswordBox newPasswordBox = paswordBoxes[1];
+            PasswordBox confirmNewPasswordBox = paswordBoxes[2];
 
 
-        //    if (!oldPasswordBox.IsEnabled)
-        //    {
-
-        //        if (!_EditPasswordService.EditPassword(EmpId, " ", newPasswordBox.Password, confirmNewPasswordBox.Password))
-        //        {
-        //            newPasswordBox.Password = "";
-        //            confirmNewPasswordBox.Password = "";
-        //            MessageBox.Show("Не совпадают пароли! Попробуйте снова.");
-        //            return;
-        //        }
-
-        //        window.DialogResult = true;
-        //        window.Close();
-        //        return;
-        //    }
-
-        //    if (!_AutorisationUserService.ValidatePassword(EmpId, oldPasswordBox.Password))
-        //    {
-        //        oldPasswordBox.Password = "";
-        //        newPasswordBox.Password = "";
-        //        confirmNewPasswordBox.Password = "";
-        //        MessageBox.Show("Старый пароль не совпадает! Попробуйте снова.");
-        //        return;
-        //    }
-
-        //    if (!_EditPasswordService.EditPassword(EmpId, oldPasswordBox.Password, newPasswordBox.Password, confirmNewPasswordBox.Password))
-        //    {
-        //        oldPasswordBox.Password = "";
-        //        newPasswordBox.Password = "";
-        //        confirmNewPasswordBox.Password = "";
-        //        MessageBox.Show("Не совпадают пароли! Попробуйте снова.");
-        //        return;
-        //    }
-
-        //    window.DialogResult = true;
-        //    window.Close();
-        //}
+            var window = App.CurrentWindow;
 
 
+            if (!_EditPasswordService.EditPassword(EmployeeId, oldPasswordBox.Password, newPasswordBox.Password, confirmNewPasswordBox.Password))
+            {
+                ClearPasswordBoxes(oldPasswordBox, newPasswordBox, confirmNewPasswordBox);
+                MessageBox.Show("Не совпадают пароли! Попробуйте снова.");
+                return;
+            }
 
-        //#endregion
+            window.DialogResult = true;
+            window.Close();
+            return;
+
+        }
+
+        private void ClearPasswordBoxes(PasswordBox oldPasswordBox, PasswordBox newPasswordBox, PasswordBox confirmNewPasswordBox)
+        {
+            oldPasswordBox.Password = "";
+            newPasswordBox.Password = "";
+            confirmNewPasswordBox.Password = "";
+        }
+
+        #endregion
 
 
-        //#endregion
+        #endregion
 
     }
 }
