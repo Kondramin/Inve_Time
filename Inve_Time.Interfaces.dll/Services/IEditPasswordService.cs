@@ -1,7 +1,6 @@
-﻿namespace Inve_Time.Services.ServiceInterfaces
+﻿namespace Inve_Time.Interfaces.Services
 {
-    /// <summary>Edit password service</summary>
-    interface IEditPasswordService
+    public interface IEditPasswordService
     {
         /// <summary>Edit password. If user haven't password - create it</summary>
         /// <param name="employeeId">Id employee</param>

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Inve_Time.Entities\Inve_Time.Entities.csproj" />
     <ProjectReference Include="..\Inve_Time.Interfaces.dll\Inve_Time.Interfaces.csproj" />
     <ProjectReference Include="..\Inve_Time.Repositories\Inve_Time.Repositories.csproj" />
