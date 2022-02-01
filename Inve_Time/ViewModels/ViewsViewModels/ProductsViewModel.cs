@@ -1,14 +1,4 @@
-﻿using Inve_Time.Commands.Base;
-using Inve_Time.Services.ServiceInterfaces;
-using Inve_Time.ViewModels.Base;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Input;
+﻿using Inve_Time.ViewModels.Base;
 
 namespace Inve_Time.ViewModels.ViewsViewModels
 {

@@ -1,8 +1,8 @@
 ﻿using Inve_Time.Commands.Base;
 using Inve_Time.Entities.Entities;
 using Inve_Time.Interfaces.Repositories;
+using Inve_Time.Interfaces.Services;
 using Inve_Time.Models;
-using Inve_Time.Services.ServiceInterfaces;
 using Inve_Time.ViewModels.Base;
 using Inve_Time.ViewModels.ViewsViewModels;
 using System.Diagnostics;

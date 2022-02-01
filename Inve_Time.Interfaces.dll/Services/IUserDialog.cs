@@ -1,9 +1,6 @@
-﻿using Inve_Time.Models;
-
-namespace Inve_Time.Services.ServiceInterfaces
+﻿namespace Inve_Time.Interfaces.Services
 {
-    /// <summary>Interface of user dialog service</summary>
-    interface IUserDialog
+    public interface IUserDialog
     {
         /// <summary>Show MessageBox to confirm some action</summary>
         /// <param name="Information">Information in MessageBox</param>
@@ -24,19 +21,18 @@ namespace Inve_Time.Services.ServiceInterfaces
         bool ConfirmError(string Error, string Caption);
 
         /// <summary>Show dialog window to edit employee</summary>
-        /// <param name="employee">Entity of Employee</param>
-        /// <param name="employeeModel"></param>
+        /// <param name="employeeId">Id of employee</param>
         /// <returns>true/false</returns>
-        bool EditEpmloyee(EmployeeModel employeeModel);
+        bool EditEpmloyee(int employeeId);
 
         /// <summary>Show dialog window to edit category</summary>
-        /// <param name="category">Entity of Category</param>
+        /// <param name="categoryId">Entity of Category</param>
         /// <returns>true/false</returns>
-        bool EditCategory(CategoryModel category);
+        bool EditCategory(int categoryId);
 
         /// <summary>Show dialog window to edit product</summary>
-        /// <param name="productBase">Entity of ProdutcBase</param>
+        /// <param name="productId">Entity of ProdutcBase</param>
         /// <returns>true/false</returns>
-        bool EditProduct(ProductModel productBase);
+        bool EditProduct(int productId);
     }
 }
