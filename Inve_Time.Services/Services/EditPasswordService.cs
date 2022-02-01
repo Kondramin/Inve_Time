@@ -2,11 +2,7 @@
 using Inve_Time.Interfaces.Repositories;
 using Inve_Time.Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Inve_Time.Services.Services
 {
@@ -32,20 +28,11 @@ namespace Inve_Time.Services.Services
             {
                  return NewPassword(employee, newPassword, confirmNewPassword);
             }
-            throw new System.NotImplementedException();
+
+            return ChangePassword(employee, oldPassword, newPassword, confirmNewPassword);
         }
 
-        //public bool EditPassword(int employeeId, string oldPassword, string newPassword, string confirmNewPassword)
-        //{
-        //    //var employee = _EmployeeRepository.Items.Include(item => item.Password).FirstOrDefault(e => e.Id == employeeId);
 
-        //    //if (employee.Password is null)
-        //    //{
-        //    //    return NewPassword(employee, newPassword, confirmNewPassword);
-        //    //}
-
-        //    //return ChangePassword(employee, oldPassword, newPassword, confirmNewPassword);
-        //}
 
         private bool NewPassword(Employee employee, string newPassword, string confirmNewPassword)
         {
@@ -68,6 +55,7 @@ namespace Inve_Time.Services.Services
         }
 
 
+
         private bool ChangePassword(Employee employee, string oldPassword, string newPassword, string confirmNewPassword)
         {
             if (newPassword != confirmNewPassword) return false;
@@ -75,28 +63,11 @@ namespace Inve_Time.Services.Services
             if (employee.Password.Name != oldPassword) return false;
             
             var editingPassword = _PasswordRepository.Get(employee.Password.Id);
+            editingPassword.Name = newPassword;
+            _PasswordRepository.Update(editingPassword);
 
-            //TODO: Доделать реализацию сервиса, зарегистрировать, убрать локальную реализацию
             return true;
         }
 
-
-        //private bool ChangePassword(Employee employee, string oldPassword, string newPassword, string confirmNewPassword)
-        //{
-        //    if (string.IsNullOrEmpty(oldPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmNewPassword)) return false;
-
-        //    if (employee.Password.Name == oldPassword)
-        //    {
-        //        if (newPassword == confirmNewPassword)
-        //        {
-        //            Password password=_PasswordRepository.Get(employee.Password.Id);
-        //            password.Name = newPassword;
-        //            _PasswordRepository.Update(password);
-
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
     }
 }

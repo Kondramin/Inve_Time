@@ -6,10 +6,11 @@ namespace Inve_Time.Services
 {
     public static class ServicesRegistrator
     {
-        public static IServiceCollection AddServices(this IServiceCollection services) => services
+        public static IServiceCollection AddGlobalServices(this IServiceCollection services) => services
             .AddTransient<IAutorisationService, AutorisationService>()
             .AddTransient<IAutoChoseCategoryProductService, AutoChoseCategoryProductService>()
             .AddTransient<IParserFromExcelService, ParserFromExcelService>()
+            .AddTransient<IEditPasswordService, EditPasswordService>()
             ;
     }
 }
