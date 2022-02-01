@@ -10,6 +10,8 @@ namespace Inve_Time.Services.AutoMappers
         where T : Entity, new()
         where TT : EntityModel, new()
     {
+        //TODO: Realize interface
+
         public ICollection<T> MappToCollectuonEntities(TT item)
         {
             throw new NotImplementedException();
