@@ -9,9 +9,7 @@ namespace Inve_Time.Interfaces.Services
         where TT : class, IEntityModel, new()
     {
         public TT MappToModel(T item);
-        public T MappToEntity(TT item);
 
-        public ICollection<TT> MappToCollectuonModels(T item);
-        public ICollection<T> MappToCollectuonEntities(TT item);
+        public ICollection<TT> MappToCollectuonModels(ICollection<T> item);
     }
 }

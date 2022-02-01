@@ -7,7 +7,7 @@ namespace Inve_Time.Models
         public string Name { get; set; }
 
 
-
-        public CategoryModel Category { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }
